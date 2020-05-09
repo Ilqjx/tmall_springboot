@@ -1,0 +1,111 @@
+body {
+    padding-top: 70px;
+}
+
+div#workingArea {
+    margin: 0 40px;
+}
+
+div.listDataTableDiv {
+    min-height: 220px;
+}
+
+table.addTable, table.editTable {
+    width: 100%;
+}
+
+table.addTable td, table.editTable td {
+    padding: 5px;
+}
+
+table.td, table.th {
+    font-size: 14px;
+}
+
+div.pageDiv {
+    text-align: center;
+}
+
+div.addDiv, div.editDiv {
+    width: 400px;
+    margin: 0 auto;
+}
+
+div.footerDiv {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    margin: 15px;
+    color: #686868;
+    text-align: center;
+}
+
+ul.pagination a.current {
+    font-weight: bold;
+    color: #000;
+}
+
+table.addPictureTable td.addPictureTableTD {
+    padding: 10px 100px;
+    text-align: center;
+    vertical-align: top;
+}
+
+div.addPictureDiv {
+    width: 400px;
+}
+
+div.pvDiv {
+    margin: 0 auto;
+    width: 800px;
+}
+
+div.pvEachDiv {
+    float: left;
+    margin: 5px;
+}
+
+span.pvName {
+    display: inline-block;
+    width: 100px;
+    margin-left: 20px;
+    font-size: 16px;
+    color: #555;
+}
+
+span.pvValue {
+    display: inline-block;
+    padding: 0;
+    border: 1px solid lightgray;
+}
+
+span.pvValue input.pvValueInput {
+    width: 200px;
+    border-width: 0;
+    outline: none;
+}
+
+table#orderTable tr th {
+    text-align: center;
+}
+
+table#orderTable tr.orderPageTR td {
+    text-align: center;
+}
+
+div.orderPageOrderItem {
+    width: 100%;
+    padding: 20px;
+}
+
+table.orderPageOrderItemTable td {
+    padding: 5px;
+}
+
+tr.orderPageOrderItemTR {
+    display: none;
+}
+
+th, td {
+    font-size: 14px;
+}

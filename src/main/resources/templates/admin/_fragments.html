@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="zh-CN" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:fragment="head(title)">
+  <meta charset="utf-8">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <title th:text="${title}"></title>
+  <link rel="stylesheet" href="css/bootstrap/3.3.6/bootstrap.min.css">
+  <link rel="stylesheet" href="css/back/style.css">
+</head>
+<body>
+<!-- 导航 -->
+<div class="navigatorDiv" th:fragment="navigator">
+  <nav class="navbar navbar-default navbar-fixed-top navbar-inverse">
+    <img style="margin-left: 10px; margin-right: 0px;" class="pull-left" src="img/site/tmallbuy.png" height="45px">
+    <a class="navbar-brand" href="#nowhere">天猫后台</a>
+    <a class="navbar-brand" href="admin_category_list">分类管理</a>
+    <a class="navbar-brand" href="admin_user_list">用户管理</a>
+    <a class="navbar-brand" href="admin_order_list">订单管理</a>
+  </nav>
+</div>
+
+<!-- 分页 -->
+<div class="pageDiv" th:fragment="page">
+  <nav>
+    <ul class="pagination">
+      <li :class="{disabled: pagination.first}">
+        <a href="#nowhere" @click="jump('first')">«</a>
+      </li>
+      <li :class="{disabled: !pagination.hasPrevious}">
+        <a href="#nowhere" @click="jump('pre')">‹</a>
+      </li>
+
+      <li v-for="i in pagination.navigatePageNums">
+        <a href="#nowhere" @click="jumpByNumber(i-1)">{{i}}</a>
+      </li>
+
+      <li :class="{disabled: !pagination.hasNext}">
+        <a href="#nowhere" @click="jump('next')">›</a>
+      </li>
+      <li :class="{disabled: pagination.last}">
+        <a href="#nowhere" @click="jump('last')">»</a>
+      </li>
+    </ul>
+  </nav>
+</div>
+
+<!-- footer -->
+<div class="footerDiv" th:fragment="footer">
+  Copyright © 2020-2021 ilqjx 版权所有
+</div>
+
+<th:block th:fragment="js">
+<script src="js/axios/0.17.1/axios.min.js"></script>
+<script src="js/jquery/2.0.0/jquery.min.js"></script>
+<script src="js/bootstrap/3.3.6/bootstrap.min.js"></script>
+<script src="js/moment/2.22.2/moment.js"></script>
+<script src="js/vue/2.5.16/vue.min.js"></script>
+<script>
+    function checkEmpty(value, text) {
+        if (value == null || value.length == 0) {
+            alert(text + "不能为空");
+            return true;
+        }
+        return false;
+    }
+
+    function checkNumber(value, text) {
+        if (checkEmpty(value, text)) {
+            return false;
+        }
+        if (isNaN(value)) {
+            alert(text + "必须是数字");
+            return false;
+        }
+        return true;
+    }
+
+    function checkInt(value, text) {
+        if (checkEmpty(value, text)) {
+            return false;
+        }
+        if (value != parseInt(value)) {
+            alert(text + "必须是整数");
+            return false;
+        }
+        return true;
+    }
+    
+    function confirmDelete() {
+        var confirmDelete = confirm("确定要删除？")
+        if (confirmDelete == true) {
+            return true;
+        }
+        return false;
+    }
+
+    function getUrlParams(key) {
+        var search = location.search;
+        var uri = search.substr(1);
+        var index = 0;
+        var paramArray = uri.split("&");
+        var valueArray = new Array();
+        var paramPre = key + "=";
+
+        for (var i in paramArray) {
+            var param = paramArray[i];
+            if (paramPre == param.substr(0, paramPre.length) && param.length > paramPre.length) {
+                valueArray[index++] = param.substr(paramPre.length);
+            }
+        }
+
+        if (valueArray.length == 1) {
+            return valueArray[0];
+        } else {
+            return valueArray;
+        }
+    }
+
+    function jump(page, vm) {
+        if (page == "first" && !vm.pagination.first) {
+            vm.list(0);
+        } else if (page == "pre" && vm.pagination.hasPrevious) {
+            vm.list(vm.pagination.number - 1);
+        } else if (page == "next" && vm.pagination.hasNext) {
+            vm.list(vm.pagination.number + 1);
+        } else if (page == "last" && !vm.pagination.last) {
+            vm.list(vm.pagination.totalPages - 1);
+        }
+    }
+
+    function jumpByNumber(page, vm) {
+        if (page != vm.pagination.number) {
+            vm.list(page);
+        }
+    }
+</script>
+</th:block>
+</body>
+</html>

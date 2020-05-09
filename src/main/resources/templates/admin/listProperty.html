@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="zh-CN" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:replace="admin/_fragments :: head('分类管理')"></head>
+<body>
+<div th:replace="admin/_fragments :: navigator"></div>
+<div id="workingArea">
+  <ol class="breadcrumb">
+    <li>
+      <a href="admin_category_list">所有分类</a>
+    </li>
+    <li>
+      <a :href="'admin_property_list?cid=' + category.id">{{category.name}}</a>
+    </li>
+    <li class="active">属性管理</li>
+  </ol>
+  <div class="listDataTableDiv">
+    <table class="showTable table table-striped table-bordered table-hover table-condensed">
+      <thead>
+      <tr class="success">
+        <th>ID</th>
+        <th>属性名称</th>
+        <th>编辑</th>
+        <th>删除</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr v-for="bean in beans">
+        <td>{{bean.id}}</td>
+        <td>{{bean.name}}</td>
+        <td>
+          <a :href="'admin_property_edit?id=' + bean.id">
+            <span class="glyphicon glyphicon-edit"></span>
+          </a>
+        </td>
+        <td>
+          <a href="#nowhere" @click="deleteBean(bean.id)">
+            <span class="glyphicon glyphicon-trash"></span>
+          </a>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div th:replace="admin/_fragments :: page"></div>
+
+  <div class="addDiv panel panel-warning">
+    <div class="panel-heading">新增属性</div>
+    <div class="panel-body">
+      <table class="addTable">
+        <tr>
+          <td>属性名称</td>
+          <td>
+            <input class="form-control" type="text" @keyup.enter="save" v-model.trim="bean.name" />
+          </td>
+        </tr>
+        <tr class="submitTR">
+          <td colspan="2" align="center">
+            <button class="btn btn-success" @click="save">提 交</button>
+          </td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- footer -->
+<div th:replace="admin/_fragments :: footer"></div>
+
+<th:block th:replace="admin/_fragments :: js"></th:block>
+
+<script>
+  $(function () {
+      var cid = getUrlParams("cid");
+      var data = {
+          uri: "properties",
+          category: {id: 0, name: ""},
+          beans: [],
+          bean: {id: 0, name: "", category: {id: 0}},
+          pagination: {}
+      };
+
+      var vm = new Vue({
+          el: "#workingArea",
+          data: data,
+          mounted: function () {
+              this.getCategory(cid);
+              this.list(0);
+          },
+          methods: {
+              list: function (start) {
+                  var url = "categories/" + cid + "/properties?start=" + start;
+                  axios.get(url).then(function (response) {
+                      vm.pagination = response.data;
+                      vm.beans = response.data.content;
+                  });
+              },
+              save: function () {
+                  if (checkEmpty(this.bean.name, "属性名称")) {
+                      return;
+                  }
+                  var url = this.uri;
+                  this.bean.category.id = cid;
+                  axios.post(url, this.bean).then(function (response) {
+                      vm.list(0);
+                      vm.bean = {id: 0, name: "", category: {id: 0}};
+                  });
+              },
+              deleteBean: function(id) {
+                  if (!confirmDelete()) {
+                      return;
+                  }
+                  var url = this.uri + "/" + id;
+                  axios.delete(url).then(function (response) {
+                      if (response.data.length == 0) {
+                          vm.list(0);
+                      } else {
+                          alert(response.data);
+                      }
+                  });
+              },
+              jump: function (page) {
+                  jump(page, vm);
+              },
+              jumpByNumber: function (page) {
+                  jumpByNumber(page, vm);
+              },
+              getCategory: function (cid) {
+                  var url = "categories/" + cid;
+                  axios.get(url).then(function (response) {
+                      vm.category = response.data;
+                  });
+              }
+          }
+      });
+  });
+</script>
+</body>
+</html>

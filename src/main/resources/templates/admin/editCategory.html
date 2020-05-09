@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="zh-CN" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:replace="admin/_fragments :: head('编辑分类')"></head>
+<body>
+<div th:replace="admin/_fragments :: navigator"></div>
+<div id="workingArea">
+  <ol class="breadcrumb">
+    <li>
+      <a href="admin_category_list">所有分类</a>
+    </li>
+    <li class="active">编辑分类</li>
+  </ol>
+  <div class="panel panel-warning addDiv">
+    <div class="panel-heading">编辑分类</div>
+    <div class="panel-body">
+      <table class="addTable">
+        <tr>
+          <td>分类名称</td>
+          <td>
+            <input class="form-control" type="text" @keyup.enter="update" v-model.trim="bean.name" />
+          </td>
+        </tr>
+        <tr>
+          <td>分类图片</td>
+          <td>
+            <input id="categoryPic" type="file" accept="image/*" @change="getFile($event)" />
+          </td>
+        </tr>
+        <tr class="submitTR">
+          <td colspan="2" align="center">
+            <input type="hidden" name="id" v-model="bean.id">
+            <a href="#nowhere" class="btn btn-success" @click="update">提交</a>
+          </td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</div>
+
+<div th:replace="admin/_fragments :: footer"></div>
+<!-- footer -->
+
+<th:block th:replace="admin/_fragments :: js"></th:block>
+
+<script>
+  $(function () {
+      var data = {
+          uri: "categories",
+          bean: {id: 0, name: ""},
+          file: null
+      };
+
+      var vm = new Vue({
+          el: "#workingArea",
+          data: data,
+          mounted: function () {
+              this.get();
+          },
+          methods: {
+              get: function () {
+                  var id = getUrlParams("id");
+                  var url = this.uri + "/" + id;
+                  axios.get(url).then(function (response) {
+                      vm.bean = response.data;
+                  });
+              },
+              update: function () {
+                  if (checkEmpty(this.bean.name, "分类名称")) {
+                      return;
+                  }
+                  var url = this.uri;
+                  var formData = new FormData();
+                  formData.append("id", this.bean.id);
+                  formData.append("name", this.bean.name);
+                  formData.append("file", this.file);
+                  axios.put(url, formData).then(function (response) {
+                      if (response.data.length == 0) {
+                          alert(response.data);
+                      } else {
+                          location.href = "admin_category_list";
+                      }
+                  });
+              },
+              getFile: function (event) {
+                  this.file = event.target.files[0];
+              }
+          }
+      });
+  });
+</script>
+</body>
+</html>
