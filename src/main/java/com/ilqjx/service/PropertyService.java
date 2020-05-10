@@ -14,6 +14,6 @@ public interface PropertyService {
 
     public Property updateProperty(Property property);
 
-    public Page<Property> listPropertyByCategory(Category category, int start, int size, int navigatePages);
+    public Page<Property> listPropertyByCategory(Category category, int start, int size);
 
 }

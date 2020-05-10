@@ -45,7 +45,7 @@ public class PropertyServiceImpl implements PropertyService {
     }
 
     @Override
-    public Page<Property> listPropertyByCategory(Category category, int start, int size, int navigatePages) {
+    public Page<Property> listPropertyByCategory(Category category, int start, int size) {
         Sort sort = Sort.by(Sort.Direction.DESC, "id");
         Pageable pageable = PageRequest.of(start, size, sort);
         Page<Property> page = propertyRepository.findByCategory(pageable, category);

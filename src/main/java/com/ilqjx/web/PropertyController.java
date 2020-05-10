@@ -21,7 +21,7 @@ public class PropertyController {
         start = start < 0 ? 0 : start;
         int navigatePages = 5;
         Category category = categoryService.getCategory(cid);
-        Page<Property> page = propertyService.listPropertyByCategory(category, start, size, navigatePages);
+        Page<Property> page = propertyService.listPropertyByCategory(category, start, size);
         PageUtil<Property> pageUtil = new PageUtil<>(page, navigatePages);
         return pageUtil;
     }
