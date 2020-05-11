@@ -134,6 +134,8 @@
                   axios.post(url, formData).then(function (response) {
                       vm.list(0);
                       vm.bean = {id: 0, name: ""};
+                      $("#categoryPic").val('');
+                      vm.file = null;
                   });
               },
               deleteBean: function (id) {

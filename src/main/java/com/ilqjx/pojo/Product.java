@@ -12,6 +12,7 @@ import org.springframework.data.elasticsearch.annotations.Document;
 @JsonIgnoreProperties({"handler", "hibernateLazyInitializer"})
 // @Document(indexName = "tmall_springboot", type = "product")
 public class Product {
+
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,6 +28,8 @@ public class Product {
     @ManyToOne
     @JoinColumn(name = "cid")
     private Category category;
+    @Transient
+    private ProductImage firstProductImage;
 
     public int getId() {
         return id;
@@ -90,6 +93,14 @@ public class Product {
 
     public void setCategory(Category category) {
         this.category = category;
+    }
+
+    public ProductImage getFirstProductImage() {
+        return firstProductImage;
+    }
+
+    public void setFirstProductImage(ProductImage firstProductImage) {
+        this.firstProductImage = firstProductImage;
     }
 
     @Override

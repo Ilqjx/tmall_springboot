@@ -3,6 +3,7 @@ package com.ilqjx.web;
 import com.ilqjx.pojo.Category;
 import com.ilqjx.pojo.Product;
 import com.ilqjx.service.CategoryService;
+import com.ilqjx.service.ProductImageService;
 import com.ilqjx.service.ProductService;
 import com.ilqjx.util.PageUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,10 +12,13 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class ProductController {
+
     @Autowired
     private ProductService productService;
     @Autowired
     private CategoryService categoryService;
+    @Autowired
+    private ProductImageService productImageService;
 
     @GetMapping("/categories/{cid}/products")
     public PageUtil<Product> listProduct(@PathVariable int cid, @RequestParam(value = "start", defaultValue = "0") int start, @RequestParam(value = "size", defaultValue = "5") int size) {
@@ -22,6 +26,7 @@ public class ProductController {
         int navigatePages = 5;
         Category category = categoryService.getCategory(cid);
         Page<Product> page = productService.listProductByCategory(category, start, size);
+        productImageService.setFirstProductImage(page);
         PageUtil<Product> pageUtil = new PageUtil<>(page, navigatePages);
         return pageUtil;
     }

@@ -34,7 +34,7 @@
       <tr v-for="bean in beans">
         <td>{{bean.id}}</td>
         <td>
-          <!--<img width="40px" v-if="bean.productImage" :src="'img/productSingleImage/' + bean.productImage.id + '.jpg'">-->
+          <img width="40px" v-if="bean.firstProductImage.id" :src="'img/productSingleImage/' + bean.firstProductImage.id + '.jpg'">
         </td>
         <td>{{bean.name}}</td>
         <td>{{bean.subTitle}}</td>

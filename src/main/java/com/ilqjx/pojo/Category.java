@@ -8,6 +8,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 @Table(name = "category")
 @JsonIgnoreProperties({"handler", "hibernateLazyInitializer"})
 public class Category {
+
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -1,0 +1,209 @@
+<!doctype html>
+<html lang="zh-CN" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:replace="admin/_fragments :: head('产品图片管理')"></head>
+<body>
+<div th:replace="admin/_fragments :: navigator"></div>
+<div id="workingArea">
+  <ol class="breadcrumb">
+    <li>
+      <a href="admin_category_list">所有分类</a>
+    </li>
+    <li>
+      <a :href="'admin_product_list?cid=' + product.category.id">{{product.category.name}}</a>
+    </li>
+    <li class="active">{{product.name}}</li>
+    <li class="active">产品图片管理</li>
+  </ol>
+  <table class="addPictureTable" align="center">
+    <tr>
+      <td class="addPictureTableTD">
+        <div>
+          <div class="addPictureDiv panel panel-warning">
+            <div class="panel-heading">新增产品<b class="text-primary"> 单个 </b>图片</div>
+            <div class="panel-body">
+              <table class="addTable">
+                <tr>
+                  <td>请选择本地图片 尺寸400X400 为佳</td>
+                </tr>
+                <tr>
+                  <td>
+                    <input id="singleImage" type="file" accept="image/*" @change="getFile($event, 'single')" />
+                  </td>
+                </tr>
+                <tr class="submitTR">
+                  <td>
+                    <button class="btn btn-success" @click="save('single')">提 交</button>
+                  </td>
+                </tr>
+              </table>
+            </div>
+          </div>
+          <table class="table table-striped table-bordered table-hover table-condensed">
+            <thead>
+            <tr class="success">
+              <th>ID</th>
+              <th>产品单个图片缩略图</th>
+              <th>删除</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr v-for="bean in singleBeans">
+              <td>{{bean.id}}</td>
+              <td>
+                <a title="点击查看原图" :href="'img/productSingleImage/' + bean.id + '.jpg'">
+                  <img height="50px" :src="'img/productSingleImage/' + bean.id + '.jpg'">
+                </a>
+              </td>
+              <td>
+                <a href="#nowhere" @click="deleteBean(bean.id, 'single')">
+                  <span class="glyphicon glyphicon-trash"></span>
+                </a>
+              </td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </td>
+      <td class="addPictureTableTD">
+        <div>
+          <div class="addPictureDiv panel panel-warning">
+            <div class="panel-heading">新增产品<b class="text-primary"> 详情 </b>图片</div>
+            <div class="panel-body">
+              <table class="addTable">
+                <tr>
+                  <td>请选择本地图片 宽度790 为佳</td>
+                </tr>
+                <tr>
+                  <td>
+                    <input id="detailImage" type="file" accept="image/*" @change="getFile($event, 'detail')" />
+                  </td>
+                </tr>
+                <tr class="submitTR">
+                  <td>
+                    <button class="btn btn-success" @click="save('detail')">提 交</button>
+                  </td>
+                </tr>
+              </table>
+            </div>
+          </div>
+          <table class="table table-striped table-bordered table-hover table-condensed">
+            <thead>
+            <tr class="success">
+              <th>ID</th>
+              <th>产品详情图片缩略图</th>
+              <th>删除</th>
+            </tr>
+            </thead>
+            <tbody>
+              <tr v-for="bean in detailBeans">
+              <td>{{bean.id}}</td>
+              <td>
+                <a title="点击查看原图" :href="'img/productDetailImage/' + bean.id + '.jpg'">
+                  <img height="50px" :src="'img/productDetailImage/' + bean.id + '.jpg'">
+                </a>
+              </td>
+              <td>
+                <a href="#nowhere" @click="deleteBean(bean.id, 'detail')">
+                  <span class="glyphicon glyphicon-trash"></span>
+                </a>
+              </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </td>
+    </tr>
+  </table>
+</div>
+
+<!-- footer -->
+<div th:replace="admin/_fragments :: footer"></div>
+
+<th:block th:replace="admin/_fragments :: js"></th:block>
+<script>
+  $(function () {
+      var pid = getUrlParams("pid");
+      var data = {
+          uri: "productimages",
+          singleBeans: [],
+          detailBeans: [],
+          product: {category: {}},
+          singleImage: null,
+          detailImage: null
+      };
+      var vm = new Vue({
+          el: "#workingArea",
+          data: data,
+          mounted: function () {
+              this.getProduct(pid);
+              this.list("single");
+              this.list("detail");
+          },
+          methods: {
+              list: function (type) {
+                  var url = "products/" + pid + "/" + this.uri + "?type=" + type;
+                  axios.get(url).then(function (response) {
+                      if (type == "single") {
+                          vm.singleBeans = response.data;
+                      } else if (type == "detail") {
+                          vm.detailBeans = response.data;
+                      }
+                  });
+              },
+              save: function (type) {
+                  if (type == "single") {
+                      if (checkEmpty(this.singleImage, "产品单个图片")) {
+                          return;
+                      }
+                  } else if (type == "detail") {
+                      if (checkEmpty(this.detailImage, "产品详情图片")) {
+                          return;
+                      }
+                  }
+                  var url = this.uri + "?type=" + type + "&pid=" + pid;
+                  var formData = new FormData();
+                  if (type == "single") {
+                      formData.append("file", this.singleImage);
+                      $("#singleImage").val('');
+                      vm.singleImage = null;
+                  } else if (type == "detail") {
+                      formData.append("file", this.detailImage);
+                      $("#detailImage").val('');
+                      vm.detailImage = null;
+                  }
+                  axios.post(url, formData).then(function (response) {
+                      vm.list(type);
+                  });
+              },
+              deleteBean: function (id, type) {
+                  if (!confirmDelete()) {
+                      return;
+                  }
+                  var url = this.uri + "/" + id;
+                  axios.delete(url).then(function (response) {
+                      if (response.data.length == 0) {
+                          vm.list(type);
+                      } else {
+                          alert(response.data);
+                      }
+                  });
+              },
+              getFile: function (event, type) {
+                  if (type == "single") {
+                      vm.singleImage = event.target.files[0];
+                  } else if (type == "detail") {
+                      vm.detailImage = event.target.files[0];
+                  }
+              },
+              getProduct: function (id) {
+                  var url = "products/" + id;
+                  axios.get(url).then(function (response) {
+                      vm.product = response.data;
+                  });
+              }
+          }
+      });
+  });
+</script>
+</body>
+</html>
