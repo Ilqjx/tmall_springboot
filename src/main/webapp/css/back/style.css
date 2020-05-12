@@ -55,12 +55,12 @@ div.addPictureDiv {
     width: 400px;
 }
 
-div.pvDiv {
+div.pvAllDiv {
     margin: 0 auto;
     width: 800px;
 }
 
-div.pvEachDiv {
+div.pvDiv {
     float: left;
     margin: 5px;
 }

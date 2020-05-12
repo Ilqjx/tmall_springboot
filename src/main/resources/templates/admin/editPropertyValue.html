@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="zh-CN" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:replace="admin/_fragments :: head('编辑产品属性值')"></head>
+<body>
+<div th:replace="admin/_fragments :: navigator"></div>
+<div id="workingArea">
+  <ol class="breadcrumb">
+    <li>
+      <a href="admin_category_list">所有分类</a>
+    </li>
+    <li>
+      <a :href="'admin_product_list?cid=' + product.category.id">{{product.category.name}}</a>
+    </li>
+    <li class="active">{{product.name}}</li>
+    <li class="active">编辑产品属性</li>
+  </ol>
+  <div class="pvAllDiv">
+    <div class="pvDiv" v-for="bean in beans">
+      <span class="pvName">{{bean.property.name}}</span>
+      <span class="pvValue">
+        <input class="pvInput" :pvid="bean.id" type="text" v-model.trim="bean.value" @keyup="update(bean)" />
+      </span>
+    </div>
+    <div style="clear: both;"></div>
+  </div>
+</div>
+
+<!-- footer -->
+<div th:replace="admin/_fragments :: footer"></div>
+
+<th:block th:replace="admin/_fragments :: js"></th:block>
+
+<script>
+  $(function () {
+      var pid = getUrlParams("pid");
+      var data = {
+          uri: "propertyvalues",
+          beans: [],
+          product: {category: {}}
+      };
+      var vm = new Vue({
+          el: "#workingArea",
+          data: data,
+          mounted: function () {
+              this.list();
+              this.getProduct(pid);
+          },
+          methods: {
+              list: function () {
+                  var url = "products/" + pid + "/" + this.uri;
+                  axios.get(url).then(function (response) {
+                      vm.beans = response.data;
+                  });
+              },
+              update: function (bean) {
+                  var id = bean.id;
+                  $("input[pvid='" + id + "']").css("border", "2px solid yellow");
+                  var url = this.uri;
+                  axios.put(url, bean).then(function (response) {
+                      if (response.data.id == id) {
+                          $("input[pvid='" + id + "']").css("border", "2px solid green");
+                      } else {
+                          $("input[pvid='" + id + "']").css("border", "2px solid red");
+                      }
+                  });
+              },
+              getProduct: function (id) {
+                  var url = "products/" + id;
+                  axios.get(url).then(function (response) {
+                      vm.product = response.data;
+                  });
+              }
+          }
+      });
+  });
+</script>
+</body>
+</html>

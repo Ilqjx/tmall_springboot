@@ -1,6 +1,5 @@
 <!doctype html>
 <html lang="zh-CN" xmlns:th="http://www.w3.org/1999/xhtml">
-<head th:replace="admin/_fragments :: head('编辑属性')"></head>
 <body>
 <div th:replace="admin/_fragments :: navigator"></div>
 <div id="workingArea">
@@ -33,44 +32,45 @@
   </div>
 </div>
 
-<div th:replace="admin/_fragments :: footer"></div>
 <!-- footer -->
+<div th:replace="admin/_fragments :: footer"></div>
 
 <th:block th:replace="admin/_fragments :: js"></th:block>
 
 <script>
-  $(function () {
-      var data = {
-          uri: "properties",
-          listUrl: "admin_property_list",
-          bean: {id: 0, name: "", category: {id: 0, name: ""}}
-      };
-      var vm = new Vue({
-          el: "#workingArea",
-          data: data,
-          mounted: function () {
-              this.get();
-          },
-          methods: {
-              get: function () {
-                  var id = getUrlParams("id");
-                  var url = this.uri + "/" + id;
-                  axios.get(url).then(function (response) {
-                      vm.bean = response.data;
-                  });
-              },
-              update: function () {
-                  if (checkEmpty(this.bean.name, "属性名称")) {
-                      return;
-                  }
-                  var url = this.uri;
-                  axios.put(url, this.bean).then(function (response) {
-                      location.href = vm.listUrl + "?cid=" + vm.bean.category.id;
-                  });
-              }
-          }
-      });
-  });
+    $(function () {
+        var data = {
+            uri: "properties",
+            listUrl: "admin_property_list",
+            bean: {id: 0, name: "", category: {id: 0, name: ""}}
+        };
+        var vm = new Vue({
+            el: "#workingArea",
+            data: data,
+            mounted: function () {
+                this.get();
+            },
+            methods: {
+                get: function () {
+                    var id = getUrlParams("id");
+                    var url = this.uri + "/" + id;
+                    axios.get(url).then(function (response) {
+                        vm.bean = response.data;
+                    });
+                },
+                update: function () {
+                    if (checkEmpty(this.bean.name, "属性名称")) {
+                        return;
+                    }
+                    var url = this.uri;
+                    axios.put(url, this.bean).then(function (response) {
+                        location.href = vm.listUrl + "?cid=" + vm.bean.category.id;
+                    });
+                }
+            }
+        });
+    });
 </script>
 </body>
+<head th:replace="admin/_fragments :: head('编辑属性')"></head>
 </html>

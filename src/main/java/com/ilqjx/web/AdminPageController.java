@@ -46,4 +46,9 @@ public class AdminPageController {
         return "admin/listProductImage";
     }
 
+    @GetMapping("/admin_propertyValue_edit")
+    public String editPropertyValue() {
+        return "admin/editPropertyValue";
+    }
+
 }
