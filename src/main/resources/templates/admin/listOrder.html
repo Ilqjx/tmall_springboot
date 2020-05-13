@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="zh-CN" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:replace="admin/_fragments :: head('订单管理')"></head>
+<body>
+<div th:replace="admin/_fragments :: navigator"></div>
+<div id="workingArea">
+  <h1 class="label label-info">订单管理</h1>
+  <br>
+  <br>
+  <div class="listDataTableDiv">
+    <table id="orderTable" class="table table-striped table-bordered table-condensed">
+      <thead>
+      <tr class="success">
+        <th>ID</th>
+        <th>状态</th>
+        <th>金额</th>
+        <th width="100px">商品数量</th>
+        <th width="100px">买家名称</th>
+        <th>创建时间</th>
+        <th>支付时间</th>
+        <th>发货时间</th>
+        <th>确认收货时间</th>
+        <th width="120px">操作</th>
+      </tr>
+      </thead>
+      <tbody>
+      <template v-for="bean in beans">
+        <tr class="orderPageTR">
+          <td>{{bean.id}}</td>
+          <td>{{bean.statusDesc}}</td>
+          <td>{{bean.total}}</td>
+          <td>{{bean.totalNumber}}</td>
+          <td>{{bean.user.name}}</td>
+          <td>{{bean.createDate | formatDateFilter}}</td>
+          <td>{{bean.payDate | formatDateFilter}}</td>
+          <td>{{bean.deliveryDate | formatDateFilter}}</td>
+          <td>{{bean.confirmDate | formatDateFilter}}</td>
+          <td style="text-align: left;">
+            <button oid="${order.id}" class="orderPageCheckOrderItems btn btn-primary btn-xs" @click="showOrderItems(bean.id)">查看详情</button>
+            <!--<c:if test="${order.status == 'waitDelivery'}">-->
+            <!--  <a href="admin_order_delivery?order.id=${order.id}">-->
+            <!--    <button class="btn btn-primary btn-xs">发货</button>-->
+            <!--  </a>-->
+            <!--</c:if>-->
+          </td>
+        </tr>
+        <tr class="orderPageOrderItemTR" :oid="bean.id">
+          <td colspan="10">
+            <div class="orderPageOrderItem">
+              <table width="860px" align="center" class="orderPageOrderItemTable">
+                <tr v-for="orderItem in bean.orderItemList">
+                  <td>
+                    <img width="40px" height="40px" :src="'img/productSingleImage/' + orderItem.product.firstProductImage.id + '.jpg'" />
+                  </td>
+                  <td>
+                    <a href="foreproduct?product.id=${orderItem.product.id}">
+                      <span>{{orderItem.product.name}}</span>
+                    </a>
+                  </td>
+                  <td align="right" width="100px">
+                    <span class="text-muted">{{orderItem.number}}个</span>
+                  </td>
+                  <td width="401px" style="padding-left: 200px;">
+                    <span class="text-muted">单价：￥{{orderItem.product.promotePrice}}</span>
+                  </td>
+                </tr>
+              </table>
+            </div>
+          </td>
+        </tr>
+      </template>
+      </tbody>
+    </table>
+  </div>
+  <!-- 分页 -->
+  <div th:replace="admin/_fragments :: page"></div>
+</div>
+
+<!-- footer -->
+<div th:replace="admin/_fragments :: footer"></div>
+<th:block th:replace="admin/_fragments :: js"></th:block>
+
+<script>
+  $(function () {
+      var data = {
+          uri: "orders",
+          beans: [],
+          pagination: {}
+      };
+      var vm = new Vue({
+          el: "#workingArea",
+          data: data,
+          mounted: function () {
+              this.list(0);
+          },
+          methods: {
+              list: function (start) {
+                  var url = this.uri + "?start=" + start;
+                  axios.get(url).then(function (response) {
+                      console.log(response.data);
+                      vm.pagination = response.data;
+                      vm.beans = response.data.content;
+                  });
+              },
+              showOrderItems: function (oid) {
+                  $("tr[oid='" + oid +"']").toggle();
+              },
+              jump: function (page) {
+                  jump(page, vm);
+              },
+              jumpByNumber: function (page) {
+                  jumpByNumber(page, vm);
+              }
+          }
+      });
+
+      // 全局过滤器
+      Vue.filter('formatDateFilter', function (value, formatString) {
+          if (null == value) {
+              return "";
+          }
+          formatString = formatString || "YYYY-MM-DD HH:mm:ss";
+          return moment(value).format(formatString);
+      });
+  });
+</script>
+</body>
+</html>

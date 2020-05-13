@@ -28,6 +28,7 @@ public class Product {
     @ManyToOne
     @JoinColumn(name = "cid")
     private Category category;
+
     @Transient
     private ProductImage firstProductImage;
 

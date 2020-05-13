@@ -1,5 +1,6 @@
 package com.ilqjx.util;
 
+import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.data.domain.Page;
@@ -181,6 +182,26 @@ public class PageUtil<T> {
 
     public void setContent(List<T> content) {
         this.content = content;
+    }
+
+    @Override
+    public String toString() {
+        return "PageUtil{" +
+                "page=" + page +
+                ", navigatePages=" + navigatePages +
+                ", navigatePageNums=" + Arrays.toString(navigatePageNums) +
+                ", size=" + size +
+                ", number=" + number +
+                ", numberOfElements=" + numberOfElements +
+                ", totalPages=" + totalPages +
+                ", totalElements=" + totalElements +
+                ", first=" + first +
+                ", last=" + last +
+                ", hasPrevious=" + hasPrevious +
+                ", hasNext=" + hasNext +
+                ", hasContent=" + hasContent +
+                ", content=" + content +
+                '}';
     }
 
 }
