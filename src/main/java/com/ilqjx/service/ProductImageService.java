@@ -4,6 +4,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import java.util.List;
 
+import com.ilqjx.pojo.OrderItem;
 import com.ilqjx.pojo.Product;
 import com.ilqjx.pojo.ProductImage;
 import org.springframework.data.domain.Page;
@@ -20,5 +21,7 @@ public interface ProductImageService {
     public List<ProductImage> listProductImage(Product product, String type);
 
     public void setFirstProductImage(Page<Product> page);
+
+    public void setFirstProductImageForOrderItem(List<OrderItem> orderItemList);
 
 }

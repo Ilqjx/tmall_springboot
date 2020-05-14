@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Optional;
 
 import com.ilqjx.dao.ProductImageRepository;
+import com.ilqjx.pojo.OrderItem;
 import com.ilqjx.pojo.Product;
 import com.ilqjx.pojo.ProductImage;
 import com.ilqjx.service.ProductImageService;
@@ -21,6 +22,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 @Service
 public class ProductImageServiceImpl implements ProductImageService {
+
     @Autowired
     private ProductImageRepository productImageRepository;
 
@@ -63,6 +65,13 @@ public class ProductImageServiceImpl implements ProductImageService {
         List<Product> productList = page.getContent();
         for (Product product : productList) {
             setFirstProductImage(product);
+        }
+    }
+
+    @Override
+    public void setFirstProductImageForOrderItem(List<OrderItem> orderItemList) {
+        for (OrderItem orderItem : orderItemList) {
+            setFirstProductImage(orderItem.getProduct());
         }
     }
 

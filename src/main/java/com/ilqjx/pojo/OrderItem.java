@@ -2,8 +2,11 @@ package com.ilqjx.pojo;
 
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 @Entity
 @Table(name = "orderitem")
+@JsonIgnoreProperties({"handler", "hibernateLazyInitializer"})
 public class OrderItem {
 
     @Id

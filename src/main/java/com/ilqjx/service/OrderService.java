@@ -14,4 +14,6 @@ public interface OrderService {
 
     public Page<Order> listOrder(int start, int size);
 
+    public Order updateOrder(Order order);
+
 }
