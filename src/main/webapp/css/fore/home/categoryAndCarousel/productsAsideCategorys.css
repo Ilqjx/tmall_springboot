@@ -1,0 +1,31 @@
+div.productsAsideCategorys {
+    position: absolute;
+    left: 228px;
+    top: 0;
+    margin-left: 220px;
+    width: 825px;
+    height: 510px;
+    z-index: 1;
+    background-color: #fff;
+    display: none;
+}
+
+div.productsAsideCategorys div.row {
+    margin: 20px 80px 0 80px;
+}
+
+div.productsAsideCategorys div.row div.seperator {
+    margin-top: 20px;
+    border-bottom: 1px dashed #e7e7e7; 
+}
+
+div.productsAsideCategorys div.row a {
+    color: #999;
+    margin: 8px;
+    font-size: 14px;
+    text-decoration: none;
+}
+
+div.productsAsideCategorys div.row a:hover {
+    color: #c40000;
+}

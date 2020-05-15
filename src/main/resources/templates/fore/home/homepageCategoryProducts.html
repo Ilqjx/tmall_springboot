@@ -1,0 +1,22 @@
+<!doctype html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<body>
+<div th:fragment="homepageCategoryProducts" class="homepageCategoryProducts">
+  <div class="eachHomepageCategoryProducts" v-for="category in categorys">
+    <div class="left-mark"></div>
+    <span class="categoryTitle">{{category.name}}</span> <br>
+      <div class="productItem" v-for="product, index in category.productList" v-if="index < 5">
+        <a href="foreproduct?product.id=${p.id}">
+          <img :src="'img/productSingleImage_middle/' + product.firstProductImage.id + '.jpg'">
+        </a>
+        <a href="foreproduct?product.id=${p.id}" class="productItemDescLink">
+          <span class="productItemDesc">[热销] {{product.name | subStringFilter}}</span>
+        </a>
+        <span class="productPrice">{{product.promotePrice | formatMoneyFilter}}</span>
+      </div>
+    <div style="clear: both"></div>
+  </div>
+  <img class="endpng" id="endpng" src="img/site/end.png">
+</div>
+</body>
+</html>

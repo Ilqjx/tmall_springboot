@@ -1,0 +1,30 @@
+body {
+    font-size: 12px;
+    font-family: Arial;
+    min-width: 1024px;
+}
+
+nav.top {
+    background-color: #f2f2f2;
+    padding: 5px 0;
+    border-bottom: 1px solid #e7e7e7;
+}
+
+nav.top span {
+    color: #999;
+    margin: 0 10px;
+}
+
+nav.top a {
+	color: #999;
+    margin: 0 10px;
+	text-decoration: none;
+}
+
+nav.top a:hover {
+    color: #c40000;
+}
+
+.redColor {
+    color: #c40000 !important;
+}

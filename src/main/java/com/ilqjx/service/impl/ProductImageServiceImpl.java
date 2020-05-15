@@ -75,6 +75,13 @@ public class ProductImageServiceImpl implements ProductImageService {
         }
     }
 
+    @Override
+    public void setFirstProductImageForProduct(List<Product> productList) {
+        for (Product product : productList) {
+            setFirstProductImage(product);
+        }
+    }
+
     private void setFirstProductImage(Product product) {
         String type = "single";
         List<ProductImage> productImageList = listProductImage(product, type);

@@ -24,4 +24,6 @@ public interface ProductImageService {
 
     public void setFirstProductImageForOrderItem(List<OrderItem> orderItemList);
 
+    public void setFirstProductImageForProduct(List<Product> productList);
+
 }

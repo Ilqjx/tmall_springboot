@@ -6,10 +6,12 @@ import javax.servlet.http.HttpServletRequest;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 import java.util.Optional;
 
 import com.ilqjx.dao.CategoryRepository;
 import com.ilqjx.pojo.Category;
+import com.ilqjx.pojo.Product;
 import com.ilqjx.service.CategoryService;
 import com.ilqjx.util.ImageUtil;
 import com.ilqjx.util.PageUtil;
@@ -23,6 +25,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 @Service
 public class CategoryServiceImpl implements CategoryService {
+
     @Autowired
     private CategoryRepository categoryRepository;
 
@@ -66,11 +69,38 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
+    public List<Category> listCategory() {
+        Sort sort = Sort.by(Sort.Direction.DESC, "id");
+        return categoryRepository.findAll(sort);
+    }
+
+    @Override
     public PageUtil listCategory(int start, int size, int navigatePages) {
         Sort sort = Sort.by(Sort.Direction.DESC, "id");
         Pageable pageable = PageRequest.of(start, size, sort);
         Page<Category> page = categoryRepository.findAll(pageable);
         return new PageUtil(page, navigatePages);
+    }
+
+    @Override
+    public void removeCategoryFromProduct(List<Category> categoryList) {
+        for (Category category : categoryList) {
+            removeCategoryFromProduct(category);
+        }
+    }
+
+    public void removeCategoryFromProduct(Category category) {
+        List<Product> productList = category.getProductList();
+        if (null != productList) {
+            for (Product product : productList) {
+                product.setCategory(null);
+            }
+        }
+
+        List<List<Product>> productListByRow = category.getProductListByRow();
+        if (null != productListByRow) {
+
+        }
     }
 
     private void saveOrUpdateImage(Category category, MultipartFile file, HttpServletRequest request) throws IOException {

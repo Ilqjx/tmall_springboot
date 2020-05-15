@@ -1,0 +1,36 @@
+<!doctype html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<body>
+<div th:fragment="categoryWithCarousel" class="categoryWithCarousel">
+  <div class="headbar">
+    <div class="head">
+      <span class="glyphicon glyphicon-th-list"></span>
+      <span>商品分类</span>
+    </div>
+    <div class="rightMenu">
+      <span>
+        <a href="#nowhere"><img src="img/site/chaoshi.png"></a>
+      </span>
+      <span>
+        <a href="#nowhere"><img src="img/site/guoji.png"></a>
+      </span>
+      <span v-for="category, index in categorys" v-if="index < 4">
+        <a href="forecategory?category.id=${c.id}">{{category.name}}</a>
+      </span>
+    </div>
+  </div>
+
+  <div style="position: relative;">
+    <div th:replace="fore/home/categoryAndCarousel/categoryMenu :: categoryMenu"></div>
+  </div>
+
+  <div style="position: relative;">
+    <th:block th:replace="fore/home/categoryAndCarousel/productsAsideCategorys :: productsAsideCategorys"></th:block>
+  </div>
+
+  <div th:replace="fore/home/categoryAndCarousel/carousel :: carousel"></div>
+
+  <div class="carouselBackgroundDiv"></div>
+</div>
+</body>
+</html>

@@ -1,0 +1,33 @@
+<!doctype html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <title>模仿天猫官网</title>
+  <link rel="stylesheet" href="css/bootstrap/3.3.6/bootstrap.min.css">
+  <link rel="stylesheet" href="css/fore/public/top.css">
+  <link rel="stylesheet" href="css/fore/public/search.css">
+  <link rel="stylesheet" href="css/fore/public/footer.css">
+  <link rel="stylesheet" href="css/fore/home/categoryAndCarousel/carousel.css">
+  <link rel="stylesheet" href="css/fore/home/categoryAndCarousel/categoryMenu.css">
+  <link rel="stylesheet" href="css/fore/home/categoryAndCarousel/productsAsideCategorys.css">
+  <link rel="stylesheet" href="css/fore/home/categoryAndCarousel.css">
+  <link rel="stylesheet" href="css/fore/home/homepageCategoryProducts.css">
+</head>
+<body>
+<!-- 导航 -->
+<nav th:replace="fore/_fragments :: top"></nav>
+<div id="workingArea" class="homepageDiv">
+  <!-- 搜索栏 -->
+  <div th:replace="fore/public/search :: search"></div>
+  <div th:replace="fore/home/categoryAndCarousel :: categoryWithCarousel"></div>
+  <div th:replace="fore/home/homepageCategoryProducts :: homepageCategoryProducts"></div>
+</div>
+
+<!-- footer -->
+<div th:replace="fore/_fragments :: footer"></div>
+
+<th:block th:replace="fore/_fragments :: js"></th:block>
+<script src="js/fore/home.js"></script>
+</body>
+</html>

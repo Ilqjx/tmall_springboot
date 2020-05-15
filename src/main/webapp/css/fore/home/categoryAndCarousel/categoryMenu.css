@@ -1,0 +1,29 @@
+div.categoryMenu {
+    position: absolute;
+    left: 228px;
+    top: 0;
+    background-color: #e2e2e3;
+    margin-left: 20px;
+    width: 200px;
+    z-index: 1;
+}
+
+div.categoryMenu div.eachCategory {
+    padding-left: 10px;
+    line-height: 30px;
+    font-size: 14px;
+}
+
+div.categoryMenu div.eachCategory:hover {
+    background-color: #fff;
+}
+
+div.categoryMenu div.eachCategory a {
+    color: #000;
+    text-decoration: none;
+    margin-left: 10px;
+}
+
+div.categoryMenu div.eachCategory a:hover {
+    color: #87cefa;
+}

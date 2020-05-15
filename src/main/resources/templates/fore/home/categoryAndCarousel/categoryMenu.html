@@ -1,0 +1,11 @@
+<!doctype html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<body>
+<div th:fragment="categoryMenu" class="categoryMenu">
+  <div class="eachCategory" v-for="category in categorys" :cid="category.id">
+    <span class="glyphicon glyphicon-link"></span>
+    <a href="forecategory?category.id=${c.id}">{{category.name}}</a>
+  </div>
+</div>
+</body>
+</html>
