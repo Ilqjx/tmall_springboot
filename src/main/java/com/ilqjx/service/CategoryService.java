@@ -5,7 +5,6 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 import com.ilqjx.pojo.Category;
-import com.ilqjx.pojo.Product;
 import com.ilqjx.util.PageUtil;
 import org.springframework.web.multipart.MultipartFile;
 

@@ -99,7 +99,11 @@ public class CategoryServiceImpl implements CategoryService {
 
         List<List<Product>> productListByRow = category.getProductListByRow();
         if (null != productListByRow) {
-
+            for (List<Product> products : productListByRow) {
+                for (Product product : products) {
+                    product.setCategory(null);
+                }
+            }
         }
     }
 

@@ -4,7 +4,7 @@
 <th:block th:fragment="productsAsideCategorys">
 <div class="productsAsideCategorys" v-for="category in categorys" :cid="category.id">
   <div class="row" v-for="eachProductListByRow in category.productListByRow">
-    <a href="foreproduct?product.id=${p.id}" v-for="product in eachProductListByRow" v-if="product.subTitle">
+    <a :href="'product?pid=' + product.id" v-for="product in eachProductListByRow" v-if="product.subTitle">
       {{product.subTitle | subTitleFilter}}
     </a>
     <div class="seperator"></div>

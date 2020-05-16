@@ -84,11 +84,12 @@ public class ProductServiceImpl implements ProductService {
     }
 
     private void setProductByRowForCategory(Category category) {
+        int productNumberEachRow = 8;
         List<Product> productList = category.getProductList();
         List<List<Product>> productListByRow = new ArrayList<>();
-        for (int i = 0; i < productList.size(); i += 8) {
+        for (int i = 0; i < productList.size(); i += productNumberEachRow) {
             int startIndex = i;
-            int endIndex = i + 8;
+            int endIndex = i + productNumberEachRow;
             if (endIndex > productList.size()) {
                 endIndex = productList.size();
             }

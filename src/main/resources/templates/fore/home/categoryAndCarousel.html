@@ -2,6 +2,7 @@
 <html xmlns:th="http://www.w3.org/1999/xhtml">
 <body>
 <div th:fragment="categoryWithCarousel" class="categoryWithCarousel">
+  <img class="catear" id="catear" src="img/site/catear.png">
   <div class="headbar">
     <div class="head">
       <span class="glyphicon glyphicon-th-list"></span>
@@ -15,7 +16,7 @@
         <a href="#nowhere"><img src="img/site/guoji.png"></a>
       </span>
       <span v-for="category, index in categorys" v-if="index < 4">
-        <a href="forecategory?category.id=${c.id}">{{category.name}}</a>
+        <a :href="'category?cid=' + category.id">{{category.name}}</a>
       </span>
     </div>
   </div>

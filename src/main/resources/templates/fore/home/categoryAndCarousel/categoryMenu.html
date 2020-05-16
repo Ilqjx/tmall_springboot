@@ -4,7 +4,7 @@
 <div th:fragment="categoryMenu" class="categoryMenu">
   <div class="eachCategory" v-for="category in categorys" :cid="category.id">
     <span class="glyphicon glyphicon-link"></span>
-    <a href="forecategory?category.id=${c.id}">{{category.name}}</a>
+    <a :href="'category?cid=' + category.id">{{category.name}}</a>
   </div>
 </div>
 </body>

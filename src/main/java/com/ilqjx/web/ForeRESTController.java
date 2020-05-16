@@ -22,6 +22,7 @@ public class ForeRESTController {
         List<Category> categoryList = categoryService.listCategory();
         productService.setProductForCategory(categoryList);
         productService.setProductByRowForCategory(categoryList);
+        categoryService.removeCategoryFromProduct(categoryList);
         return categoryList;
     }
 

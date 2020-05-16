@@ -9,6 +9,7 @@ $(function () {
         data: data,
         mounted: function () {
             this.listCategory();
+            linkDefaultActions();
         },
         methods: {
             listCategory: function () {
@@ -28,29 +29,6 @@ $(function () {
                 }
                 var title = value.split(" ");
                 return title[0];
-            },
-            subStringFilter: function (value) {
-                if (!value) {
-                    return "";
-                }
-                return value.substr(0, 20);
-            },
-            formatMoneyFilter: function (num) {
-                num = num.toString().replace(/\$|\,/g, '');
-                if (isNaN(num)) {
-                    num = "0";
-                }
-                sign = (num == (num = Math.abs(num)));
-                num = Math.floor(num * 100 + 0.50000000001);
-                cents = num % 100;
-                num = Math.floor(num / 100).toString();
-                if (cents < 10) {
-                    cents = "0" + cents;
-                }
-                for (var i = 0; i < Math.floor((num.length-(1+i))/3); i++) {
-                    num = num.substring(0, num.length-(4*i+3)) + ',' + num.substring(num.length-(4*i+3));
-                }
-                return (((sign)?'':'-') + num + '.' + cents);
             }
         }
     });
@@ -77,10 +55,28 @@ function homePageRegisterListeners() {
         hideProductsAsideCategory(cid);
     });
 
+    $("div.rightMenu span").mouseenter(function () {
+        var left = $(this).position().left;
+        var top = $(this).position().top;
+        var width = $(this).css("width");
+        var imageWidth = $("img#catear").css("width");
+        $("img#catear").css("left", parseInt(left) + parseInt(width) / 2 - parseInt(imageWidth) / 2);
+        $("img#catear").css("top", top - 20);
+        $("img#catear").fadeIn(500);
+    });
+
+    $("div.rightMenu span").mouseleave(function () {
+        $("img#catear").hide();
+    });
+
+    var left = $("div#carousel-of-product").offset().left;
+    $("div.categoryMenu").css("left", left - 20);
+    $("div.categoryWithCarousel div.head").css("margin-left", left);
+    $("div.productsAsideCategorys").css("left", left - 20);
+
     $("div.productsAsideCategorys div.row a").each(function () {
-        // Math.round() 四舍五入
         // 1/5 概率变色
-        var randomDigit = Math.round(Math.random() * 4);
+        var randomDigit = Math.round(Math.random() * 6);
         if (randomDigit == 2) {
             $(this).css("color", "#87CEFA");
         }

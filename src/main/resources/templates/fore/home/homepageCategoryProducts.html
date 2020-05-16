@@ -6,11 +6,11 @@
     <div class="left-mark"></div>
     <span class="categoryTitle">{{category.name}}</span> <br>
       <div class="productItem" v-for="product, index in category.productList" v-if="index < 5">
-        <a href="foreproduct?product.id=${p.id}">
+        <a :href="'product?pid=' + product.id">
           <img :src="'img/productSingleImage_middle/' + product.firstProductImage.id + '.jpg'">
         </a>
-        <a href="foreproduct?product.id=${p.id}" class="productItemDescLink">
-          <span class="productItemDesc">[热销] {{product.name | subStringFilter}}</span>
+        <a :href="'product?pid=' + product.id" class="productItemDescLink">
+          <span class="productItemDesc">[热销] {{product.name | subStringFilter(0, 20)}}</span>
         </a>
         <span class="productPrice">{{product.promotePrice | formatMoneyFilter}}</span>
       </div>
