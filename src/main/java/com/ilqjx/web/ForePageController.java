@@ -16,4 +16,14 @@ public class ForePageController {
         return "fore/home";
     }
 
+    @GetMapping("/register")
+    public String register() {
+        return "fore/register";
+    }
+
+    @GetMapping("/registerSuccess")
+    public String registerSuccess() {
+        return "fore/registerSuccess";
+    }
+
 }

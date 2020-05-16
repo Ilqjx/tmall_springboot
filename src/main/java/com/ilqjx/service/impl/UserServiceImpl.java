@@ -17,11 +17,27 @@ public class UserServiceImpl implements UserService {
     private UserRepository userRepository;
 
     @Override
+    public User saveUser(User user) {
+        return userRepository.save(user);
+    }
+
+    @Override
+    public User getUserByName(String name) {
+        return userRepository.findByName(name);
+    }
+
+    @Override
     public Page<User> listUser(int start, int size) {
         Sort sort = Sort.by(Sort.Direction.DESC, "id");
         Pageable pageable = PageRequest.of(start, size, sort);
         Page<User> page = userRepository.findAll(pageable);
         return page;
+    }
+
+    @Override
+    public boolean isExist(String name) {
+        User user = getUserByName(name);
+        return null != user;
     }
 
 }

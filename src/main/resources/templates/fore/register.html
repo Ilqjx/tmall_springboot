@@ -1,0 +1,64 @@
+<!doctype html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <title>模仿天猫官网_注册页面</title>
+  <link rel="stylesheet" href="css/bootstrap/3.3.6/bootstrap.min.css">
+  <link rel="stylesheet" href="css/fore/register.css">
+  <link rel="stylesheet" href="css/fore/public/top.css">
+  <link rel="stylesheet" href="css/fore/public/footer.css">
+  <link rel="stylesheet" href="css/fore/public/simpleSearch.css">
+</head>
+<div id="workingArea">
+  <nav th:replace="fore/_fragments :: top"></nav>
+  <div th:replace="fore/public/simpleSearch :: simpleSearch"></div>
+  <div class="registerDiv">
+    <div class="registerErrorMessageDiv">
+      <div class="alert alert-danger" role="alert">
+        <span class="errorMessage"></span>
+      </div>
+    </div>
+    <table align="center" class="registerTable">
+      <tbody>
+      <tr>
+        <td class="registerTip registerTableLeftTD">设置会员名</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td class="registerTableLeftTD">登陆名</td>
+        <td class="registerTableRightTD">
+          <input id="name" type="text" placeholder="会员名一旦设置成功，无法修改" v-model.trim="user.name" />
+        </td>
+      </tr>
+      <tr>
+        <td class="registerTip registerTableLeftTD">设置登陆密码</td>
+        <td class="registerTableRightTD">登陆时验证，保护账号信息</td>
+      </tr>
+      <tr>
+        <td class="registerTableLeftTD">登陆密码</td>
+        <td class="registerTableRightTD">
+          <input id="password" type="password" placeholder="设置你的登陆密码" v-model.trim="user.password" />
+        </td>
+      </tr>
+      <tr>
+        <td class="registerTableLeftTD">密码确认</td>
+        <td class="registerTableRightTD">
+          <input id="repeatpassword" type="password" placeholder="请再次输入你的密码" />
+        </td>
+      </tr>
+      <tr>
+        <td class="registerButtonTD" colspan="2">
+          <button type="submit" @click="register">提 交</button>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+    <div style="height: 50px;"></div>
+  </div>
+  <div th:replace="fore/_fragments :: footer"></div>
+</div>
+<th:block th:replace="fore/_fragments :: js"></th:block>
+<script src="js/fore/register.js"></script>
+</body>
+</html>

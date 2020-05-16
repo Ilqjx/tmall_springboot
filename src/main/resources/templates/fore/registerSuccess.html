@@ -1,0 +1,28 @@
+<!doctype html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <title>模仿天猫官网_注册成功</title>
+  <link rel="stylesheet" href="css/bootstrap/3.3.6/bootstrap.min.css">
+  <link rel="stylesheet" href="css/fore/registerSuccess.css">
+  <link rel="stylesheet" href="css/fore/public/top.css">
+  <link rel="stylesheet" href="css/fore/public/footer.css">
+  <link rel="stylesheet" href="css/fore/public/simpleSearch.css">
+</head>
+<body>
+<nav th:replace="fore/_fragments :: top"></nav>
+<div th:replace="fore/public/simpleSearch :: simpleSearch"></div>
+<div class="registerSuccessDiv">
+  <img src="img/site/registerSuccess.png">
+  恭喜注册成功
+</div>
+<div th:replace="fore/_fragments :: footer"></div>
+<th:block th:replace="fore/_fragments :: js"></th:block>
+<script>
+  $(function () {
+      linkDefaultActions();
+  });
+</script>
+</body>
+</html>

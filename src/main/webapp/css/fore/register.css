@@ -1,0 +1,63 @@
+div.registerDiv {
+    margin: 10px 20px;
+}
+
+div.registerDiv div.registerErrorMessageDiv {
+    width: 400px;
+    margin: 0 auto;
+    height: 50px;
+    font-size: 16px;
+    display: none;
+}
+
+div.alert {
+    border: 0;
+}
+
+div.registerDiv div.registerErrorMessageDiv span.errorMessage {
+    display: block;
+    text-align: center;
+}
+
+div.registerDiv table.registerTable {
+    text-align: center;
+    font-size: 16px;
+    color: #3c3c3c;
+    margin-top: 50px;
+    table-layout: fixed; /* 单元格的宽度取设定的值 */
+}
+
+div.registerDiv table.registerTable td {
+    padding: 10px 30px;
+}
+
+div.registerDiv table.registerTable td.registerTip {
+    font-weight: bold;
+}
+
+div.registerDiv table.registerTable td.registerTableLeftTD {
+    width: 300px;
+    text-align: right;
+}
+
+div.registerDiv table.registerTable td.registerTableRightTD {
+    width: 300px;
+    text-align: left;
+}
+
+div.registerDiv table.registerTable td.registerTableRightTD input {
+    font-size: 14px;
+    border: 1px solid #dedede;
+    width: 213px;
+    height: 36px;
+}
+
+div.registerDiv table.registerTable td.registerButtonTD button {
+    background-color: #c40000;
+    color: #fff;
+    border-width: 0;
+    border-radius: 2px;
+    width: 170px;
+    height: 36px;
+    margin-left: 70px;
+}
