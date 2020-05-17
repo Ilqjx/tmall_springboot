@@ -22,4 +22,6 @@ public interface ProductService {
 
     public void setProductByRowForCategory(List<Category> categoryList);
 
+    public void setSaleCountAndReviewCount(Product product);
+
 }

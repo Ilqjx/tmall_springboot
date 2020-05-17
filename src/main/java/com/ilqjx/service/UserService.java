@@ -7,6 +7,8 @@ public interface UserService {
 
     public User saveUser(User user);
 
+    public User getUser(User user);
+
     public User getUserByName(String name);
 
     public Page<User> listUser(int start, int size);

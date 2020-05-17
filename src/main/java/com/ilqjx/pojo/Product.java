@@ -5,7 +5,6 @@ import javax.persistence.*;
 import java.util.Date;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import org.springframework.data.elasticsearch.annotations.Document;
 
 @Entity
 @Table(name = "product")
@@ -31,6 +30,10 @@ public class Product {
 
     @Transient
     private ProductImage firstProductImage;
+    @Transient
+    private int saleCount;
+    @Transient
+    private int reviewCount;
 
     public int getId() {
         return id;
@@ -102,6 +105,22 @@ public class Product {
 
     public void setFirstProductImage(ProductImage firstProductImage) {
         this.firstProductImage = firstProductImage;
+    }
+
+    public int getSaleCount() {
+        return saleCount;
+    }
+
+    public void setSaleCount(int saleCount) {
+        this.saleCount = saleCount;
+    }
+
+    public int getReviewCount() {
+        return reviewCount;
+    }
+
+    public void setReviewCount(int reviewCount) {
+        this.reviewCount = reviewCount;
     }
 
     @Override

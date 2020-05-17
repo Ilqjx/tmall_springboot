@@ -61,6 +61,17 @@ public class ProductImageServiceImpl implements ProductImageService {
     }
 
     @Override
+    public void setFirstProductImage(Product product) {
+        String type = "single";
+        List<ProductImage> productImageList = listProductImage(product, type);
+        if (!productImageList.isEmpty()) {
+            product.setFirstProductImage(productImageList.get(0));
+        } else {
+            product.setFirstProductImage(new ProductImage());
+        }
+    }
+
+    @Override
     public void setFirstProductImage(Page<Product> page) {
         List<Product> productList = page.getContent();
         for (Product product : productList) {
@@ -79,16 +90,6 @@ public class ProductImageServiceImpl implements ProductImageService {
     public void setFirstProductImageForProduct(List<Product> productList) {
         for (Product product : productList) {
             setFirstProductImage(product);
-        }
-    }
-
-    private void setFirstProductImage(Product product) {
-        String type = "single";
-        List<ProductImage> productImageList = listProductImage(product, type);
-        if (!productImageList.isEmpty()) {
-            product.setFirstProductImage(productImageList.get(0));
-        } else {
-            product.setFirstProductImage(new ProductImage());
         }
     }
 

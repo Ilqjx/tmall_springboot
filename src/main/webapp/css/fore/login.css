@@ -1,0 +1,90 @@
+div#loginDiv div.simpleLogo {
+    padding: 32px 0;
+}
+
+div#loginDiv div.backgroundImgDiv {
+    background-image: url("../../img/site/loginBackground.png");
+    background-repeat: no-repeat;
+    background-color: transparent;
+    background-attachment: scroll;
+    background-position: 0 0;
+    position: relative;
+    width: 1190px;
+    height: 600px;
+    margin: 0 auto;
+}
+
+div#loginDiv div.backgroundImgDiv div.loginSmallDiv {
+    position: absolute;
+    top: 89px;
+    right: 74px;
+    width: 350px;
+    height: 400px;
+    background-color: #fff;
+    padding: 60px 25px 80px;
+}
+
+div#loginDiv div.backgroundImgDiv div.loginSmallDiv div.loginErrorMsgDiv {
+    font-size: 13px;
+    text-align: center;
+    display: none;
+}
+
+div#loginDiv div.backgroundImgDiv div.loginSmallDiv div.login_acount_text {
+    font-size: 16px;
+    font-weight: bold;
+    color: #3c3c3c;
+}
+
+div#loginDiv div.backgroundImgDiv div.loginSmallDiv div.loginInput {
+    margin: 20px 0;
+    border: 1px solid #cbcbcb;
+}
+
+div#loginDiv div.backgroundImgDiv div.loginSmallDiv div.loginInput span.loginInputIcon {
+    display: inline-block;
+    width: 40px;
+    height: 40px;
+    background-color: #cbcbcb;
+    margin: 0;
+}
+
+div#loginDiv div.backgroundImgDiv div.loginSmallDiv div.loginInput span.loginInputIcon
+span.glyphicon {
+    position: relative;
+    top: 9px;
+    left: 9px;
+    font-size: 22px;
+    color: #606060;
+}
+
+div#loginDiv div.backgroundImgDiv div.loginSmallDiv div.loginInput input {
+    display: inline-block;
+    width: 244px;
+    height: 30px;
+    position: relative;
+    top: 3px;
+    left: 6px;
+    border-width: 0;
+    outline: none;
+}
+
+div#loginDiv div.backgroundImgDiv div.loginSmallDiv div a {
+    text-decoration: none;
+    color: #999;
+}
+
+div#loginDiv div.backgroundImgDiv div.loginSmallDiv div a:hover {
+    color: #c40000;
+}
+
+div#loginDiv div.backgroundImgDiv div.loginSmallDiv div button.btn {
+    font-size: 14px;
+    font-weight: bold;
+    background-color: #c40000;
+    color: #fff;
+}
+
+div#loginDiv div.backgroundImgDiv div.loginSmallDiv div button.btn:hover {
+    color: #000;
+}

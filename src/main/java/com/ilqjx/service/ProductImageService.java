@@ -20,6 +20,8 @@ public interface ProductImageService {
 
     public List<ProductImage> listProductImage(Product product, String type);
 
+    public void setFirstProductImage(Product product);
+
     public void setFirstProductImage(Page<Product> page);
 
     public void setFirstProductImageForOrderItem(List<OrderItem> orderItemList);

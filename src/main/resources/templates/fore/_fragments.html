@@ -2,23 +2,21 @@
 <html xmlns:th="http://www.w3.org/1999/xhtml">
 <body>
 <!-- 导航 -->
-<nav th:fragment="top" class="top">
+<nav th:fragment="top" class="top" id="top">
   <a href="${contextPath}">
     <span style="margin: 0;" class="glyphicon glyphicon-home redColor"></span>
     天猫首页
   </a>
-
   <span>喵，欢迎来天猫</span>
+  <th:block th:if="${session.user}">
+    <a href="login" th:text="${session.user.name}"></a>
+    <a href="forelogout">退出</a>
+  </th:block>
 
-  <!--<c:if test="${!empty user}">-->
-  <!--  <a href="login.jsp">${user.name}</a>-->
-  <!--  <a href="forelogout">退出</a>-->
-  <!--</c:if>-->
-
-  <!--<c:if test="${empty user}">-->
-    <a href="login.jsp">请登录</a>
+  <th:block th:unless="${session.user}">
+    <a href="login">请登录</a>
     <a href="register">免费注册</a>
-  <!--</c:if>-->
+  </th:block>
 
   <span class="pull-right">
 		<a href="forebought">我的订单</a>

@@ -1,5 +1,8 @@
 package com.ilqjx.web;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
@@ -24,6 +27,23 @@ public class ForePageController {
     @GetMapping("/registerSuccess")
     public String registerSuccess() {
         return "fore/registerSuccess";
+    }
+
+    @GetMapping("/login")
+    public String login() {
+        return "fore/login";
+    }
+
+    @GetMapping("/forelogout")
+    public String logout(HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        session.removeAttribute("user");
+        return "redirect:/home";
+    }
+
+    @GetMapping("/product")
+    public String product() {
+        return "fore/product";
     }
 
 }

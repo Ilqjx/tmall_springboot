@@ -5,12 +5,16 @@ import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
+import com.ilqjx.dao.OrderRepository;
 import com.ilqjx.dao.ProductRepository;
 import com.ilqjx.pojo.Category;
+import com.ilqjx.pojo.Order;
+import com.ilqjx.pojo.OrderItem;
 import com.ilqjx.pojo.Product;
-import com.ilqjx.service.CategoryService;
+import com.ilqjx.service.OrderItemService;
 import com.ilqjx.service.ProductImageService;
 import com.ilqjx.service.ProductService;
+import com.ilqjx.service.ReviewService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -26,7 +30,11 @@ public class ProductServiceImpl implements ProductService {
     @Autowired
     private ProductImageService productImageService;
     @Autowired
-    private CategoryService categoryService;
+    private OrderRepository orderRepository;
+    @Autowired
+    private OrderItemService orderItemService;
+    @Autowired
+    private ReviewService reviewService;
 
     @Override
     public Product saveProduct(Product product) {
@@ -75,6 +83,23 @@ public class ProductServiceImpl implements ProductService {
         for (Category category : categoryList) {
             setProductByRowForCategory(category);
         }
+    }
+
+    @Override
+    public void setSaleCountAndReviewCount(Product product) {
+        int saleCount = 0;
+        List<Order> orderList = orderRepository.findAll();
+        for (Order order : orderList) {
+            List<OrderItem> orderItemList = orderItemService.listOrderItemByOrder(order);
+            for (OrderItem orderItem : orderItemList) {
+                if (orderItem.getProduct().getId() == product.getId()) {
+                    saleCount += orderItem.getNumber();
+                }
+            }
+        }
+        int reviewCount = reviewService.countByProduct(product);
+        product.setSaleCount(saleCount);
+        product.setReviewCount(reviewCount);
     }
 
     private void setProductForCategory(Category category) {

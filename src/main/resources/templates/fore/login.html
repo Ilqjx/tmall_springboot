@@ -1,0 +1,55 @@
+<!doctype html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <title>模仿天猫官网_登录</title>
+  <link rel="stylesheet" href="css/bootstrap/3.3.6/bootstrap.min.css">
+  <link rel="stylesheet" href="css/fore/public/footer.css">
+  <link rel="stylesheet" href="css/fore/login.css">
+</head>
+<body>
+<div id="workingArea">
+  <div id="loginDiv">
+    <div class="simpleLogo">
+      <a href="${contextPath}">
+        <img src="img/site/simpleLogo.png">
+      </a>
+    </div>
+    <div class="backgroundImgDiv">
+      <div id="loginSmallDiv" class="loginSmallDiv">
+        <div class="loginErrorMsgDiv">
+          <div class="alert alert-danger" role="alert">
+            <span id="errorMessage"></span>
+          </div>
+        </div>
+        <div class="login_acount_text">账户登录</div>
+        <div class="loginInput">
+          <span class="loginInputIcon">
+            <span class="glyphicon glyphicon-user"></span>
+          </span>
+          <input id="name" type="text" placeholder="手机/会员名/邮箱" v-model.trim="user.name" />
+        </div>
+        <div class="loginInput">
+          <span class="loginInputIcon">
+            <span class="glyphicon glyphicon-lock"></span>
+          </span>
+          <input id="password" type="password" placeholder="密码" v-model.trim="user.password" />
+        </div>
+        <div>
+          <a class="notImplementLink" href="#nowhere">忘记登录密码</a>
+          <a class="pull-right" href="register">免费注册</a>
+        </div>
+        <div style="margin-top: 20px">
+          <button class="btn btn-block redButton" @click="login">登录</button>
+        </div>
+      </div>
+    </div>
+    <div style="height: 50px;"></div>
+  </div>
+  <div th:replace="fore/_fragments :: footer"></div>
+</div>
+<th:block th:replace="fore/_fragments :: js"></th:block>
+<script src="js/fore/login.js"></script>
+</body>
+</html>

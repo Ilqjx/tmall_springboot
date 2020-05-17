@@ -1,0 +1,444 @@
+div.categoryPictureInProductPageDiv {
+    width: 100%;
+    margin: 10px auto;
+    text-align: center;
+}
+
+/* productpicture */
+
+div.productPageDiv {
+    max-width: 1013px;
+    margin: 10px auto;
+}
+
+div.imgAndInfo {
+    margin: 40px 20px;
+}
+
+div.imgAndInfo div.imgInimgAndInfo {
+    width: 400px;
+    float: left;
+}
+
+div.imgAndInfo div.imgInimgAndInfo img.bigImg {
+    width: 400px;
+    height: 400px;
+    padding: 20px;
+    border: 1px solid #f2f2f2;
+}
+
+div.imgAndInfo div.imgInimgAndInfo div.smallImageDiv {
+    width: 80%;
+    margin: 20px auto;
+}
+
+div.imgAndInfo div.imgInimgAndInfo div.smallImageDiv img.smallImage {
+    width: 60px;
+    height: 60px;
+    border: 2px solid #fff;
+}
+
+div.imgAndInfo div.imgInimgAndInfo div.smallImageDiv img.smallImage:hover {
+    border: 2px solid #000;
+}
+
+/* basicInfo */
+
+div.imgAndInfo {
+    margin: 40px 20px;
+}
+
+div.imgAndInfo div.infoInimgAndInfo {
+    padding: 0 20px;
+    overflow: hidden;
+}
+
+div.imgAndInfo div.infoInimgAndInfo div.productTitle {
+    font-size: 16px;
+    font-weight: bold;
+    margin: 0 10px;
+    color: #000;
+}
+
+div.imgAndInfo div.infoInimgAndInfo div.productSubTitle {
+    margin: 0 10px;
+    color: #dd2727;
+}
+
+div.imgAndInfo div.infoInimgAndInfo div.productPrice div.juhuasuan {
+    background-color: #2da77a;
+    color: #fff;
+    line-height: 40px;
+    margin-top: 10px;
+    text-align: center;
+}
+
+div.imgAndInfo div.infoInimgAndInfo div.productPrice div.juhuasuan span.juhuasuanBig {
+    font-size: 18px;
+    font-family: 黑体;
+    font-weight: bold;
+}
+
+div.imgAndInfo div.infoInimgAndInfo div.productPrice div.juhuasuan span.juhuasuanTime {
+    color: #ffc057;
+    font-weight: bold;
+}
+
+div.imgAndInfo div.infoInimgAndInfo div.productPrice div.productPriceDiv {
+    background-image: url("../../img/site/priceBackground.png");
+    height: 102px;
+    padding: 10px;
+}
+
+div.imgAndInfo div.infoInimgAndInfo div.productPrice div.productPriceDiv div.gouwujuanDiv {
+    margin-top: 5px;
+    color: #666;
+}
+
+div.imgAndInfo div.infoInimgAndInfo div.productPrice div.productPriceDiv div.originalDiv {
+    margin-top: 5px;
+}
+
+div.imgAndInfo div.infoInimgAndInfo div.productPrice div.productPriceDiv div.originalDiv span.originalPriceDesc {
+    display: inline-block;
+    width: 68px;
+    color: #999;
+}
+
+div.imgAndInfo div.infoInimgAndInfo div.productPrice div.productPriceDiv div.originalDiv span.originalPriceYuan {
+    font-size: 12px;
+    color: #666;
+}
+
+div.imgAndInfo div.infoInimgAndInfo div.productPrice div.productPriceDiv div.originalDiv span.originalPrice {
+    color: #333;
+    text-decoration: line-through;
+}
+
+div.imgAndInfo div.infoInimgAndInfo div.productPrice div.productPriceDiv div.promotionDiv span.promotionPriceDesc {
+    display: inline-block;
+    width: 68px;
+    color: #999;
+    position: relative;
+    left: 0;
+    top: -10px;
+}
+
+div.imgAndInfo div.infoInimgAndInfo div.productPrice div.productPriceDiv div.promotionDiv span.promotionPriceYuan {
+    font-size: 18px;
+    color: #c40000;
+}
+
+div.imgAndInfo div.infoInimgAndInfo div.productPrice div.productPriceDiv div.promotionDiv span.promotionPrice {
+    font-size: 30px;
+    font-weight: bold;
+    color: #c40000;
+}
+
+div.imgAndInfo div.infoInimgAndInfo div.productSaleAndReviewNumber {
+    border-top: 1px dotted #c9c9c9;
+    border-bottom: 1px dotted #c9c9c9;
+    margin: 20px 0;
+    color: #999;
+    padding: 10px;
+}
+
+div.imgAndInfo div.infoInimgAndInfo div.productSaleAndReviewNumber div {
+    display: inline-block;
+    width: 49%;
+    text-align: center;
+}
+
+div.imgAndInfo div.infoInimgAndInfo div.productSaleAndReviewNumber div:first-child {
+    border-right: 1px solid #e5dfda;
+}
+
+div.imgAndInfo div.infoInimgAndInfo div.productNumber {
+    color: #999;
+}
+
+div.imgAndInfo div.infoInimgAndInfo div.productNumber span.productNumberSettingSpan {
+    display: inline-block;
+    border: 1px solid #999;
+    width: 43px;
+    height: 32px;
+    line-height: 32px;
+}
+
+div.imgAndInfo div.infoInimgAndInfo div.productNumber span.productNumberSettingSpan input.productNumberSetting {
+    width: 100%;
+    height: 60%;
+    border: 0;
+    outline: none;
+}
+
+div.imgAndInfo div.infoInimgAndInfo div.productNumber span.arrow {
+    display: inline-block;
+    vertical-align: top;
+    width: 22px;
+    height: 32px;
+}
+
+div.imgAndInfo div.infoInimgAndInfo div.productNumber span.arrow span.updown {
+    display: block;
+    width: 20px;
+    height: 14px;
+    border: 1px solid #999;
+    text-align: center;
+    padding-top: 4px;
+}
+
+div.imgAndInfo div.infoInimgAndInfo div.productNumber span.arrow span.updown img {
+    display: inline-block;
+    vertical-align: top;
+}
+
+div.imgAndInfo div.infoInimgAndInfo div.productNumber span.arrow span.updownMiddle {
+    display: block;
+    height: 4px;
+}
+
+div.imgAndInfo div.infoInimgAndInfo div.serviceCommitment {
+    margin: 20px 0;
+}
+
+div.imgAndInfo div.infoInimgAndInfo div.serviceCommitment span.serviceCommitmentDesc {
+    color: #999;
+}
+
+div.imgAndInfo div.infoInimgAndInfo div.serviceCommitment span.serviceCommitmentLink a {
+    color: #666;
+    text-decoration: none;
+}
+
+div.imgAndInfo div.infoInimgAndInfo div.serviceCommitment span.serviceCommitmentLink a:hover {
+
+}
+
+div.imgAndInfo div.infoInimgAndInfo div.buyDiv {
+    margin: 20px auto;
+    text-align: center;
+}
+
+div.imgAndInfo div.infoInimgAndInfo div.buyDiv button {
+    width: 180px;
+    height: 40px;
+    line-height: 40px;
+    margin: 0 10px;
+    text-align: center;
+    font-size: 16px;
+    outline: none;
+}
+
+div.imgAndInfo div.infoInimgAndInfo div.buyDiv a.buyLink button.buyButton {
+    border: 1px solid #c40000;
+    background-color: #ffeded;
+    color: #c40000;
+}
+
+div.imgAndInfo div.infoInimgAndInfo div.buyDiv a.addCartLink button.addCartButton {
+    background-color: #c40000;
+    border: 1px solid #c40000;
+    color: #fff;
+}
+
+div.imgAndInfo div.infoInimgAndInfo div.buyDiv a.addCartLink button.addCartButton span.glyphicon {
+    display: inline-block;
+    margin-right: 8px;
+    font-size: 12px;
+}
+
+a:hover {
+    text-decoration: none;
+}
+
+.redColor {
+    color: #c40000;
+}
+
+.boldWord {
+    font-weight: bold;
+}
+
+/* InfoDetail */
+
+div.productDetailDiv {
+    width: 790px;
+    margin: 40px auto;
+}
+
+div.productDetailDiv div.productDetailTopPart {
+    border: 1px solid #dfdfdf;
+    border-left-width: 0;
+    line-height: 46px;
+}
+
+div.productDetailDiv div.productDetailTopPart a.selected {
+    display: inline-block;
+    width: 90px;
+    text-align: center;
+    border-left: 1px solid #cfbfb1;
+    border-right: 1px solid #cfbfb1;
+    color: #b10000;
+    font-weight: bold;
+    position: relative;
+}
+
+div.productDetailDiv div.productDetailTopPart a.selected:before {
+    content: "";
+    border: 1px solid #b00000;
+    display: block;
+    width: 90px;
+    position: absolute;
+    height: 0;
+    top: -2px;
+    margin-left: -1px;
+}
+
+div.productDetailDiv div.productDetailTopPart a.selected:after {
+    content: "";
+    display: block;
+    border-color: #b00000 transparent transparent;
+    border-width: 5px;
+    border-style: solid;
+    position: absolute;
+    top: -1px;
+    left: 50%;
+    margin-left: -5px;
+    height: 0;
+    width: 0;
+}
+
+div.productDetailDiv div.productDetailTopPart a.productDetailTopReviewLink {
+    padding: 0 20px;
+    border-right: 1px dotted #d2d2d2;
+    color: #333;
+}
+
+div.productDetailDiv div.productDetailTopPart a.productDetailTopReviewLink
+span.productDetailTopReviewLinkNumber {
+    color: #3355b9;
+}
+
+div.productDetailDiv div.productDetailTopPart a:hover {
+    text-decoration: none;
+    color: #c40000;
+}
+
+div.productDetailDiv div.productParamterPart {
+    border: 1px solid #dfdfdf;
+    padding: 40px;
+}
+
+div.productDetailDiv div.productParamterPart div.productParamter {
+    margin-bottom: 20px;
+    font-weight: bold;
+    color: #999;
+}
+
+div.productDetailDiv div.productParamterPart div.productParamterList span {
+    display: block;
+    width: 220px;
+    float: left;
+    padding: 8px 0;
+    color: #666;
+}
+
+div.productDetailDiv div.productDetailImagesPart img {
+    display: block;
+    width: 790px;
+}
+
+/* AddComment */
+
+div.productPageDiv div.productReviewDiv {
+    margin: 40px auto;
+    width: 790px;
+}
+
+div.productPageDiv div.productReviewDiv div.productReviewTopPart {
+    border: 1px solid #dfdfdf;
+    line-height: 46px;
+}
+
+div.productPageDiv div.productReviewDiv div.productReviewTopPart
+a.productReviewTopPartSelectedLink {
+    padding: 0 20px;
+    color: #333;
+}
+
+div.productPageDiv div.productReviewDiv div.productReviewTopPart a.selected {
+    border-right: 1px solid #cfbfb1;
+    border-left: 1px solid #cfbfb1;
+    display: inline-block;
+    color: #b10000;
+    font-weight: bold;
+    width: 90px;
+    text-align: center;
+    position: relative;
+}
+
+div.productPageDiv div.productReviewDiv div.productReviewTopPart a.selected:before {
+    content: "";
+    display: block;
+    border: 1px solid #b00000;
+    height: 0;
+    position: absolute;
+    top: -2px;
+    margin-left: -1px;
+    width: 90px;
+}
+
+div.productPageDiv div.productReviewDiv div.productReviewTopPart a.selected:after {
+    content: "";
+    display: block;
+    border-color: #b10000 transparent transparent;
+    border-width: 5px;
+    border-style: solid;
+    position: absolute;
+    top: -1px;
+    left: 50%;
+    margin-left: -5px;
+    height: 0;
+    width: 0;
+}
+
+div.productPageDiv div.productReviewDiv div.productReviewTopPart a:hover {
+    text-decoration: none;
+    color: #c40000;
+}
+
+div.productPageDiv div.productReviewDiv div.productReviewContentPart {
+    padding-top: 50px;
+}
+
+div.productPageDiv div.productReviewDiv div.productReviewContentPart div.productReviewItem {
+    border-bottom: 1px solid #e3e3e3;
+    margin: 10px 0;
+}
+
+div.productPageDiv div.productReviewDiv div.productReviewContentPart div.productReviewItem
+div.productReviewItemDesc {
+    width: 80%;
+    margin: 5px 20px;
+    float: left;
+    color: #333;
+}
+
+div.productPageDiv div.productReviewDiv div.productReviewContentPart div.productReviewItem
+div.productReviewItemDesc div.productReviewItemDate {
+    margin-top: 15px;
+    color: #ccc;
+}
+
+div.productPageDiv div.productReviewDiv div.productReviewContentPart div.productReviewItem
+div.productReviewItemUserInfo {
+    margin: 5px 20px;
+    padding: 20px 0;
+    color: #404040;
+}
+
+div.productPageDiv div.productReviewDiv div.productReviewContentPart div.productReviewItem
+div.productReviewItemUserInfo span.userInfoGrayPart {
+    color: #999;
+}
