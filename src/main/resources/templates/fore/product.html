@@ -8,6 +8,7 @@
   <link rel="stylesheet" href="css/fore/public/top.css">
   <link rel="stylesheet" href="css/fore/public/simpleSearch.css">
   <link rel="stylesheet" href="css/fore/public/footer.css">
+  <link rel="stylesheet" href="css/fore/public/modal.css">
   <link rel="stylesheet" href="css/fore/product.css">
 </head>
 <body>
@@ -20,9 +21,9 @@
   <div class="productPageDiv">
     <div class="imgAndInfo">
       <div class="imgInimgAndInfo">
-        <img class="bigImg" :src="'img/productSingleImage/' + product.firstProductImage.id + '.jpg'">
+        <img class="bigImg" v-if="product.firstProductImage" :src="'img/productSingleImage/' + product.firstProductImage.id + '.jpg'">
         <div class="smallImageDiv">
-          <img class="smallImage" :src="'img/productSingleImage_small/' + singleProductImage.id + '.jpg'" :bigImageURL="'img/productSingleImage/' + singleProductImage.id + '.jpg'" v-for="singleProductImage, index in singleProductImages" v-if="index < 5" />
+          <img class="smallImage" v-for="productImage, index in singleProductImages" :src="'img/productSingleImage_small/' + productImage.id + '.jpg'" :bigImageURL="'img/productSingleImage/' + productImage.id + '.jpg'" v-if="index < 5" />
         </div>
         <div class="img4load hidden"></div>
       </div>
@@ -97,7 +98,8 @@
                 </span>
         </div>
         <div class="buyDiv">
-          <a class="buyLink" href="forebuyone?product.id=${product.id}">
+          <a class="buyLink" href="#nowhere">
+          <!--<a class="buyLink" :href="'forebuyone?pid=' + product.id">-->
             <button class="buyButton">立即购买</button>
           </a>
           <a class="addCartLink" href="#nowhere">
@@ -115,22 +117,18 @@
     <div class="productDetailTopPart">
       <a class="productDetailTopPartSelectedLink selected" href="#nowhere">商品详情</a>
       <a class="productDetailTopReviewLink" href="#nowhere">累计评价
-        <span class="productDetailTopReviewLinkNumber">${product.reviewCount}</span>
+        <span class="productDetailTopReviewLinkNumber">{{product.reviewCount}}</span>
       </a>
     </div>
     <div class="productParamterPart">
       <div class="productParamter">产品参数：</div>
       <div class="productParamterList">
-        <c:forEach items="${propertyValues}" var="pv">
-          <span>${pv.property.name}: ${fn:substring(pv.value, 0, 10)}</span>
-        </c:forEach>
+        <span v-for="propertyValue in propertyValues" v-if="propertyValue.value">{{propertyValue.property.name}}: {{propertyValue.value | subStringFilter(0, 10)}}</span>
       </div>
       <div style="clear: both"></div>
     </div>
     <div class="productDetailImagesPart">
-      <c:forEach items="${productDetailImages}" var="pi">
-        <img src="img/productDetailImage/${pi.id}.jpg">
-      </c:forEach>
+      <img :src="'img/productDetailImage/' + productImage.id + '.jpg'" v-for="productImage in detailProductImages" >
     </div>
   </div>
   <!-- AddComment -->
@@ -139,30 +137,29 @@
       <div class="productReviewTopPart">
         <a class="productReviewTopPartSelectedLink" href="#nowhere">商品详情</a>
         <a class="selected" href="#bowhere">累计评价
-          <span class="productReviewTopReviewLinkNumber">${product.reviewCount}</span>
+          <span class="productReviewTopReviewLinkNumber">{{product.reviewCount}}</span>
         </a>
       </div>
       <div class="productReviewContentPart">
-        <c:forEach items="${reviews}" var="review">
-          <div class="productReviewItem">
-            <div class="productReviewItemDesc">
-              <div class="productReviewItemContent">
-                ${review.content}
-              </div>
-              <div class="productReviewItemDate">
-                <fmt:formatDate value="${review.createDate}" pattern="yyyy-MM-dd" />
-              </div>
+        <div class="productReviewItem" v-for="review in reviews">
+          <div class="productReviewItemDesc">
+            <div class="productReviewItemContent">
+              {{review.content}}
             </div>
-            <div class="productReviewItemUserInfo">
-              ${review.user.anonymousName}<span class="userInfoGrayPart">（匿名）</span>
+            <div class="productReviewItemDate">
+              {{review.createDate | formatDateFilter("YYYY-MM-DD")}}
             </div>
-            <div style="clear: both"></div>
           </div>
-        </c:forEach>
+          <div class="productReviewItemUserInfo">
+            {{review.user.anonymousName}}<span class="userInfoGrayPart">（匿名）</span>
+          </div>
+          <div style="clear: both"></div>
+        </div>
       </div>
     </div>
   </div>
   <div th:replace="fore/_fragments :: footer"></div>
+  <div th:replace="fore/public/modal :: loginModal"></div>
 </div>
 <th:block th:replace="fore/_fragments :: js"></th:block>
 <script src="js/fore/product.js"></script>

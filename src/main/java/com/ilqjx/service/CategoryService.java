@@ -24,4 +24,6 @@ public interface CategoryService {
 
     public void removeCategoryFromProduct(List<Category> categoryList);
 
+    public void removeCategoryFromProduct(Category category);
+
 }

@@ -1,0 +1,78 @@
+div.loginDivInProductPage {
+    background-color: #fff;
+    width: 350px;
+    height: 400x;
+    padding: 60px 25px 80px 25px;
+}
+
+div.loginErrorMessageDiv {
+    width: 300px;
+    position: absolute;
+    top: 20px;
+    display: none;
+}
+
+div.loginErrorMessageDiv div.alert {
+    padding: 5px !important;
+}
+
+div.login_acount_text {
+    color: #3c3c3c;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+div.loginInput {
+    border: 1px solid #cbcbcb;
+    margin: 20px 0;
+}
+
+div.loginInput span {
+    display: inline-block;
+}
+
+div.loginInput input {
+    display: inline-block;
+    border: 0;
+    width: 244px;
+    height: 30px;
+    position: relative;
+    left: 6px;
+    top: 3px;
+    outline: none;
+}
+
+div.loginInput span.loginInputIcon {
+    margin: 0;
+    background-color: #cbcbcb;
+    width: 40px;
+    height: 40px;
+}
+
+div.loginInput span.loginInputIcon span.glyphicon {
+    position: relative;
+    left: 9px;
+    top: 9px;
+    font-size: 22px;
+    color: #606060;
+}
+
+button.redButton {
+    color: #fff;
+    background-color: #c40000;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+button.redButton:hover {
+    color: #000;
+}
+
+div.loginDivInProductPage a {
+    color: #999;
+    text-decoration: none;
+}
+
+div.loginDivInProductPage a:hover {
+    color: #c40000;
+}

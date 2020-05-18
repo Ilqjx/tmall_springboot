@@ -1,0 +1,109 @@
+div.categoryPageDiv {
+    max-width: 1013px;
+    margin: 10px auto;
+}
+
+div.categoryPageDiv div.noSuchProduct {
+    color: #888;
+    font-size: 20px;
+    text-align: center;
+    min-height: 330px;
+    min-width: 1013px;
+    padding-top: 50px;
+}
+
+div.categoryPageDiv div.categoryProducts {
+    padding: 0 20px 40px 20px;
+}
+
+div.categoryPageDiv div.categoryProducts div.productUnit {
+    width: 225px;
+    height: 338px;
+    float: left;
+    border: 3px solid #fff;
+    background-color: #fff;
+    margin: 12px 5px;
+}
+
+div.categoryPageDiv div.categoryProducts div.productUnit:hover {
+    border: 3px solid #C40000;
+}
+
+div.categoryPageDiv div.categoryProducts div.productUnit div.productUnitFrame {
+    border: 1px solid #eee;
+    height: 100%;
+}
+
+div.categoryPageDiv div.categoryProducts div.productUnit div.productUnitFrame:hover {
+    border: 1px solid #C40000;
+}
+
+div.categoryPageDiv div.categoryProducts div.productUnit div.productUnitFrame a img.productImage {
+    width: 100%;
+    height: 190px;
+}
+
+div.categoryPageDiv div.categoryProducts div.productUnit div.productUnitFrame span.productPrice {
+    font-size: 20px;
+    display: block;
+    color: #CC0000;
+    padding-left: 4px;
+}
+
+div.categoryPageDiv div.categoryProducts div.productUnit div.productUnitFrame a.productLink {
+    color: #333;
+    display: block;
+    margin: 10px 0;
+    height: 34px;
+}
+
+div.categoryPageDiv div.categoryProducts div.productUnit div.productUnitFrame a.productLink:hover {
+    color: #C40000;
+    text-decoration: underline;
+}
+
+div.categoryPageDiv div.categoryProducts div.productUnit div.productUnitFrame a.tmallLink {
+    color: #999;
+    text-decoration: underline;
+    display: block;
+    margin: 10px 0;
+}
+
+div.categoryPageDiv div.categoryProducts div.productUnit div.productUnitFrame a.tmallLink:hover {
+    color: #C40000;
+    text-decoration: underline;
+}
+
+div.categoryPageDiv div.categoryProducts div.productUnit div.productUnitFrame div.productInfo {
+    color: #999;
+    border-top: 1px solid #eee;
+}
+
+div.categoryPageDiv div.categoryProducts div.productUnit div.productUnitFrame div.productInfo span.monthDeal,
+div.categoryPageDiv div.categoryProducts div.productUnit div.productUnitFrame div.productInfo span.productReview {
+    display: inline-block;
+    width: 90px;
+    height: 29px;
+    /* padding-top: 5px; */
+    line-height: 29px;
+    padding-left: 5px;
+}
+
+div.categoryPageDiv div.categoryProducts div.productUnit div.productUnitFrame div.productInfo span.productReview {
+    border-left: 1px solid #eee;
+    border-right: 1px solid #eee;
+}
+
+div.categoryPageDiv div.categoryProducts div.productUnit div.productUnitFrame div.productInfo span.monthDeal span.productDealNumber {
+    color: #B57C5B;
+    font-weight: bold;
+}
+
+div.categoryPageDiv div.categoryProducts div.productUnit div.productUnitFrame div.productInfo span.productReview span.productReviewNumber {
+    color: #38B;
+    font-weight: bold;
+}
+
+div.categoryPageDiv div.categoryProducts div.productUnit div.productUnitFrame div.productInfo span.wangwang {
+    padding-left: 3px;
+}

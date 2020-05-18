@@ -50,7 +50,7 @@ public class OrderServiceImpl implements OrderService {
     }
 
     private void setTotalAndTotalNumber(Order order) {
-        List<OrderItem> orderItemList = orderItemRepository.findByOrder(order);
+        List<OrderItem> orderItemList = orderItemRepository.findByOrderOrderByIdDesc(order);
         productImageService.setFirstProductImageForOrderItem(orderItemList);
         float total = 0;
         int totalNumber = 0;

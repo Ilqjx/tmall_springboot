@@ -1,14 +1,11 @@
 package com.ilqjx.service.impl;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
+import com.ilqjx.comparator.*;
 import com.ilqjx.dao.OrderRepository;
 import com.ilqjx.dao.ProductRepository;
 import com.ilqjx.pojo.Category;
-import com.ilqjx.pojo.Order;
 import com.ilqjx.pojo.OrderItem;
 import com.ilqjx.pojo.Product;
 import com.ilqjx.service.OrderItemService;
@@ -64,6 +61,11 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
+    public List<Product> listProductByCategory(Category category) {
+        return productRepository.findByCategory(category);
+    }
+
+    @Override
     public Page<Product> listProductByCategory(Category category, int start, int size) {
         Sort sort = Sort.by(Sort.Direction.DESC, "id");
         Pageable pageable = PageRequest.of(start, size, sort);
@@ -86,20 +88,39 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
+    public void setSaleCountAndReviewCount(List<Product> productList) {
+        for (Product product : productList) {
+            setSaleCountAndReviewCount(product);
+        }
+    }
+
+    @Override
     public void setSaleCountAndReviewCount(Product product) {
         int saleCount = 0;
-        List<Order> orderList = orderRepository.findAll();
-        for (Order order : orderList) {
-            List<OrderItem> orderItemList = orderItemService.listOrderItemByOrder(order);
-            for (OrderItem orderItem : orderItemList) {
-                if (orderItem.getProduct().getId() == product.getId()) {
-                    saleCount += orderItem.getNumber();
-                }
+        List<OrderItem> orderItemList = orderItemService.listOrderItemByProduct(product);
+        for (OrderItem orderItem : orderItemList) {
+            if (null != orderItem.getOrder() && null != orderItem.getOrder().getPayDate()) {
+                saleCount += orderItem.getNumber();
             }
         }
         int reviewCount = reviewService.countByProduct(product);
         product.setSaleCount(saleCount);
         product.setReviewCount(reviewCount);
+    }
+
+    @Override
+    public void sortProduct(List<Product> productList, String sort) {
+        if ("all".equals(sort)) {
+            Collections.sort(productList, new ProductAllComparator());
+        } else if ("date".equals(sort)) {
+            Collections.sort(productList, new ProductDateComparator());
+        } else if ("price".equals(sort)) {
+            Collections.sort(productList, new ProductPriceComparator());
+        } else if ("review".equals(sort)) {
+            Collections.sort(productList, new ProductReviewComparator());
+        } else if ("saleCount".equals(sort)) {
+            Collections.sort(productList, new ProductSaleCountComparator());
+        }
     }
 
     private void setProductForCategory(Category category) {

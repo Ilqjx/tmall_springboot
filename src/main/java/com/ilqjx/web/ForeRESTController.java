@@ -3,18 +3,15 @@ package com.ilqjx.web;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
-import com.ilqjx.pojo.Category;
-import com.ilqjx.pojo.Product;
-import com.ilqjx.pojo.ProductImage;
-import com.ilqjx.pojo.User;
-import com.ilqjx.service.CategoryService;
-import com.ilqjx.service.ProductImageService;
-import com.ilqjx.service.ProductService;
-import com.ilqjx.service.UserService;
+import com.ilqjx.pojo.*;
+import com.ilqjx.service.*;
 import com.ilqjx.util.Result;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.HtmlUtils;
 
@@ -29,6 +26,10 @@ public class ForeRESTController {
     private UserService userService;
     @Autowired
     private ProductImageService productImageService;
+    @Autowired
+    private PropertyValueService propertyValueService;
+    @Autowired
+    private ReviewService reviewService;
 
     @GetMapping("/forehome")
     public List<Category> forehome() {
@@ -64,19 +65,56 @@ public class ForeRESTController {
     }
 
     @GetMapping("/foreproduct/{id}")
-    public Product getProduct(@PathVariable int id) {
+    public Result getProduct(@PathVariable int id) {
         Product product = productService.getProduct(id);
         productImageService.setFirstProductImage(product);
         productService.setSaleCountAndReviewCount(product);
-        return product;
+
+        List<ProductImage> singleProductImageList = productImageService.listProductImage(product, "single");
+        List<ProductImage> detailProductImageList = productImageService.listProductImage(product, "detail");
+        List<PropertyValue> propertyValueList = propertyValueService.listPropertyValueByProduct(product);
+        List<Review> reviewList = reviewService.listReviewByProduct(product);
+
+        Map<Object, Object> map = new HashMap<>();
+        map.put("product", product);
+        map.put("singleProductImages", singleProductImageList);
+        map.put("detailProductImages", detailProductImageList);
+        map.put("propertyValues", propertyValueList);
+        map.put("reviews", reviewList);
+
+        return Result.success(map);
     }
 
-    @GetMapping("/foreproductsingleimage/{pid}")
-    public List<ProductImage> listProductSingleImage(@PathVariable int pid) {
-        Product product = productService.getProduct(pid);
-        String type = "single";
-        List<ProductImage> singleProductImageList = productImageService.listProductImage(product, type);
-        return singleProductImageList;
+    @GetMapping("/forecheckLogin")
+    public Result checkLogin(HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        User user = (User) session.getAttribute("user");
+        if (null == user) {
+            return Result.fail("用户未登录");
+        } else {
+            return Result.success();
+        }
+    }
+
+    @GetMapping("/forecategory/{id}")
+    public Result getCategory(@PathVariable int id, @RequestParam(value = "sort", defaultValue = "all") String sort) {
+        Category category = categoryService.getCategory(id);
+        List<Product> productList = productService.listProductByCategory(category);
+        productImageService.setFirstProductImageForProduct(productList);
+        productService.setSaleCountAndReviewCount(productList);
+        productService.sortProduct(productList, sort);
+        category.setProductList(productList);
+        categoryService.removeCategoryFromProduct(category);
+
+        Map<Object, Object> map = new HashMap<>();
+        map.put("category", category);
+        map.put("sort", sort);
+
+        return Result.success(map);
+    }
+
+    public void test() {
+        Sort sort = Sort.by(Sort.Direction.DESC, "review", "saleCount");
     }
 
 }

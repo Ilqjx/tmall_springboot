@@ -16,6 +16,7 @@ public class User {
     private String name;
     private String password;
     private String salt;
+
     @Transient
     private String anonymousName;
 

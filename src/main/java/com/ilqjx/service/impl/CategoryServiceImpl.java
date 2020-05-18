@@ -89,6 +89,7 @@ public class CategoryServiceImpl implements CategoryService {
         }
     }
 
+    @Override
     public void removeCategoryFromProduct(Category category) {
         List<Product> productList = category.getProductList();
         if (null != productList) {

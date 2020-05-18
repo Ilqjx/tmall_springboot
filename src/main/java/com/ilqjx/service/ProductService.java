@@ -16,12 +16,18 @@ public interface ProductService {
 
     public Product updateProduct(Product product);
 
+    public List<Product> listProductByCategory(Category category);
+
     public Page<Product> listProductByCategory(Category category, int start, int size);
 
     public void setProductForCategory(List<Category> categoryList);
 
     public void setProductByRowForCategory(List<Category> categoryList);
 
+    public void setSaleCountAndReviewCount(List<Product> productList);
+
     public void setSaleCountAndReviewCount(Product product);
+
+    public void sortProduct(List<Product> productList, String sort);
 
 }

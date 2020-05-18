@@ -1,0 +1,59 @@
+<!doctype html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <title>模仿天猫官网</title>
+  <link rel="stylesheet" href="css/bootstrap/3.3.6/bootstrap.min.css">
+  <link rel="stylesheet" href="css/fore/public/top.css">
+  <link rel="stylesheet" href="css/fore/public/search.css">
+  <link rel="stylesheet" href="css/fore/public/footer.css">
+  <link rel="stylesheet" href="css/fore/searchResult.css">
+</head>
+<body>
+<div id="workingArea">
+  <nav th:replace="fore/_fragments :: top"></nav>
+  <div th:replace="fore/public/search :: search"></div>
+  <div class="categoryPageDiv">
+    <c:if test="${empty products}">
+      <div class="noSuchProduct">
+        没有满足条件的商品
+      </div>
+    </c:if>
+    <c:if test="${!empty products}">
+      <div class="categoryProducts">
+        <c:forEach items="${products}" var="p">
+          <div class="productUnit" price="${p.promotePrice}">
+            <div class="productUnitFrame">
+              <a href="foreproduct?product.id=${p.id}">
+                <img class="productImage" src="img/productSingleImage_middle/${p.firstProductImage.id}.jpg">
+              </a>
+              <span class="productPrice">
+							¥<fmt:formatNumber value="${p.promotePrice}" minFractionDigits="2" />
+						</span>
+              <a href="foreproduct?product.id=${p.id}" class="productLink">
+                ${fn:substring(p.name, 0, 50)}
+              </a>
+              <a href="foreproduct?product.id=${p.id}" class="tmallLink">天猫专卖</a>
+              <div class="show1 productInfo">
+                <span class="monthDeal">月成交 <span class="productDealNumber">${p.saleCount}笔</span></span>
+                <span class="productReview">评价<span class="productReviewNumber">${p.reviewCount}</span></span>
+                <span class="wangwang">
+		                     <a href="#nowhere" class="wangwanglink">
+		                         <img src="img/site/wangwang.png">
+		                     </a>
+		                 </span>
+              </div>
+            </div>
+          </div>
+        </c:forEach>
+        <div style="clear: both;"></div>
+      </div>
+    </c:if>
+  </div>
+</div>
+
+<div th:replace="fore/_fragments :: footer"></div>
+<th:block th:replace="fore/_fragments :: js"></th:block>
+</body>
+</html>

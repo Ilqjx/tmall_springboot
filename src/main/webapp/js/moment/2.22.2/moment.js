@@ -2681,7 +2681,7 @@
         return res;
     }
 
-    // TODO: Use [].sort instead?
+    // TODO: Use [].comparator instead?
     function min () {
         var args = [].slice.call(arguments, 0);
 

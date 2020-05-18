@@ -1,0 +1,88 @@
+<!doctype html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <title>模仿天猫官网-分类</title>
+  <link rel="stylesheet" href="css/bootstrap/3.3.6/bootstrap.min.css">
+  <link rel="stylesheet" href="css/fore/public/top.css">
+  <link rel="stylesheet" href="css/fore/public/footer.css">
+  <link rel="stylesheet" href="css/fore/public/search.css">
+  <link rel="stylesheet" href="css/fore/category.css">
+</head>
+<body>
+<div id="workingArea">
+  <nav th:replace="fore/_fragments :: top"></nav>
+  <div th:replace="fore/public/search :: search"></div>
+  <div class="categoryPageDiv">
+    <img :src="'img/category/' + category.id + '.jpg'">
+    <div class="categorySortBar">
+      <table class="categorySortBarTable categorySortTable">
+      <tbody>
+      <tr>
+        <td :class="{grayColumn: sort=='all'}">
+          <a href="#nowhere" @click="getCategory('all')">综合<span class="glyphicon glyphicon-arrow-down"></span></a>
+        </td>
+        <td :class="{grayColumn: sort=='review'}">
+          <a href="#nowhere" @click="getCategory('review')">人气<span class="glyphicon glyphicon-arrow-down"></span></a>
+        </td>
+        <td :class="{grayColumn: sort=='date'}">
+          <a href="#nowhere" @click="getCategory('date')">新品<span class="glyphicon glyphicon-arrow-down"></span></a>
+        </td>
+        <td :class="{grayColumn: sort=='saleCount'}">
+          <a href="#nowhere" @click="getCategory('saleCount')">销量<span class="glyphicon glyphicon-arrow-down"></span></a>
+        </td>
+        <td :class="{grayColumn: sort=='price'}">
+          <a href="#nowhere" @click="getCategory('price')">价格<span class="glyphicon glyphicon-arrow-down"></span></a>
+        </td>
+      </tr>
+      </tbody>
+      </table>
+      <table class="categorySortBarTable">
+      <tbody>
+      <tr>
+        <td>
+          <input class="sortBarPrice beginPrice" type="text" placeholder="请输入" />
+        </td>
+        <td class="grayColumn priceMiddleColumn">-</td>
+        <td>
+          <input class="sortBarPrice endPrice" type="text" placeholder="请输入" />
+        </td>
+      </tr>
+      </tbody>
+      </table>
+    </div>
+    <div class="categoryProducts">
+      <div class="productUnit" :price="product.promotePrice" v-for="product in category.productList">
+        <div class="productUnitFrame">
+          <a :href="'product?pid=' + product.id">
+            <img class="productImage" :src="'img/productSingleImage_middle/' + product.firstProductImage.id + '.jpg'">
+          </a>
+          <span class="productPrice">
+            ￥{{product.promotePrice | formatMoneyFilter}}
+          </span>
+          <a :href="'product?pid=' + product.id" class="productLink">
+            {{product.name | subStringFilter(0, 50)}}
+          </a>
+          <a :href="'product?pid=' + product.id" class="tmallLink">天猫专卖</a>
+          <div class="show1 productInfo">
+            <span class="monthDeal">月成交 <span class="productDealNumber">{{product.saleCount}}笔</span></span>
+            <span class="productReview">评价<span class="productReviewNumber">{{product.reviewCount}}</span></span>
+            <span class="wangwang">
+              <a href="#nowhere" class="wangwanglink">
+                <img src="img/site/wangwang.png">
+              </a>
+            </span>
+          </div>
+        </div>
+      </div>
+      <div style="clear: both;"></div>
+    </div>
+  </div>
+</div>
+
+<div th:replace="fore/_fragments :: footer"></div>
+<th:block th:replace="fore/_fragments :: js"></th:block>
+<script src="js/fore/category.js"></script>
+</body>
+</html>

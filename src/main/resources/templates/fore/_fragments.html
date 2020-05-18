@@ -131,6 +131,7 @@
 <script src="js/vue/2.5.16/vue.min.js"></script>
 <script>
     function formatMoney(num) {
+        num = new String(num);
         num = num.toString().replace(/\$|\,/g, '');
         if (isNaN(num)) {
             num = "0";

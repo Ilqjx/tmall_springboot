@@ -1,22 +1,12 @@
 $(function () {
-    $("div.productReviewDiv").hide();
-
-    // $("a.productDetailTopReviewLink").click(function() {
-    //     console.log("------------------------");
-    //     $("div.productDetailDiv").hide();
-    //     $("div.productReviewDiv").show();
-    // })
-    //
-    // $("a.productReviewTopPartSelectedLink").click(function() {
-    //     console.log("*******************************");
-    //     $("div.productDetailDiv").show();
-    //     $("div.productReviewDiv").hide();
-    // })
-
     var data = {
         uri: "foreproduct",
-        product: {},
-        singleProductImages: []
+        product: {id: 0, category: {}, firstProductImage: {}},
+        singleProductImages: [],
+        detailProductImages: [],
+        propertyValues: [],
+        reviews: [],
+        user: {name: "", password: ""}
     };
 
     var vm = new Vue({
@@ -25,25 +15,43 @@ $(function () {
         mounted: function () {
             var pid = getUrlParams("pid");
             this.getProduct(pid);
-            this.listProductSingleImage(pid);
+            linkDefaultActions();
+            loginAction();
         },
         methods: {
             getProduct: function (id) {
                 var url = this.uri + "/" + id;
                 axios.get(url).then(function (response) {
-                    vm.product = response.data;
+                    vm.product = response.data.data.product;
+                    vm.singleProductImages = response.data.data.singleProductImages;
+                    vm.detailProductImages = response.data.data.detailProductImages;
+                    vm.propertyValues = response.data.data.propertyValues;
+                    vm.reviews = response.data.data.reviews;
+
                     vm.$nextTick(function () {
                         productAction(vm);
                     });
                 });
             },
-            listProductSingleImage: function (pid) {
-                var url = "foreproductsingleimage/" + pid;
-                axios.get(url).then(function (response) {
-                    vm.singleProductImages = response.data;
-                    vm.$nextTick(function () {
-                        productImageAction();
-                    })
+            login: function () {
+                if (checkEmpty("modalName")) {
+                    $("div.loginErrorMessageDiv").show();
+                    $("span.errorMessage").html("用户名不能为空");
+                    return;
+                }
+                if (checkEmpty("modalPassword")) {
+                    $("div.loginErrorMessageDiv").show();
+                    $("span.errorMessage").html("密码不能为空");
+                    return;
+                }
+                var url = "forelogin";
+                axios.post(url, this.user).then(function (response) {
+                    if (response.data.code == 1) {
+                        location.reload();
+                    } else {
+                        $("div.loginErrorMessageDiv").show();
+                        $("span.errorMessage").html(response.data.message);
+                    }
                 });
             },
             subTitleSplit: function (value) {
@@ -57,12 +65,12 @@ $(function () {
     });
 });
 
-function productImageAction() {
+function productAction(vm) {
     var initBigImg = false;
     $("img.smallImage").mouseenter(function () {
         var bigImageURL = $(this).attr("bigImageURL");
         $("img.bigImg").attr("src", bigImageURL);
-    })
+    });
 
     // 预加载 大图片加载后调用这个函数
     $("img.bigImg").on(function () {
@@ -79,10 +87,8 @@ function productImageAction() {
             })
         })
         initBigImg = true;
-    })
-}
+    });
 
-function productAction(vm) {
     var stock = vm.product.stock;
     $("input.productNumberSetting").keyup(function () {
         var num = $(this).val();
@@ -98,7 +104,7 @@ function productAction(vm) {
             num = stock;
         }
         $(this).val(num);
-    })
+    });
 
     $("a.increaseNumber").on("click", function () {
         var num = $("input.productNumberSetting").val();
@@ -112,7 +118,7 @@ function productAction(vm) {
             num = stock;
         }
         $("input.productNumberSetting").val(num);
-    })
+    });
 
     $("a.decreaseNumber").on("click", function () {
         var num = $("input.productNumberSetting").val();
@@ -126,5 +132,47 @@ function productAction(vm) {
             num = 1;
         }
         $("input.productNumberSetting").val(num);
+    });
+
+    $("div.productReviewDiv").hide();
+
+    $("a.productDetailTopReviewLink").click(function() {
+        $("div.productDetailDiv").hide();
+        $("div.productReviewDiv").show();
+    });
+
+    $("a.productReviewTopPartSelectedLink").click(function() {
+        $("div.productDetailDiv").show();
+        $("div.productReviewDiv").hide();
+    });
+
+    $("button.addCartButton").click(function () {
+        var url = "forecheckLogin";
+        axios.get(url).then(function (response) {
+            if (response.data.code == 0) {
+                console.log("fail");
+                $("div#loginModal").modal('show');
+            } else {
+                console.log("success");
+            }
+        });
+    });
+
+    $("button.buyButton").click(function () {
+        var url = "forecheckLogin";
+        axios.get(url).then(function (response) {
+            if (response.data.code == 0) {
+                console.log("buy fail");
+                $("div#loginModal").modal('show');
+            } else {
+                console.log("buy success");
+            }
+        });
+    })
+}
+
+function loginAction() {
+    $("div.loginInput input").keyup(function () {
+        $("div.loginErrorMessageDiv").hide();
     })
 }
