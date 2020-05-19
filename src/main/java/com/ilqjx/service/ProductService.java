@@ -30,4 +30,6 @@ public interface ProductService {
 
     public void sortProduct(List<Product> productList, String sort);
 
+    public List<Product> searchProduct(String keyword);
+
 }

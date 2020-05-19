@@ -123,6 +123,12 @@ public class ProductServiceImpl implements ProductService {
         }
     }
 
+    @Override
+    public List<Product> searchProduct(String keyword) {
+        List<Product> productList = productRepository.findByKeyword(keyword);
+        return productList;
+    }
+
     private void setProductForCategory(Category category) {
         List<Product> productList = productRepository.findByCategoryOrderByIdDesc(category);
         productImageService.setFirstProductImageForProduct(productList);

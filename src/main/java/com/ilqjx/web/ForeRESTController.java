@@ -11,7 +11,6 @@ import com.ilqjx.pojo.*;
 import com.ilqjx.service.*;
 import com.ilqjx.util.Result;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Sort;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.HtmlUtils;
 
@@ -113,8 +112,16 @@ public class ForeRESTController {
         return Result.success(map);
     }
 
-    public void test() {
-        Sort sort = Sort.by(Sort.Direction.DESC, "review", "saleCount");
+    @PostMapping("/foresearch")
+    public Result search(@RequestParam String keyword) {
+        if (keyword == null) {
+            keyword = "";
+        }
+        keyword = "%" + keyword + "%";
+        List<Product> productList = productService.searchProduct(keyword);
+        productService.setSaleCountAndReviewCount(productList);
+        productImageService.setFirstProductImageForProduct(productList);
+        return Result.success(productList);
     }
 
 }

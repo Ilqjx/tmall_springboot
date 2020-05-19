@@ -5,8 +5,10 @@
   <a href="${contextPath}">
     <img id="logo" src="img/site/logo.gif">
   </a>
-  <input id="keyword" type="text" placeholder="华为Mate40 苹果A12" />
-  <button class="searchButton">搜索</button>
+  <form action="search" method="get">
+    <input id="keyword" type="text" name="keyword" placeholder="华为Mate40 苹果A12" />
+    <button class="searchButton">搜索</button>
+  </form>
   <div class="searchBelow">
     <!--<span v-for="category, index in categorys" v-if="index >= 5 && index <= 8">-->
     <!--  <a href="forecategory?category.id=${c.id}">{{category.name}}</a>-->
@@ -16,16 +18,4 @@
 </div>
 <div style="clear: both;"></div>
 </body>
-<script>
-function search() {
-    $("button.searchButton").click(function () {
-        if (checkEmpty("keyword")) {
-            return;
-        }
-        var keyword = $("input#keyword").val();
-        console.log("keyword: " + keyword);
-        location.href = "search?keyword=" + keyword;
-    });
-}
-</script>
 </html>

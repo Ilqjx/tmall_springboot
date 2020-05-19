@@ -15,45 +15,40 @@
   <nav th:replace="fore/_fragments :: top"></nav>
   <div th:replace="fore/public/search :: search"></div>
   <div class="categoryPageDiv">
-    <c:if test="${empty products}">
-      <div class="noSuchProduct">
-        没有满足条件的商品
-      </div>
-    </c:if>
-    <c:if test="${!empty products}">
-      <div class="categoryProducts">
-        <c:forEach items="${products}" var="p">
-          <div class="productUnit" price="${p.promotePrice}">
-            <div class="productUnitFrame">
-              <a href="foreproduct?product.id=${p.id}">
-                <img class="productImage" src="img/productSingleImage_middle/${p.firstProductImage.id}.jpg">
+    <div class="nosuchproduct" v-if="products.length == 0">
+      没有满足条件的商品
+    </div>
+    <div class="categoryProducts" v-if="products.length != 0">
+      <div class="productUnit" :price="product.promotePrice" v-for="product in products">
+        <div class="productUnitFrame">
+          <a :href="'product?pid=' + product.id">
+            <img class="productImage" :src="'img/productSingleImage_middle/' + product.firstProductImage.id + '.jpg'">
+          </a>
+          <span class="productPrice">
+            ￥{{product.promotePrice | formatMoneyFilter}}
+          </span>
+          <a :href="'product?pid=' + product.id" class="productLink">
+            {{product.name | subStringFilter(0, 50)}}
+          </a>
+          <a :href="'product?pid=' + product.id" class="tmallLink">天猫专卖</a>
+          <div class="show1 productInfo">
+            <span class="monthDeal">月成交 <span class="productDealNumber">{{product.saleCount}}笔</span></span>
+            <span class="productReview">评价<span class="productReviewNumber">{{product.reviewCount}}</span></span>
+            <span class="wangwang">
+              <a href="#nowhere" class="wangwanglink">
+                <img src="img/site/wangwang.png">
               </a>
-              <span class="productPrice">
-							¥<fmt:formatNumber value="${p.promotePrice}" minFractionDigits="2" />
-						</span>
-              <a href="foreproduct?product.id=${p.id}" class="productLink">
-                ${fn:substring(p.name, 0, 50)}
-              </a>
-              <a href="foreproduct?product.id=${p.id}" class="tmallLink">天猫专卖</a>
-              <div class="show1 productInfo">
-                <span class="monthDeal">月成交 <span class="productDealNumber">${p.saleCount}笔</span></span>
-                <span class="productReview">评价<span class="productReviewNumber">${p.reviewCount}</span></span>
-                <span class="wangwang">
-		                     <a href="#nowhere" class="wangwanglink">
-		                         <img src="img/site/wangwang.png">
-		                     </a>
-		                 </span>
-              </div>
-            </div>
+             </span>
           </div>
-        </c:forEach>
-        <div style="clear: both;"></div>
+        </div>
       </div>
-    </c:if>
+      <div style="clear: both;"></div>
+    </div>
   </div>
 </div>
 
 <div th:replace="fore/_fragments :: footer"></div>
 <th:block th:replace="fore/_fragments :: js"></th:block>
+<script src="js/fore/searchResult.js"></script>
 </body>
 </html>
