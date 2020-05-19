@@ -6,7 +6,8 @@ $(function () {
         detailProductImages: [],
         propertyValues: [],
         reviews: [],
-        user: {name: "", password: ""}
+        user: {name: "", password: ""},
+        orderItem: {product: {}, number: 1}
     };
 
     var vm = new Vue({
@@ -162,10 +163,15 @@ function productAction(vm) {
         var url = "forecheckLogin";
         axios.get(url).then(function (response) {
             if (response.data.code == 0) {
-                console.log("buy fail");
                 $("div#loginModal").modal('show');
             } else {
-                console.log("buy success");
+                var number = $("input#productNumber").val();
+                vm.orderItem.product = vm.product;
+                vm.orderItem.number = number;
+                var url = "forebuyone";
+                axios.post(url, vm.orderItem).then(function (response) {
+                    location.href = "buy?oiid=" + response.data.data.id;
+                });
             }
         });
     })

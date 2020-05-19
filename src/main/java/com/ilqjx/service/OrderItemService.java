@@ -8,6 +8,8 @@ import com.ilqjx.pojo.Product;
 
 public interface OrderItemService {
 
+    public OrderItem saveOrderItem(OrderItem orderItem);
+
     public List<OrderItem> listOrderItemByOrder(Order order);
 
     public List<OrderItem> listOrderItemByProduct(Product product);

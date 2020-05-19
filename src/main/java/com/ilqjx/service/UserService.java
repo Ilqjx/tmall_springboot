@@ -9,6 +9,8 @@ public interface UserService {
 
     public User getUser(User user);
 
+    public User getUser(int id);
+
     public User getUserByName(String name);
 
     public Page<User> listUser(int start, int size);

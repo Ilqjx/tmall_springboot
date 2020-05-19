@@ -29,6 +29,8 @@ public class ForeRESTController {
     private PropertyValueService propertyValueService;
     @Autowired
     private ReviewService reviewService;
+    @Autowired
+    private OrderItemService orderItemService;
 
     @GetMapping("/forehome")
     public List<Category> forehome() {
@@ -54,11 +56,12 @@ public class ForeRESTController {
     public Result login(@RequestBody User user, HttpServletRequest request) {
         String name = HtmlUtils.htmlEscape(user.getName());
         user.setName(name);
-        if (null == userService.getUser(user)) {
+        User u = userService.getUser(user);
+        if (null == u) {
             return Result.fail("账号密码错误");
         } else {
             HttpSession session = request.getSession();
-            session.setAttribute("user", user);
+            session.setAttribute("user", u);
             return Result.success();
         }
     }
@@ -122,6 +125,21 @@ public class ForeRESTController {
         productService.setSaleCountAndReviewCount(productList);
         productImageService.setFirstProductImageForProduct(productList);
         return Result.success(productList);
+    }
+
+    @PostMapping("/forebuyone")
+    public Result buyone(@RequestBody OrderItem orderItem, HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        User user = (User) session.getAttribute("user");
+        orderItem.setUser(user);
+        OrderItem oi = orderItemService.saveOrderItem(orderItem);
+        return Result.success(oi);
+    }
+
+    @GetMapping("/foreorderitem")
+    public Result listOrderItem(@RequestParam int[] oiids) {
+        System.out.println("oiids: " + oiids.toString());
+        return null;
     }
 
 }

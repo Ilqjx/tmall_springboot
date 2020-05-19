@@ -1,5 +1,7 @@
 package com.ilqjx.service.impl;
 
+import java.util.Optional;
+
 import com.ilqjx.dao.UserRepository;
 import com.ilqjx.pojo.User;
 import com.ilqjx.service.UserService;
@@ -24,6 +26,17 @@ public class UserServiceImpl implements UserService {
     @Override
     public User getUser(User user) {
         return userRepository.getUserByNameAndPassword(user.getName(), user.getPassword());
+    }
+
+    @Override
+    public User getUser(int id) {
+        Optional<User> userOptional = userRepository.findById(id);
+        try {
+            userOptional.get();
+        } catch (Exception e) {
+            return null;
+        }
+        return userOptional.get();
     }
 
     @Override
