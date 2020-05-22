@@ -2,6 +2,7 @@ package com.ilqjx.service.impl;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 import com.ilqjx.dao.OrderItemRepository;
 import com.ilqjx.dao.OrderRepository;
@@ -25,6 +26,27 @@ public class OrderServiceImpl implements OrderService {
     private OrderItemRepository orderItemRepository;
     @Autowired
     private ProductImageService productImageService;
+
+    @Override
+    public Order saveOrder(Order order) {
+        return orderRepository.save(order);
+    }
+
+    @Override
+    public Order getOrder(int id) {
+        Optional<Order> orderOptional = orderRepository.findById(id);
+        try {
+            orderOptional.get();
+        } catch (Exception e) {
+            return null;
+        }
+        return orderOptional.get();
+    }
+
+    @Override
+    public Order updateOrderForFore(Order order) {
+        return orderRepository.save(order);
+    }
 
     @Override
     public Page<Order> listOrder(int start, int size) {

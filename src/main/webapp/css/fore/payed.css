@@ -1,0 +1,70 @@
+div.payedDiv {
+    max-width: 1013px;
+    margin: 10px auto 20px auto;
+    border: 1px solid #d4d4d4;
+}
+
+div.payedDiv div.payedTextDiv {
+    height: 61px;
+    padding: 17px 0 0 25px;
+    background-color: #ecffdc;
+}
+
+div.payedDiv div.payedTextDiv span {
+    font-size: 14px;
+    font-weight: bold;
+    margin-left: 10px;
+}
+
+div.payedDiv div.payedAddressInfo {
+    padding: 26px 35px;
+}
+
+div.payedDiv div.payedAddressInfo li {
+    background-image: url("../../../img/site/li_dot.png");
+    background-color: transparent;
+    background-attachment: scroll;
+    background-repeat: no-repeat;
+    background-position: 0 13px;
+    color: #333;
+    list-style-type: none; /* 去掉原样式 */
+    padding-left: 15px;
+    padding-top: 5px;
+}
+
+div.payedDiv div.payedAddressInfo span.payedInfoPrice {
+    font-size: 14px;
+    font-weight: bold;
+    color: #b10000;
+}
+
+div.payedDiv div.payedAddressInfo div.paydCheckLinkDiv {
+    margin-left: 38px;
+}
+
+div.payedDiv div.payedAddressInfo div.paydCheckLinkDiv a.payedCheckLink {
+    color: #2d8cba;
+}
+
+div.payedDiv div.payedAddressInfo div.paydCheckLinkDiv a.payedCheckLink:hover {
+    color: #2d8cba;
+    text-decoration: underline;
+}
+
+div.payedDiv div.payedSeperateLine {
+    border-top: 1px dotted #d4d4d4;
+    margin: 0 31px;
+}
+
+div.payedDiv div.warningDiv {
+    margin: 23px 45px;
+    color: #000;
+}
+
+div.payedDiv div.warningDiv span.redColor {
+    color: #c40000;
+}
+
+div.payedDiv div.warningDiv span.boldWord {
+    font-weight: bold;
+}

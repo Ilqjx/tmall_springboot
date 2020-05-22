@@ -1,0 +1,38 @@
+<!doctype html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <title>模仿天猫官网-支付页面</title>
+  <link rel="stylesheet" href="css/bootstrap/3.3.6/bootstrap.min.css">
+  <link rel="stylesheet" href="css/fore/public/top.css">
+  <link rel="stylesheet" href="css/fore/public/footer.css">
+  <link rel="stylesheet" href="css/fore/alipay.css">
+</head>
+<body>
+<div id="workingArea">
+  <nav th:replace="fore/_fragments :: top"></nav>
+  <div class="aliPayPageDiv">
+    <div class="aliPayPageLogo">
+      <img class="pull-left" src="img/site/simpleLogo.png">
+      <div style="clear: both"></div>
+    </div>
+    <div>
+      <span class="confirmMoneyText">扫一扫付款（元）</span>
+      <span class="confirmMoney">
+        {{total | formatMoneyFilter}}
+      </span>
+    </div>
+    <div>
+      <img class="aliPayImg" src="img/site/alipay2wei.png">
+    </div>
+    <div>
+      <button class="confirmPay" @click="confirmPay">确认支付</button>
+    </div>
+  </div>
+</div>
+<div th:replace="fore/_fragments :: footer"></div>
+<th:block th:replace="fore/_fragments :: js"></th:block>
+<script src="js/fore/alipay.js"></script>
+</body>
+</html>

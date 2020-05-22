@@ -1,0 +1,46 @@
+<!doctype html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <title>模仿天猫官网-付款成功</title>
+  <link rel="stylesheet" href="css/bootstrap/3.3.6/bootstrap.min.css">
+  <link rel="stylesheet" href="css/fore/public/top.css">
+  <link rel="stylesheet" href="css/fore/public/simpleSearch.css">
+  <link rel="stylesheet" href="css/fore/public/footer.css">
+  <link rel="stylesheet" href="css/fore/payed.css">
+</head>
+<body>
+<div id="workingArea">
+  <nav th:replace="fore/_fragments :: top"></nav>
+  <div th:replace="fore/public/simpleSearch :: simpleSearch"></div>
+  <div class="payedDiv">
+    <div class="payedTextDiv">
+      <img src="img/site/paySuccess.png">
+      <span>您已成功付款</span>
+    </div>
+    <div class="payedAddressInfo">
+      <ul>
+        <li>收货地址：{{order.address}} {{order.receiver}} {{order.mobile}}</li>
+        <li>实付款： <span class="payedInfoPrice">￥{{total | formatMoneyFilter}}</span></li>
+        <li>预计08月08日送达</li>
+      </ul>
+      <div class="paydCheckLinkDiv">
+        您可以
+        <a class="payedCheckLink" href="forebought">查看已买到的宝贝</a>
+        <a class="payedCheckLink" href="forebought">查看交易详情</a>
+      </div>
+    </div>
+    <div class="payedSeperateLine"></div>
+    <div class="warningDiv">
+      <img src="img/site/warning.png">
+      <b>安全提醒：</b>下单后，<span class="redColor boldWord">用QQ给您发送链接办理退款的都是骗子！</span>天猫不存在系统升级，订单异常等问题，谨防假冒客服电话诈骗！
+    </div>
+  </div>
+  <div style="height: 50px;"></div>
+</div>
+<div th:replace="fore/_fragments :: footer"></div>
+<th:block th:replace="fore/_fragments :: js"></th:block>
+<script src="js/fore/payed.js"></script>
+</body>
+</html>

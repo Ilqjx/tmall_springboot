@@ -12,8 +12,14 @@ public interface OrderService {
     public static final String finish = "finish";
     public static final String delete = "delete";
 
-    public Page<Order> listOrder(int start, int size);
+    public Order saveOrder(Order order);
+
+    public Order getOrder(int id);
+
+    public Order updateOrderForFore(Order order);
 
     public Order updateOrder(Order order);
+
+    public Page<Order> listOrder(int start, int size);
 
 }

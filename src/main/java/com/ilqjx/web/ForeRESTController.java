@@ -3,9 +3,7 @@ package com.ilqjx.web;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import com.ilqjx.pojo.*;
 import com.ilqjx.service.*;
@@ -31,6 +29,8 @@ public class ForeRESTController {
     private ReviewService reviewService;
     @Autowired
     private OrderItemService orderItemService;
+    @Autowired
+    private OrderService orderService;
 
     @GetMapping("/forehome")
     public List<Category> forehome() {
@@ -136,10 +136,67 @@ public class ForeRESTController {
         return Result.success(oi);
     }
 
-    @GetMapping("/foreorderitem")
-    public Result listOrderItem(@RequestParam int[] oiids) {
-        System.out.println("oiids: " + oiids.toString());
-        return null;
+    @GetMapping("/forebuy")
+    public Result listOrderItem(String[] oiid) {
+        List<OrderItem> orderItemList = new ArrayList<>();
+        double total = 0;
+        for (String i : oiid) {
+            int id = Integer.parseInt(i);
+            OrderItem orderItem = orderItemService.getOrderItem(id);
+            total += orderItem.getProduct().getPromotePrice() * orderItem.getNumber();
+            orderItemList.add(orderItem);
+        }
+        productImageService.setFirstProductImageForOrderItem(orderItemList);
+
+        Map<Object, Object> map = new HashMap<>();
+        map.put("orderItems", orderItemList);
+        map.put("total", total);
+
+        return Result.success(map);
+    }
+
+    @PostMapping("/foreorder")
+    public Result addOrder(@RequestBody Order order, String[] oiid, HttpServletRequest request) {
+        long time = System.currentTimeMillis();
+        double randomDigit = Math.ceil(Math.random() * 9000) + 1000;
+        long lastSuffix = new Double(randomDigit).longValue();
+        String orderCode = "" + time + lastSuffix;
+        String status = "waitPay";
+        Date createDate = new Date();
+
+        HttpSession session = request.getSession();
+        User user = (User) session.getAttribute("user");
+
+        order.setOrderCode(orderCode);
+        order.setStatus(status);
+        order.setCreateDate(createDate);
+        order.setUser(user);
+
+        Order returnOrder = orderService.saveOrder(order);
+
+        for (String i : oiid) {
+            int id = Integer.parseInt(i);
+            OrderItem orderItem = orderItemService.getOrderItem(id);
+            orderItem.setOrder(order);
+            orderItemService.updateOrderItem(orderItem);
+        }
+
+        return Result.success(returnOrder);
+    }
+
+    @GetMapping("/forepayed/{oid}")
+    public Result payed(@PathVariable int oid) {
+        Order order = orderService.getOrder(oid);
+        order.setStatus("waitDelivery");
+        order.setPayDate(new Date());
+        orderService.updateOrderForFore(order);
+        return Result.success();
+    }
+
+    @GetMapping("/foregetorder/{id}")
+    public Result getOrder(@PathVariable int id) {
+        Order order = orderService.getOrder(id);
+        return Result.success(order);
     }
 
 }
