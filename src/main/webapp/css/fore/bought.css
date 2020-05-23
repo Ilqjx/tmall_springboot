@@ -1,0 +1,226 @@
+div.emptyOrder {
+    text-align: center;
+    font-size: 22px;
+    margin: 100px 0;
+}
+
+div.boughtDiv {
+    max-width: 1013px;
+    margin: 10px auto;
+}
+
+div.boughtDiv div.orderType div {
+    float: left;
+    border-bottom: 2px solid #e8e8e8;
+}
+
+div.boughtDiv div.orderType div a {
+    display: inline-block;
+    padding: 0 20px;
+    color: #000;
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: bold;
+    border-right: 1px solid #e8e8e8;
+    margin-bottom: 10px;
+}
+
+div.boughtDiv div.orderType div a:hover {
+    color: #c40000;
+    text-decoration: none;
+}
+
+div.boughtDiv div.orderType div.selectedOrderType {
+    border-bottom: 2px solid #c40000;
+}
+
+div.boughtDiv div.orderType div.selectedOrderType a {
+    color: #c40000;
+}
+
+div.boughtDiv div.orderType div a.noRightborder {
+    border-right-width: 0 !important;
+}
+
+div.boughtDiv div.orderType div.orderTypeLastOne {
+    /* 隐藏滚动条 */
+    overflow: hidden;
+    float: none !important;
+    height: 34.5px;
+    border-bottom: 2px solid #e8e8e8;
+}
+
+div.boughtDiv div.orderListTitle table.orderListTitleTable {
+    width: 100%;
+    border: 1px solid #e8e8e8;
+    background-color: #f5f5f5;
+    text-align: center;
+    margin: 20px 0;
+}
+
+div.boughtDiv div.orderListTitle table.orderListTitleTable tr td {
+    padding: 12px 0;
+}
+
+/* productList */
+
+div.boughtDiv {
+    max-width: 1013px;
+    margin: 10px auto;
+}
+
+div.boughtDiv div.orderListItem table.orderListItemTable {
+    margin: 20px 0;
+    width: 100%;
+    border: 2px solid #ececec;
+}
+
+div.boughtDiv div.orderListItem table.orderListItemTable:hover {
+    border: 2px solid #aaa !important;
+}
+
+div.boughtDiv div.orderListItem table.orderListItemTable tr.orderListItemFirstTR {
+    background-color: #f1f1f1;
+}
+
+div.boughtDiv div.orderListItem table.orderListItemTable tr.orderListItemFirstTR td
+a.wangwanglink div.orderItemWangWangGif {
+    background-image: url("../../img/site/wangwang.gif");
+    background-attachment: scroll; /* 背景图像会随着页面其余部分的滚动而移动 */
+    background-repeat: no-repeat; /* 不重复 */
+    background-position: 0 0;
+    background-color: transparent;
+    display: inline-block;
+    width: 67px;
+    height: 22px;
+    position: relative;
+    top: 0;
+    left: 2px;
+}
+
+div.boughtDiv div.orderListItem table.orderListItemTable tr td {
+    padding: 8px 10px;
+}
+
+div.boughtDiv div.orderListItem table.orderListItemTable tr.orderListItemFirstTR
+td.orderItemDeleteTD {
+    text-align: right;
+}
+
+div.boughtDiv div.orderListItem table.orderListItemTable tr.orderListItemFirstTR
+td.orderItemDeleteTD a.deleteOrderLink span.orderListItemDelete {
+    display: inline-block;
+    font-size: 16px;
+    color: #999;
+    margin: 0 10px;
+}
+
+div.boughtDiv div.orderListItem table.orderListItemTable tr.orderItemProductInfoPartTR
+td.orderItemProductInfoPartTD {
+    border-bottom: 1px solid #ececec;
+}
+
+div.boughtDiv div.orderListItem table.orderListItemTable tr.orderItemProductInfoPartTR
+div.orderListItemProductLinkOutDiv {
+    position: relative;
+    height: 80px;
+}
+
+div.boughtDiv div.orderListItem table.orderListItemTable tr.orderItemProductInfoPartTR
+div.orderListItemProductLinkOutDiv div.orderListItemProductLinkInnerDiv {
+    position: absolute;
+    bottom: 0;
+}
+
+div.boughtDiv div.orderListItem table.orderListItemTable tr.orderItemProductInfoPartTR
+div.orderListItemProductOriginalPrice {
+    font-size: 14px;
+    color: #999;
+}
+
+div.boughtDiv div.orderListItem table.orderListItemTable tr.orderItemProductInfoPartTR
+div.orderListItemProductPrice {
+    font-size: 14px;
+    color: #3c3c3c;
+}
+
+div.boughtDiv div.orderListItem table.orderListItemTable tr.orderItemProductInfoPartTR
+span.orderListItemNumber {
+    color: #3c3c3c;
+}
+
+div.boughtDiv div.orderListItem table.orderListItemTable tr.orderItemProductInfoPartTR
+td.orderItemOrderInfoPartTD {
+    border: 1px solid #ececec;
+    text-align: center;
+}
+
+div.boughtDiv div.orderListItem table.orderListItemTable tr.orderItemProductInfoPartTR
+div.orderListItemProductRealPrice {
+    font-size: 14px;
+    font-weight: bold;
+    color: #3c3c3c;
+}
+
+div.boughtDiv div.orderListItem table.orderListItemTable tr.orderItemProductInfoPartTR
+div.orderListItemPriceWithTransport {
+    color: #6c6c6c;
+}
+
+div.boughtDiv div.orderListItem table.orderListItemTable tr.orderItemProductInfoPartTR
+button.orderListItemReview {
+    background-color: rgb(102, 182, 255);
+    border-radius: 2px;
+    padding: 6px 12px;
+    color: #fff;
+    border: 1px solid #dcdcdc;
+    font-weight: bold;
+    outline: none;
+}
+
+div.boughtDiv div.orderListItem table.orderListItemTable tr.orderItemProductInfoPartTR
+button.orderListItemReview:hover {
+    background: rgb(17, 138, 219);
+}
+
+div.boughtDiv div.orderListItem table.orderListItemTable tr.orderItemProductInfoPartTR
+button.orderListItemReviewButton {
+    background-color: #fff;
+    border-radius: 2px;
+    padding: 6px 12px;
+    color: #000;
+    border: 1px solid #dcdcdc;
+    font-weight: bold;
+    outline: none;
+}
+
+div.boughtDiv div.orderListItem table.orderListItemTable tr.orderItemProductInfoPartTR
+button.orderListItemReviewButton:hover {
+    border: 1px solid #c40000;
+    color: #c40000;
+}
+
+div.boughtDiv div.orderListItem table.orderListItemTable tr.orderItemProductInfoPartTR
+button.orderListItemConfirm {
+    background-color: #66b6ff;
+    border-radius: 2px;
+    padding: 6px 12px;
+    border-width: 0;
+    color: #fff;
+    font-weight: bold;
+    outline: none;
+}
+
+div.boughtDiv div.orderListItem table.orderListItemTable tr.orderItemProductInfoPartTR
+button.orderListItemConfirm:hover {
+    background-color: #118adb;
+}
+
+div.boughtDiv a {
+    color: #999;
+}
+
+div.boughtDiv a:hover {
+    color: #c40000;
+    text-decoration: none;
+}

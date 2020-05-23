@@ -1,0 +1,106 @@
+<!doctype html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <title>模仿天猫官网-购物车</title>
+  <link rel="stylesheet" href="css/bootstrap/3.3.6/bootstrap.min.css">
+  <link rel="stylesheet" href="css/fore/public/top.css">
+  <link rel="stylesheet" href="css/fore/public/simpleSearch.css">
+  <link rel="stylesheet" href="css/fore/public/footer.css">
+  <link rel="stylesheet" href="css/fore/cart.css">
+</head>
+<body>
+<div id="workingArea">
+  <nav th:replace="fore/_fragments :: top"></nav>
+  <div th:replace="fore/public/simpleSearch :: simpleSearch"></div>
+  <div class="emptyCart" v-if="orderItems.length == 0">
+    您的购物车空空如也~
+  </div>
+
+  <div class="cartDiv" v-if="orderItems.length != 0">
+    <div class="cartTitle pull-right">
+      <span>已选商品 (不含运费)</span>
+      <span class="cartTitlePrice">￥0.00</span>
+      <!-- disabled 禁用该按钮 -->
+      <button class="createOrderButton" disabled="disabled">结 算</button>
+    </div>
+    <!-- 订单项内容 -->
+    <div class="cartProductList">
+      <table class="cartProductTable">
+        <thead>
+        <tr>
+          <th class="selectAndImage">
+            <img class="selectAllItem" selectit="false" src="img/site/cartNotSelected.png">
+            <span>全选</span>
+          </th>
+          <th>商品信息</th>
+          <th>单价</th>
+          <th>数量</th>
+          <th style="width: 120px">金额</th>
+          <th class="operation">操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr class="cartProductItemTR" oiid="${oi.id}" v-for="oi in orderItems">
+          <td>
+            <img class="cartProductItemIfSelected" :oiid="oi.id" selectit="false" src="img/site/cartNotSelected.png">
+            <a href="#nowhere" style="display: none">
+              <img src="img/site/cartSelected.png">
+            </a>
+            <img class="cartProductImg" :src="'img/productSingleImage_middle/' + oi.product.firstProductImage.id + '.jpg'">
+          </td>
+          <td>
+            <div class="cartProductLinkOutDiv">
+              <a class="cartProductLink" :href="'product?pid=' + oi.product.id">{{oi.product.name}}</a>
+              <div class="cartProductLinkInnerDiv">
+                <img title="支持信用卡支付" src="img/site/creditcard.png">
+                <img title="消费者保障服务，承诺7天退货" src="img/site/7day.png">
+                <img title="消费者保障服务，承诺如实描述" src="img/site/promise.png">
+              </div>
+            </div>
+          </td>
+          <td>
+            <span class="cartProductItemOringalPrice">￥{{oi.product.originalPrice}}</span>
+            <span class="cartProductItemPromotionPrice">￥{{oi.product.promotePrice}}</span>
+          </td>
+          <td>
+            <div class="cartProductChangeNumberDiv">
+              <span :pid="oi.product.id" class="hidden orderItemStock">{{oi.product.stock}}</span>
+              <span :pid="oi.product.id" class="hidden orderItemPromotePrice">{{oi.product.promotePrice}}</span>
+              <a class="numberMinus" href="#nowhere" :pid="oi.product.id">-</a>
+              <input class="orderItemNumberSetting" hide="false" :oiid="oi.id" :pid="oi.product.id" autocomplete="off" type="text" :value="oi.number" />
+              <a class="numberPlus" href="#nowhere" :pid="oi.product.id" :stock="oi.product.stock">+</a>
+            </div>
+          </td>
+          <td>
+            <span class="cartProductItemSmallSumPrice" :pid="oi.product.id" :oiid="oi.id">
+              ￥{{oi.product.promotePrice * oi.number | formatMoneyFilter}}
+            </span>
+          </td>
+          <td>
+            <a class="deleteOrderItem" :oiid="oi.id" href="#nowhere">删除</a>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="cartFoot">
+      <img class="selectAllItem" selectit="false" src="img/site/cartNotSelected.png">
+      <span>全选</span>
+      <div class="pull-right">
+        <span>已选商品<span class="cartSumNumber"> 0 </span>件</span>
+        <span>合计 (不含运费):</span>
+        <span class="cartSumPrice">￥0.00</span>
+        <button class="createOrderButton" disabled="disabled">结 算</button>
+      </div>
+    </div>
+    <div style="height: 50px;"></div>
+  </div>
+  <div th:replace="fore/public/modal :: deleteConfirmModal"></div>
+</div>
+<div th:replace="fore/_fragments :: footer"></div>
+<th:block th:replace="fore/_fragments :: js"></th:block>
+<script src="js/fore/cart.js"></script>
+</body>
+</html>

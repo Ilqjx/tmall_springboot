@@ -93,7 +93,7 @@
         </td>
         <td>
           <span class="orderItemUnitSum">
-            {{orderItem.product.promotePrice * orderItem.number | formatMoneyFilter}}
+            ￥{{orderItem.product.promotePrice * orderItem.number | formatMoneyFilter}}
           </span>
         </td>
         <td class="orderItemLastTD" :rowspan="orderItems.length" v-if="index == 0">
@@ -129,7 +129,7 @@
         <div class="pull-right">
           <span>实付款：</span>
           <span class="orderItemTotalSumSpan">
-            {{total | formatMoneyFilter}}
+            ￥{{total | formatMoneyFilter}}
           </span>
         </div>
       </div>

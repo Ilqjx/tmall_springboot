@@ -131,9 +131,31 @@ public class ForeRESTController {
     public Result buyone(@RequestBody OrderItem orderItem, HttpServletRequest request) {
         HttpSession session = request.getSession();
         User user = (User) session.getAttribute("user");
-        orderItem.setUser(user);
-        OrderItem oi = orderItemService.saveOrderItem(orderItem);
+        OrderItem orderItemDB = orderItemService.getOrderItem(user, orderItem.getProduct(), null);
+        OrderItem oi;
+        if (orderItemDB == null) {
+            orderItem.setUser(user);
+            oi = orderItemService.saveOrderItem(orderItem);
+        } else {
+            orderItemDB.setNumber(orderItemDB.getNumber() + orderItem.getNumber());
+            oi = orderItemService.updateOrderItem(orderItemDB);
+        }
         return Result.success(oi);
+    }
+
+    @PostMapping("/foreaddCart")
+    public Result addCart(@RequestBody OrderItem orderItem, HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        User user = (User) session.getAttribute("user");
+        OrderItem orderItemDB = orderItemService.getOrderItem(user, orderItem.getProduct(), null);
+        if (orderItemDB == null) {
+            orderItem.setUser(user);
+            orderItemService.saveOrderItem(orderItem);
+        } else {
+            orderItemDB.setNumber(orderItemDB.getNumber() + orderItem.getNumber());
+            orderItemService.updateOrderItem(orderItemDB);
+        }
+        return Result.success();
     }
 
     @GetMapping("/forebuy")
@@ -155,8 +177,8 @@ public class ForeRESTController {
         return Result.success(map);
     }
 
-    @PostMapping("/foreorder")
-    public Result addOrder(@RequestBody Order order, String[] oiid, HttpServletRequest request) {
+    @PostMapping("/forecreateOrder")
+    public Result createOrder(@RequestBody Order order, String[] oiid, HttpServletRequest request) {
         long time = System.currentTimeMillis();
         double randomDigit = Math.ceil(Math.random() * 9000) + 1000;
         long lastSuffix = new Double(randomDigit).longValue();
@@ -197,6 +219,53 @@ public class ForeRESTController {
     public Result getOrder(@PathVariable int id) {
         Order order = orderService.getOrder(id);
         return Result.success(order);
+    }
+
+    @GetMapping("/forelistOrderItem")
+    public Result listOrderItem(HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        User user = (User) session.getAttribute("user");
+        List<OrderItem> orderItemList = orderItemService.listOrderItem(user, null);
+        productImageService.setFirstProductImageForOrderItem(orderItemList);
+        return Result.success(orderItemList);
+    }
+
+    @PutMapping("/forechangeOrderItem")
+    public Result changeOrderItem(@RequestParam int pid, @RequestParam int num, HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        User user = (User) session.getAttribute("user");
+        Product product = productService.getProduct(pid);
+        OrderItem orderItem = orderItemService.getOrderItem(user, product, null);
+        if (orderItem == null) {
+            return Result.fail("订单项不存在");
+        } else {
+            orderItem.setNumber(num);
+            orderItemService.updateOrderItem(orderItem);
+            return Result.success();
+        }
+    }
+
+    @DeleteMapping("/foredeleteOrderItem/{id}")
+    public Result deleteOrderItem(@PathVariable int id) {
+        orderItemService.deleteOrderItem(id);
+        return Result.success();
+    }
+
+    @GetMapping("/forelistOrder")
+    public Result listOrder(HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        User user = (User) session.getAttribute("user");
+        List<Order> orderList = orderService.listOrderWithoutDelete(user);
+        orderService.setTotalAndTotalNumber(orderList);
+        return Result.success(orderList);
+    }
+
+    @DeleteMapping("/foredeleteOrder/{oid}")
+    public Result deleteOrder(@PathVariable int oid) {
+        Order order = orderService.getOrder(oid);
+        order.setStatus("delete");
+        orderService.updateOrderForFore(order);
+        return Result.success();
     }
 
 }

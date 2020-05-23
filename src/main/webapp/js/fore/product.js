@@ -147,18 +147,6 @@ function productAction(vm) {
         $("div.productReviewDiv").hide();
     });
 
-    $("button.addCartButton").click(function () {
-        var url = "forecheckLogin";
-        axios.get(url).then(function (response) {
-            if (response.data.code == 0) {
-                console.log("fail");
-                $("div#loginModal").modal('show');
-            } else {
-                console.log("success");
-            }
-        });
-    });
-
     $("button.buyButton").click(function () {
         var url = "forecheckLogin";
         axios.get(url).then(function (response) {
@@ -177,36 +165,26 @@ function productAction(vm) {
     });
 
     $("button.addCartButton").click(function () {
-        var page = "forecheckLogin";
-        $.get(
-            page,
-            function (result) {
-                if (result == "success") {
-                    var pid = ${product.id};
-                    var num = $("input.productNumberSetting").val();
-                    var url = "foreaddCart";
-                    $.get(
-                        url,
-                        {"product.id" : pid, "num" : num},
-                        function (res) {
-                            if (res == "success") {
-                                $("button.addCartButton").html("已加入购物车");
-                                $("button.addCartButton").attr("disabled", "disabled");
-                                $("button.addCartButton").css("background-color", "#d3d3d3");
-                                $("button.addCartButton").css("border", "1px solid #d3d3d3");
-                                $("button.addCartButton").css("color", "#000");
-                                var cartNumber = parseInt(${cartTotalItemNumber}) + parseInt(num);
-                                $("strong").html(cartNumber);
-                            }
-                        }
-                    )
-                } else {
-                    $("div#loginModal").modal('show');
-                }
+        var url = "forecheckLogin";
+        axios.get(url).then(function (response) {
+            if (response.data.code == 0) {
+                $("div#loginModal").modal('show');
+            } else {
+                var number = $("input#productNumber").val();
+                vm.orderItem.product = vm.product;
+                vm.orderItem.number = number;
+                var url = "foreaddCart";
+                axios.post(url, vm.orderItem).then(function (response) {
+                    $("button.addCartButton").html("已加入购物车");
+                    $("button.addCartButton").attr("disabled", "disabled");
+                    $("button.addCartButton").css("background-color", "#d3d3d3");
+                    $("button.addCartButton").css("border", "1px solid #d3d3d3");
+                    $("button.addCartButton").css("color", "#000");
+                    // var cartNumber = parseInt(${cartTotalItemNumber}) + parseInt(num);
+                    // $("strong").html(cartNumber);
+                });
             }
-        )
-        // 阻止浏览器对默认事件的处理
-        return false;
+        });
     });
 }
 

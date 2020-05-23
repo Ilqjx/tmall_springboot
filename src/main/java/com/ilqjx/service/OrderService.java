@@ -1,6 +1,9 @@
 package com.ilqjx.service;
 
+import java.util.List;
+
 import com.ilqjx.pojo.Order;
+import com.ilqjx.pojo.User;
 import org.springframework.data.domain.Page;
 
 public interface OrderService {
@@ -21,5 +24,9 @@ public interface OrderService {
     public Order updateOrder(Order order);
 
     public Page<Order> listOrder(int start, int size);
+
+    public List<Order> listOrderWithoutDelete(User user);
+
+    public void setTotalAndTotalNumber(List<Order> orderList);
 
 }

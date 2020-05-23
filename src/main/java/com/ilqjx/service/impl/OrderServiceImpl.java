@@ -8,6 +8,7 @@ import com.ilqjx.dao.OrderItemRepository;
 import com.ilqjx.dao.OrderRepository;
 import com.ilqjx.pojo.Order;
 import com.ilqjx.pojo.OrderItem;
+import com.ilqjx.pojo.User;
 import com.ilqjx.service.OrderService;
 import com.ilqjx.service.ProductImageService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -59,13 +60,21 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
+    public List<Order> listOrderWithoutDelete(User user) {
+        String status = "delete";
+        List<Order> orderList = orderRepository.findByUser(user, status);
+        return orderList;
+    }
+
+    @Override
     public Order updateOrder(Order order) {
         order.setDeliveryDate(new Date());
         order.setStatus(OrderService.waitConfirm);
         return orderRepository.save(order);
     }
 
-    private void setTotalAndTotalNumber(List<Order> orderList) {
+    @Override
+    public void setTotalAndTotalNumber(List<Order> orderList) {
         for (Order order : orderList) {
             setTotalAndTotalNumber(order);
         }

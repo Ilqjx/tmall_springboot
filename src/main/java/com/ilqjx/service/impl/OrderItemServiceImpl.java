@@ -7,6 +7,7 @@ import com.ilqjx.dao.OrderItemRepository;
 import com.ilqjx.pojo.Order;
 import com.ilqjx.pojo.OrderItem;
 import com.ilqjx.pojo.Product;
+import com.ilqjx.pojo.User;
 import com.ilqjx.service.OrderItemService;
 import com.ilqjx.service.ProductImageService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,8 +38,24 @@ public class OrderItemServiceImpl implements OrderItemService {
     }
 
     @Override
+    public OrderItem getOrderItem(User user, Product product, Order order) {
+        OrderItem orderItem = orderItemRepository.findByUserAndProductAndOrder(user, product, order);
+        return orderItem;
+    }
+
+    @Override
     public OrderItem updateOrderItem(OrderItem orderItem) {
         return orderItemRepository.save(orderItem);
+    }
+
+    @Override
+    public void deleteOrderItem(int id) {
+        orderItemRepository.deleteById(id);
+    }
+
+    @Override
+    public List<OrderItem> listOrderItem(User user, Order order) {
+        return orderItemRepository.findByUserAndOrder(user, order);
     }
 
     @Override

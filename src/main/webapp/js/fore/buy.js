@@ -52,7 +52,7 @@ $(function () {
                     alert("手机号码不能为空");
                     return;
                 }
-                var url = "foreorder";
+                var url = "forecreateOrder";
                 var oiids = getUrlParams("oiid");
                 if (oiids instanceof Array) {
                     for (var index in oiids) {

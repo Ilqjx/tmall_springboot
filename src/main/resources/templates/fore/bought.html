@@ -1,0 +1,122 @@
+<!doctype html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <title>模仿天猫官网-我的订单</title>
+  <link rel="stylesheet" href="css/bootstrap/3.3.6/bootstrap.min.css">
+  <link rel="stylesheet" href="css/fore/public/top.css">
+  <link rel="stylesheet" href="css/fore/public/footer.css">
+  <link rel="stylesheet" href="css/fore/public/simpleSearch.css">
+  <link rel="stylesheet" href="css/fore/bought.css">
+</head>
+<body>
+<div id="workingArea">
+  <nav th:replace="fore/_fragments :: top"></nav>
+  <div th:replace="fore/public/simpleSearch :: simpleSearch"></div>
+  <div class="emptyOrder" v-if="orders.length == 0">
+    您还没有订单~
+  </div>
+
+  <div class="boughtDiv" v-if="orders.length != 0">
+    <!-- 标题部分 -->
+    <div class="orderType">
+      <div class="selectedOrderType"><a href="#nowhere" orderstatus="all">所有订单</a></div>
+      <div><a href="#nowhere" orderstatus="waitPay">待付款</a></div>
+      <div><a href="#nowhere" orderstatus="waitDelivery">待发货</a></div>
+      <div><a href="#nowhere" orderstatus="waitConfirm">待收货</a></div>
+      <div><a href="#nowhere" orderstatus="waitReview" class="noRightborder">待评价</a></div>
+      <div class="orderTypeLastOne"></div>
+    </div>
+    <div style="clear: both"></div>
+    <div class="orderListTitle">
+      <table class="orderListTitleTable">
+        <tbody>
+        <tr>
+          <td>宝贝</td>
+          <td width="100px">单价</td>
+          <td width="100px">数量</td>
+          <td width="120px">实付款</td>
+          <td width="100px">交易操作</td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+    <!-- 产品列表 -->
+    <div class="orderListItem">
+      <table class="orderListItemTable" :oid="order.id" :orderstatus="order.status" v-for="order in orders">
+        <tbody>
+        <tr class="orderListItemFirstTR">
+          <td colspan="2">
+            <b>{{order.createDate | formatDateFilter}}</b>
+            <span>订单号: {{order.orderCode}}</span>
+          </td>
+          <td colspan="2">
+            <img width="13px" src="img/site/orderItemTmall.png">天猫商场
+          </td>
+          <td>
+            <a class="wangwanglink" href="#nowhere">
+              <div class="orderItemWangWangGif"></div>
+            </a>
+          </td>
+          <td class="orderItemDeleteTD">
+            <a class="deleteOrderLink" href="#nowhere" :oid="order.id">
+              <span class="orderListItemDelete glyphicon glyphicon-trash"></span>
+            </a>
+          </td>
+        </tr>
+        <tr class="orderItemProductInfoPartTR" v-for="orderItem,index in order.orderItemList">
+          <td class="orderItemProductInfoPartTD">
+          <img width="80px" height="80px" :src="'img/productSingleImage_middle/' + orderItem.product.firstProductImage.id + '.jpg'">
+          </td>
+          <td class="orderItemProductInfoPartTD">
+            <div class="orderListItemProductLinkOutDiv">
+              <a :href="'product?pid=' + orderItem.product.id">{{orderItem.product.name}}</a>
+              <div class="orderListItemProductLinkInnerDiv">
+                <img title="支持信用卡支付" src="img/site/creditcard.png">
+                <img title="消费者保障服务，承诺7天退货" src="img/site/7day.png">
+                <img title="消费者保障服务，承诺如实描述" src="img/site/promise.png">
+              </div>
+            </div>
+          </td>
+          <td class="orderItemProductInfoPartTD" width="100px">
+            <div class="orderListItemProductOriginalPrice">
+              ￥{{orderItem.product.originalPrice | formatMoneyFilter}}
+            </div>
+            <div class="orderListItemProductPrice">
+              ￥{{orderItem.product.promotePrice | formatMoneyFilter}}
+            </div>
+          </td>
+          <td v-if="index == 0" :rowspan="order.orderItemList.length" width="100px" valign="top" class="orderListItemNumberTD orderItemOrderInfoPartTD">
+            <span class="orderListItemNumber">{{order.totalNumber}}</span>
+          </td>
+          <td v-if="index == 0" :rowspan="order.orderItemList.length" width="120px" valign="top" class="orderListItemProductRealPriceTD orderItemOrderInfoPartTD">
+            <div class="orderListItemProductRealPrice">
+              ￥{{order.total | formatMoneyFilter}}
+            </div>
+            <div class="orderListItemPriceWithTransport">(含运费：￥0.00)</div>
+          </td>
+          <td v-if="index == 0" :rowspan="order.orderItemList.length" width="100px" valign="top" class="orderListItemButtonTD orderItemOrderInfoPartTD">
+            <a href="foreconfirmPay?order.id=${order.id}" v-if="order.status == 'waitConfirm'">
+              <button class="orderListItemReview">确认收货</button>
+            </a>
+            <a :href="'alipay?oid=' + order.id + '&total=' + order.total" v-if="order.status == 'waitPay'">
+              <button class="orderListItemReview">付款</button>
+            </a>
+            <span v-if="order.status == 'waitDelivery'">待发货</span>
+            <a href="forereview?order.id=${order.id}" v-if="order.status == 'waitReview'">
+              <button class="orderListItemReviewButton">评价</button>
+            </a>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div th:replace="fore/public/modal :: deleteConfirmModal"></div>
+</div>
+<div th:replace="fore/_fragments :: footer"></div>
+<th:block th:replace="fore/_fragments :: js"></th:block>
+<script src="js/fore/bought.js"></script>
+</body>
+</html>
