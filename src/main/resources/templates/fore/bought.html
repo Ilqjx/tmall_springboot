@@ -97,14 +97,14 @@
             <div class="orderListItemPriceWithTransport">(含运费：￥0.00)</div>
           </td>
           <td v-if="index == 0" :rowspan="order.orderItemList.length" width="100px" valign="top" class="orderListItemButtonTD orderItemOrderInfoPartTD">
-            <a href="foreconfirmPay?order.id=${order.id}" v-if="order.status == 'waitConfirm'">
+            <a :href="'confirmPay?oid=' + order.id" v-if="order.status == 'waitConfirm'">
               <button class="orderListItemReview">确认收货</button>
             </a>
             <a :href="'alipay?oid=' + order.id + '&total=' + order.total" v-if="order.status == 'waitPay'">
               <button class="orderListItemReview">付款</button>
             </a>
             <span v-if="order.status == 'waitDelivery'">待发货</span>
-            <a href="forereview?order.id=${order.id}" v-if="order.status == 'waitReview'">
+            <a :href="'review?oid=' + order.id" v-if="order.status == 'waitReview'">
               <button class="orderListItemReviewButton">评价</button>
             </a>
           </td>

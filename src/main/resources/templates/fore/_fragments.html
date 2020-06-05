@@ -3,7 +3,7 @@
 <body>
 <!-- 导航 -->
 <nav th:fragment="top" class="top" id="top">
-  <a href="${contextPath}">
+  <a th:href="${session.contextPath}">
     <span style="margin: 0;" class="glyphicon glyphicon-home redColor"></span>
     天猫首页
   </a>
@@ -22,7 +22,7 @@
 		<a href="bought">我的订单</a>
 		<a href="cart" id="cart">
 			<span style="margin: 0;" class="glyphicon glyphicon-shopping-cart redColor"></span>
-			购物车<strong><span id="cartProductNumber" style="margin: 0;">0</span></strong>件
+			购物车<strong><span id="cartProductNumber" style="margin: 0;" th:text="${session.cartTotalItemNumber}">0</span></strong>件
 		</a>
 	</span>
 </nav>

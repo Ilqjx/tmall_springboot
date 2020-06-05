@@ -1,0 +1,224 @@
+div.reviewDiv {
+    max-width: 1013px;
+    margin: 10px auto;
+}
+
+div.reviewDiv div.reviewProductInfoDiv div.reviewProductInfoImg {
+    width: 464px;
+    text-align: center;
+    border: 1px solid #e7e7e7;
+    float: left;
+}
+
+div.reviewDiv div.reviewProductInfoDiv div.reviewProductInfoImg img {
+    width: 400px;
+    height: 400px;
+}
+
+div.reviewDiv div.reviewProductInfoDiv div.reviewProductInfoRightDiv {
+    overflow: hidden; /* 隐藏超出部分 */
+    padding: 30px 20px;
+    border-top: 1px solid #e7e7e7;
+}
+
+div.reviewDiv div.reviewProductInfoDiv div.reviewProductInfoRightDiv
+div.reviewProductInfoRightText {
+    font-size: 16px;
+    font-weight: bold;
+    color: #000;
+}
+
+div.reviewDiv div.reviewProductInfoDiv div.reviewProductInfoRightDiv
+table.reviewProductInfoTable {
+    margin: 20px 10px;
+    color: #999;
+}
+
+div.reviewDiv div.reviewProductInfoDiv div.reviewProductInfoRightDiv
+table.reviewProductInfoTable td {
+    padding-bottom: 5px;
+}
+
+div.reviewDiv div.reviewProductInfoDiv div.reviewProductInfoRightDiv
+table.reviewProductInfoTable td span.reviewProductInfoTablePrice {
+    font-size: 20px;
+    font-weight: bold;
+    color: #c40000;
+}
+
+div.reviewDiv div.reviewProductInfoDiv div.reviewProductInfoRightDiv
+table.reviewProductInfoTable td span.reviewProductInfoTableSellNumber {
+    font-size: 14px;
+    font-weight: bold;
+    color: #c40000;
+}
+
+div.reviewDiv div.reviewProductInfoDiv div.reviewProductInfoRightDiv
+div.reviewProductInfoRightBelowDiv {
+    background-color: #fdfbfa;
+    border: 1px solid #f6f5f3;
+    height: 166px;
+    padding: 16px 0 16px 81px;
+}
+
+div.reviewDiv div.reviewProductInfoDiv div.reviewProductInfoRightDiv
+div.reviewProductInfoRightBelowDiv span.reviewProductInfoRightBelowImg {
+    display: inline-block;
+    background-image: url("../../img/site/reviewLight.png");
+    background-color: #fff;
+    background-repeat: no-repeat;
+    width: 23px;
+    height: 42px;
+    border: 1px solid #e1e1e1;
+    padding: 0;
+}
+
+div.reviewDiv div.reviewProductInfoDiv div.reviewProductInfoRightDiv
+div.reviewProductInfoRightBelowDiv span.reviewProductInfoRightBelowText {
+    display: inline-block;
+    width: 206px;
+    height: 42px;
+    border: 1px solid #efefef;
+    padding: 4px;
+    position: relative;
+    top: -7px;
+    left: -4px;
+    color: #666;
+}
+
+/* commentPageDown */
+
+div.reviewDiv {
+    max-width: 1013px;
+    margin: 10px auto;
+}
+
+div.reviewDiv div.reviewStasticsDiv {
+    margin-top: 20px;
+}
+
+div.reviewDiv div.reviewStasticsDiv div.reviewStasticsLeft {
+    width: 180px;
+    float: left;
+}
+
+div.reviewDiv div.reviewStasticsDiv div.reviewStasticsLeft div.reviewStasticsLeftTop {
+    height: 6px;
+    background-color: #c40000;
+}
+
+div.reviewDiv div.reviewStasticsDiv div.reviewStasticsLeft div.reviewStasticsLeftContent {
+    line-height: 29px;
+    text-align: center;
+    background-color: #f6f5f1;
+    font-size: 14px;
+    font-weight: bold;
+    color: #363535;
+    border-left: 1px solid #d5d4d4;
+    border-right: 1px solid #d5d4d4;
+}
+
+div.reviewDiv div.reviewStasticsDiv div.reviewStasticsLeft div.reviewStasticsLeftContent
+span.reviewStasticsNumber {
+    color: #284ca5;
+}
+
+div.reviewDiv div.reviewStasticsDiv div.reviewStasticsLeft div.reviewStasticsLeftFoot {
+    height: 6px;
+    background-color: #f6f5f1;
+    border-bottom: 1px solid #d5d4d4;
+    border-left: 1px solid #d5d4d4;
+}
+
+div.reviewDiv div.reviewStasticsDiv div.reviewStasticsRight {
+    overflow: hidden;
+}
+
+div.reviewDiv div.reviewStasticsDiv div.reviewStasticsRight div.reviewStasticsRightEmpty {
+    height: 35px;
+    background-color: #fff;
+}
+
+div.reviewDiv div.reviewStasticsDiv div.reviewStasticsRight div.reviewStasticsFoot {
+    height: 6px;
+    background-color: #f6f5f1;
+    border: 1px solid #d5d4d4;
+    border-left-width: 0;
+}
+
+div.reviewDiv div.makeReviewDiv {
+    margin: 20px 0;
+    background-color: #efefef;
+    border: 1px solid #d1ccc8;
+}
+
+div.reviewDiv div.makeReviewDiv div.makeReviewText {
+    margin: 20px 40px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #333;
+}
+
+div.reviewDiv div.makeReviewDiv table.makeReviewTable {
+    background-color: #fff;
+    margin: 20px 40px;
+}
+
+div.reviewDiv div.makeReviewDiv table.makeReviewTable td {
+    padding: 10px;
+    border: 1px solid #e7e7e7;
+}
+
+div.reviewDiv div.makeReviewDiv table.makeReviewTable td textarea {
+    width: 420px;
+    height: 120px;
+    resize: none; /* 不可改变大小 */
+    border-width: 0;
+}
+
+div.reviewDiv div.makeReviewDiv div.makeReviewButtonDiv {
+    background-color: #fff;
+    text-align: center;
+    padding: 15px;
+}
+
+div.reviewDiv div.makeReviewDiv div.makeReviewButtonDiv button {
+    width: 72px;
+    height: 26px;
+    color: #fff;
+    background-color: #c40000;
+    border-width: 0;
+    border-radius: 2px;
+    font-size: 13px;
+    font-weight: bold;
+    outline: none;
+}
+
+div.reviewContentPart div.reviewItem {
+    padding: 20px 0;
+    border-bottom: 1px solid #e3e3e3;
+}
+
+div.reviewContentPart div.reviewItem div.reviewDesc {
+    margin: 0 20px;
+}
+
+div.reviewContentPart div.reviewItem div.reviewDesc div.reviewDate {
+    color: #ccccdd;
+    float: left;
+}
+
+div.reviewContentPart div.reviewItem div.reviewDesc div.reviewContent {
+    color: #333;
+    width: 780px;
+    display: inline-block;
+    margin-left: 40px;
+}
+
+div.reviewContentPart div.reviewItem div.reviewDesc div.reviewName {
+    float: right;
+}
+
+div.reviewContentPart div.reviewItem div.reviewDesc div.reviewName span.userInfoGrayPart {
+    color: #999;
+}

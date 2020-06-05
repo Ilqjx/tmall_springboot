@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.w3.org/1999/xhtml">
 <body>
 <div th:fragment="simpleSearch">
-  <a href="${contextPath}">
+  <a th:href="${session.contextPath}">
     <img id="simpleLogo" src="img/site/simpleLogo.png">
   </a>
   <div class="simpleSearchDiv pull-right">
@@ -10,18 +10,12 @@
       <input type="text" placeholder="平衡车 原汁机" name="keyword" />
       <button class="searchButton" type="submit">搜天猫</button>
     </form>
-    <!--<div class="simpleSearchBelow">-->
-    <!--  <c:forEach items="${cs}" var="c" varStatus="st">-->
-    <!--    <c:if test="${st.count >= 8 and st.count <= 11}">-->
-    <!--      <span>-->
-    <!--        <a href="forecategory?category.id=${c.id}">${c.name}</a>-->
-    <!--        <c:if test="${st.count != 11}">-->
-    <!--          <span>|</span>-->
-    <!--        </c:if>-->
-    <!--      </span>-->
-    <!--    </c:if>-->
-    <!--  </c:forEach>-->
-    <!--</div>-->
+    <div class="simpleSearchBelow">
+      <span th:each="category,status : ${session.categories_below_search}" th:if="${status.index >= 7 && status.index <= 10}">
+        <a th:href="@{'category?cid=' + ${category.id}}" th:text="${category.name}"></a>
+          <span th:if="${status.index != 10}">|</span>
+      </span>
+    </div>
   </div>
   <div style="clear: both"></div>
 </div>

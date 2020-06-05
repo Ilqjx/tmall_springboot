@@ -81,4 +81,19 @@ public class ForePageController {
         return "fore/bought";
     }
 
+    @GetMapping("/confirmPay")
+    public String confirmPay() {
+        return "fore/confirmPay";
+    }
+
+    @GetMapping("/orderConfirmed")
+    public String orderConfirmed() {
+        return "fore/orderConfirmed";
+    }
+
+    @GetMapping("/review")
+    public String review() {
+        return "fore/review";
+    }
+
 }

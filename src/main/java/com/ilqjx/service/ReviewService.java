@@ -7,6 +7,8 @@ import com.ilqjx.pojo.Review;
 
 public interface ReviewService {
 
+    public Review saveReview(Review review);
+
     public int countByProduct(Product product);
 
     public List<Review> listReviewByProduct(Product product);

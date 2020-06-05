@@ -22,18 +22,7 @@ $(function () {
         methods: {
             load: function () {
                 var url = "forebuy";
-                var oiids = getUrlParams("oiid");
-                if (oiids instanceof Array) {
-                    for (var index in oiids) {
-                        if (index == 0) {
-                            url = url + "?oiid=" + oiids[index];
-                        } else {
-                            url = url + "&oiid=" + oiids[index];
-                        }
-                    }
-                } else {
-                    url = url + "?oiid=" + oiids;
-                }
+                url = connectUrl(url);
                 axios.get(url).then(function (response) {
                     vm.orderItems = response.data.data.orderItems;
                     vm.total = response.data.data.total;
@@ -53,18 +42,7 @@ $(function () {
                     return;
                 }
                 var url = "forecreateOrder";
-                var oiids = getUrlParams("oiid");
-                if (oiids instanceof Array) {
-                    for (var index in oiids) {
-                        if (index == 0) {
-                            url = url + "?oiid=" + oiids[index];
-                        } else {
-                            url = url + "&oiid=" + oiids[index];
-                        }
-                    }
-                } else {
-                    url = url + "?oiid=" + oiids;
-                }
+                url = connectUrl(url);
                 vm.order.total = vm.total;
                 axios.post(url, vm.order).then(function (response) {
                     if (response.data.code == 1) {
@@ -75,3 +53,19 @@ $(function () {
         }
     });
 });
+
+function connectUrl(url) {
+    var oiids = getUrlParams("oiid");
+    if (oiids instanceof Array) {
+        for (var index in oiids) {
+            if (index == 0) {
+                url = url + "?oiid=" + oiids[index];
+            } else {
+                url = url + "&oiid=" + oiids[index];
+            }
+        }
+    } else {
+        url = url + "?oiid=" + oiids;
+    }
+    return url;
+}

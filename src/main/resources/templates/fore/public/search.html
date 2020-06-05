@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.w3.org/1999/xhtml">
 <body>
 <div th:fragment="search" class="searchDiv">
-  <a href="${contextPath}">
+  <a th:href="${session.contextPath}">
     <img id="logo" src="img/site/logo.gif">
   </a>
   <form action="search" method="get">
@@ -10,10 +10,10 @@
     <button class="searchButton">搜索</button>
   </form>
   <div class="searchBelow">
-    <!--<span v-for="category, index in categorys" v-if="index >= 5 && index <= 8">-->
-    <!--  <a href="forecategory?category.id=${c.id}">{{category.name}}</a>-->
-    <!--    <span v-if="index != 8">|</span>-->
-    <!--</span>-->
+    <span th:each="category,status : ${session.categories_below_search}" th:if="${status.index >= 4 && status.index <= 7}">
+      <a th:href="@{'category?cid=' + ${category.id}}" th:text="${category.name}"></a>
+        <span th:if="${status.index != 7}">|</span>
+    </span>
   </div>
 </div>
 <div style="clear: both;"></div>

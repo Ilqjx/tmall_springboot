@@ -1,12 +1,24 @@
 package com.ilqjx.config;
 
+import com.ilqjx.interceptor.LoginInterceptor;
+import com.ilqjx.interceptor.OtherInterceptor;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
 
-// @Configuration
-public class CORSConfiguration extends WebMvcConfigurationSupport {
+@Configuration
+public class WebMvcConfiguration extends WebMvcConfigurationSupport {
+
+    @Override
+    public void addInterceptors(InterceptorRegistry registry) {
+        registry.addInterceptor(getLoginInterceptor())
+                .addPathPatterns("/**");
+        registry.addInterceptor(getOtherInterceptor())
+                .addPathPatterns("/**");
+    }
 
     @Override
     protected void addCorsMappings(CorsRegistry registry) {
@@ -26,6 +38,16 @@ public class CORSConfiguration extends WebMvcConfigurationSupport {
         registry.addResourceHandler("/css/**").addResourceLocations("/css/");
         registry.addResourceHandler("/img/**").addResourceLocations("/img/");
         registry.addResourceHandler("/js/**").addResourceLocations("/js/");
+    }
+
+    @Bean
+    public LoginInterceptor getLoginInterceptor() {
+        return new LoginInterceptor();
+    }
+
+    @Bean
+    public OtherInterceptor getOtherInterceptor() {
+        return new OtherInterceptor();
     }
 
 }

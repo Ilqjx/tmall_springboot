@@ -59,18 +59,20 @@ public class User {
         if (null == name) {
             return null;
         }
+        String anonymousName;
         int len = name.length();
         if (len <= 1) {
-            return "*";
+            anonymousName = "*";
         } else if (len == 2) {
-            return name.substring(0, 1) + "*";
+            anonymousName = name.substring(0, 1) + "*";
         } else {
             char[] charArray = name.toCharArray();
             for (int i = 1; i < len - 1; i++) {
                 charArray[i] = '*';
             }
-            return charArray.toString();
+            anonymousName = new String(charArray);
         }
+        return anonymousName;
     }
 
     public void setAnonymousName(String anonymousName) {

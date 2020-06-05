@@ -11,12 +11,13 @@ $(function () {
         },
         methods: {
             load: function () {
-                var url = "forelistOrderItem";
+                var url = "forecart";
                 axios.get(url).then(function (response) {
                     if (response.data.code == 1) {
                         vm.orderItems = response.data.data;
                         vm.$nextTick(function () {
-                            cartAction();
+                            linkDefaultActions();
+                            cartListeners();
                         });
                     }
                 });
@@ -101,10 +102,14 @@ function syncPrice(pid, num, price) {
 
     // 更新数据库中订单项中产品的数量
     var url = "forechangeOrderItem?pid=" + pid + "&num=" + num;
-    axios.put(url);
+    axios.put(url).then(function (response) {
+        if (response.data.code == 0) {
+            location.href = "login";
+        }
+    });
 }
 
-function cartAction() {
+function cartListeners() {
     var deleteOrderItemId = 0;
     var deleteOrderItem = false;
     // 删除

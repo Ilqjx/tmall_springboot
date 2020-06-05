@@ -69,11 +69,16 @@ public class OrderItemServiceImpl implements OrderItemService {
     }
 
     @Override
+    public void setOrderItemForOrder(Order order) {
+        List<OrderItem> orderItemList = listOrderItemByOrder(order);
+        productImageService.setFirstProductImageForOrderItem(orderItemList);
+        order.setOrderItemList(orderItemList);
+    }
+
+    @Override
     public void setOrderItemForOrder(List<Order> orderList) {
         for (Order order : orderList) {
-            List<OrderItem> orderItemList = listOrderItemByOrder(order);
-            productImageService.setFirstProductImageForOrderItem(orderItemList);
-            order.setOrderItemList(orderItemList);
+            setOrderItemForOrder(order);
         }
     }
 

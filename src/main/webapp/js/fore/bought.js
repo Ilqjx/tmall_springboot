@@ -17,7 +17,7 @@ $(function () {
                     if (response.data.code == 1) {
                         vm.orders = response.data.data;
                         vm.$nextTick(function () {
-                            orderAction();
+                            orderListeners();
                         });
                     }
                 });
@@ -26,7 +26,7 @@ $(function () {
     });
 });
 
-function orderAction() {
+function orderListeners() {
     // 筛选不同的订单状态
     $("a[orderstatus]").on("click", function () {
         var orderstatus = $(this).attr("orderstatus");

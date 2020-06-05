@@ -1,0 +1,16 @@
+div.orderConfirmPageDiv {
+    border: 1px solid #ececec;
+    line-height: 120px;
+    width: 1013px;
+    margin: 10px auto;
+}
+
+div.orderConfirmPageDiv img#orderFinishImg {
+    margin-left: 40px;
+}
+
+div.orderConfirmPageDiv span#orderFinishSpan {
+    margin-left: 20px;
+    font-size: 14px;
+    font-weight: bold;
+}

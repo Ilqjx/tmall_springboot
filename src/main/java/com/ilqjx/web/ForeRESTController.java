@@ -129,39 +129,18 @@ public class ForeRESTController {
 
     @PostMapping("/forebuyone")
     public Result buyone(@RequestBody OrderItem orderItem, HttpServletRequest request) {
-        HttpSession session = request.getSession();
-        User user = (User) session.getAttribute("user");
-        OrderItem orderItemDB = orderItemService.getOrderItem(user, orderItem.getProduct(), null);
-        OrderItem oi;
-        if (orderItemDB == null) {
-            orderItem.setUser(user);
-            oi = orderItemService.saveOrderItem(orderItem);
-        } else {
-            orderItemDB.setNumber(orderItemDB.getNumber() + orderItem.getNumber());
-            oi = orderItemService.updateOrderItem(orderItemDB);
-        }
-        return Result.success(oi);
+        return buyoneAndAddCart(orderItem, request);
     }
 
     @PostMapping("/foreaddCart")
     public Result addCart(@RequestBody OrderItem orderItem, HttpServletRequest request) {
-        HttpSession session = request.getSession();
-        User user = (User) session.getAttribute("user");
-        OrderItem orderItemDB = orderItemService.getOrderItem(user, orderItem.getProduct(), null);
-        if (orderItemDB == null) {
-            orderItem.setUser(user);
-            orderItemService.saveOrderItem(orderItem);
-        } else {
-            orderItemDB.setNumber(orderItemDB.getNumber() + orderItem.getNumber());
-            orderItemService.updateOrderItem(orderItemDB);
-        }
-        return Result.success();
+        return buyoneAndAddCart(orderItem, request);
     }
 
     @GetMapping("/forebuy")
     public Result listOrderItem(String[] oiid) {
         List<OrderItem> orderItemList = new ArrayList<>();
-        double total = 0;
+        float total = 0;
         for (String i : oiid) {
             int id = Integer.parseInt(i);
             OrderItem orderItem = orderItemService.getOrderItem(id);
@@ -183,14 +162,13 @@ public class ForeRESTController {
         double randomDigit = Math.ceil(Math.random() * 9000) + 1000;
         long lastSuffix = new Double(randomDigit).longValue();
         String orderCode = "" + time + lastSuffix;
-        String status = "waitPay";
         Date createDate = new Date();
 
         HttpSession session = request.getSession();
         User user = (User) session.getAttribute("user");
 
         order.setOrderCode(orderCode);
-        order.setStatus(status);
+        order.setStatus(OrderService.waitPay);
         order.setCreateDate(createDate);
         order.setUser(user);
 
@@ -209,7 +187,7 @@ public class ForeRESTController {
     @GetMapping("/forepayed/{oid}")
     public Result payed(@PathVariable int oid) {
         Order order = orderService.getOrder(oid);
-        order.setStatus("waitDelivery");
+        order.setStatus(OrderService.waitDelivery);
         order.setPayDate(new Date());
         orderService.updateOrderForFore(order);
         return Result.success();
@@ -221,8 +199,8 @@ public class ForeRESTController {
         return Result.success(order);
     }
 
-    @GetMapping("/forelistOrderItem")
-    public Result listOrderItem(HttpServletRequest request) {
+    @GetMapping("/forecart")
+    public Result cart(HttpServletRequest request) {
         HttpSession session = request.getSession();
         User user = (User) session.getAttribute("user");
         List<OrderItem> orderItemList = orderItemService.listOrderItem(user, null);
@@ -234,15 +212,14 @@ public class ForeRESTController {
     public Result changeOrderItem(@RequestParam int pid, @RequestParam int num, HttpServletRequest request) {
         HttpSession session = request.getSession();
         User user = (User) session.getAttribute("user");
+        if (user == null) {
+            return Result.fail("未登录");
+        }
         Product product = productService.getProduct(pid);
         OrderItem orderItem = orderItemService.getOrderItem(user, product, null);
-        if (orderItem == null) {
-            return Result.fail("订单项不存在");
-        } else {
-            orderItem.setNumber(num);
-            orderItemService.updateOrderItem(orderItem);
-            return Result.success();
-        }
+        orderItem.setNumber(num);
+        orderItemService.updateOrderItem(orderItem);
+        return Result.success();
     }
 
     @DeleteMapping("/foredeleteOrderItem/{id}")
@@ -257,15 +234,84 @@ public class ForeRESTController {
         User user = (User) session.getAttribute("user");
         List<Order> orderList = orderService.listOrderWithoutDelete(user);
         orderService.setTotalAndTotalNumber(orderList);
+        orderService.removeOrderFromOrderItem(orderList);
         return Result.success(orderList);
     }
 
     @DeleteMapping("/foredeleteOrder/{oid}")
     public Result deleteOrder(@PathVariable int oid) {
         Order order = orderService.getOrder(oid);
-        order.setStatus("delete");
+        order.setStatus(OrderService.delete);
         orderService.updateOrderForFore(order);
         return Result.success();
+    }
+
+    @GetMapping("/foreconfirmPay/{oid}")
+    public Result confirmPay(@PathVariable int oid) {
+        Order order = orderService.getOrder(oid);
+        orderItemService.setOrderItemForOrder(order);
+        orderService.setTotalAndTotalNumber(order);
+        orderService.removeOrderFromOrderItem(order);
+        return Result.success(order);
+    }
+
+    @PutMapping("/foreorderConfirmed/{oid}")
+    public Result orderConfirmed(@PathVariable int oid) {
+        Order order = orderService.getOrder(oid);
+        order.setConfirmDate(new Date());
+        order.setStatus(OrderService.waitReview);
+        orderService.updateOrderForFore(order);
+        return Result.success();
+    }
+
+    @GetMapping("/forereview/{oid}")
+    public Result review(@PathVariable int oid) {
+        Order order = orderService.getOrder(oid);
+        Product product = orderItemService.listOrderItemByOrder(order).get(0).getProduct();
+        productService.setSaleCountAndReviewCount(product);
+        productImageService.setFirstProductImage(product);
+
+        Map<Object, Object> map = new HashMap<>();
+        map.put("order", order);
+        map.put("product", product);
+        return Result.success(map);
+    }
+
+    @PostMapping("/foredoReview/{oid}")
+    public Result doReview(@RequestBody Review review, @PathVariable int oid, HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        User user = (User) session.getAttribute("user");
+        review.setContent(HtmlUtils.htmlEscape(review.getContent()));
+        review.setUser(user);
+        review.setCreateDate(new Date());
+        reviewService.saveReview(review);
+
+        Order order = orderService.getOrder(oid);
+        order.setStatus(OrderService.finish);
+        orderService.updateOrderForFore(order);
+        return Result.success();
+    }
+
+    @GetMapping("/forelistReview/{pid}")
+    public Result listReview(@PathVariable int pid) {
+        Product product = productService.getProduct(pid);
+        List<Review> reviewList = reviewService.listReviewByProduct(product);
+        return Result.success(reviewList);
+    }
+
+    private Result buyoneAndAddCart(OrderItem orderItem, HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        User user = (User) session.getAttribute("user");
+        OrderItem orderItemDB = orderItemService.getOrderItem(user, orderItem.getProduct(), null);
+        OrderItem oi;
+        if (orderItemDB == null) {
+            orderItem.setUser(user);
+            oi = orderItemService.saveOrderItem(orderItem);
+        } else {
+            orderItemDB.setNumber(orderItemDB.getNumber() + orderItem.getNumber());
+            oi = orderItemService.updateOrderItem(orderItemDB);
+        }
+        return Result.success(oi);
     }
 
 }

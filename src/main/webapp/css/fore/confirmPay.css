@@ -1,0 +1,164 @@
+div.confirmPayPageDiv {
+    max-width: 1013px;
+    margin: 10px auto;
+}
+
+div.confirmPayPageDiv div.confirmPayImageDiv {
+    width: 900px;
+    color: #999;
+    /* auto 自动适应 使用时必须给标签配上制定的宽度 上边距5px 下边距80px 左右边距自动适应 */
+    margin: 5px auto 80px auto;
+    position: relative;
+}
+
+div.confirmPayPageDiv div.confirmPayImageDiv div.confirmPayTime1 {
+    position: absolute;
+    top: 100px;
+    left: -20px;
+}
+
+div.confirmPayPageDiv div.confirmPayImageDiv div.confirmPayTime2 {
+    position: absolute;
+    top: 100px;
+    left: 190px;
+}
+
+div.confirmPayPageDiv div.confirmPayImageDiv div.confirmPayTime3 {
+    position: absolute;
+    top: 100px;
+    left: 400px;
+}
+
+div.confirmPayPageDiv div.confirmPayOrderInfoText {
+    margin: 10px 10px 0 10px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #adc8e6;
+    font-size: 16px;
+    font-weight: bold;
+    color: #000;
+}
+
+div.confirmPayPageDiv div.confirmPayOrderItemDiv {
+    margin: 0 20px;
+}
+
+div.confirmPayPageDiv div.confirmPayOrderItemDiv div.confirmPayOrderItemText {
+    margin: 20px 10px;
+    font-size: 14px;
+    font-weight: normal;
+    color: #000;
+}
+
+div.confirmPayPageDiv div.confirmPayOrderItemDiv table.confirmPayOrderItemTable {
+    width: 100%;
+    border: 1px solid #ddd;
+}
+
+div.confirmPayPageDiv div.confirmPayOrderItemDiv table.confirmPayOrderItemTable thead {
+    background-color: #e8f2ff;
+    height: 33px;
+}
+
+div.confirmPayPageDiv div.confirmPayOrderItemDiv table.confirmPayOrderItemTable thead th {
+    text-align: center;
+}
+
+div.confirmPayPageDiv div.confirmPayOrderItemDiv table.confirmPayOrderItemTable tr {
+    text-align: center;
+    border: 1px solid #ddd;
+}
+
+div.confirmPayPageDiv div.confirmPayOrderItemDiv table.confirmPayOrderItemTable tbody td {
+    padding: 20px;
+}
+
+div.confirmPayPageDiv div.confirmPayOrderItemDiv table.confirmPayOrderItemTable tbody
+td.confirmPayOrderItemProductLink {
+    text-align: left !important;
+}
+
+div.confirmPayPageDiv div.confirmPayOrderItemDiv table.confirmPayOrderItemTable tbody
+td.confirmPayOrderItemProductLink a {
+    color: #999;
+}
+
+div.confirmPayPageDiv div.confirmPayOrderItemDiv table.confirmPayOrderItemTable tbody
+td.confirmPayOrderItemProductLink a:hover {
+    color: #c40000;
+    text-decoration: none;
+}
+
+div.confirmPayPageDiv div.confirmPayOrderItemDiv table.confirmPayOrderItemTable tbody
+span.conformPayProductPrice {
+    font-size: 18px;
+    font-weight: bold;
+    color: #666;
+}
+
+div.confirmPayPageDiv div.confirmPayOrderItemDiv div.confirmPayOrderItemText
+span.confirmPayOrderItemSumPrice {
+    color: #c40000;
+}
+
+/* confirmReceiptDown */
+
+div.confirmPayPageDiv {
+    max-width: 1013px;
+    margin: 10px auto;
+}
+
+div.confirmPayPageDiv div.confirmPayOrderDetailDiv {
+    margin: 40px;
+}
+
+div.confirmPayPageDiv div.confirmPayOrderDetailDiv table.confirmPayOrderDetailTable {
+    width: 100%;
+    border-top: 1px solid #ddd;
+}
+
+div.confirmPayPageDiv div.confirmPayOrderDetailDiv table.confirmPayOrderDetailTable td {
+    font-size: 14px;
+    padding: 8px;
+    color: #000;
+}
+
+div.confirmPayPageDiv div.confirmPayOrderDetailDiv table.confirmPayOrderDetailTable td
+span.confirmPayOrderDetailWangWangGif {
+    background-image: url("../../img/site/wangwang.gif");
+    background-attachment: scroll;
+    background-repeat: no-repeat;
+    background-color: transparent;
+    background-position: 0 0;
+    display: inline-block;
+    width: 67px;
+    height: 22px;
+    position: relative;
+    top: 0;
+    left: 2px;
+}
+
+div.confirmPayPageDiv div.confirmPayButtonDiv {
+    margin: 20px;
+    border: 1px solid #f58b0f;
+}
+
+div.confirmPayPageDiv div.confirmPayButtonDiv div.confirmPayWarning {
+    margin: 20px 80px;
+    font-size: 18px;
+    font-weight: bold;
+    color: #f00;
+}
+
+div.confirmPayPageDiv div.confirmPayButtonDiv button.confirmPayButton {
+    margin: 20px 80px;
+    border: 1px solid #e67c00;
+    border-radius: 4px;
+    width: 67px;
+    height: 30px;
+    background-color: #f4a21d;
+    color: #fff;
+}
+
+div.confirmPayPageDiv div.confirmPayButtonDiv button.confirmPayButton:hover {
+    background-color: #f6ae30;
+}

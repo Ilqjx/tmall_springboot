@@ -25,6 +25,8 @@ public interface OrderItemService {
 
     public List<OrderItem> listOrderItemByProduct(Product product);
 
+    public void setOrderItemForOrder(Order order);
+
     public void setOrderItemForOrder(List<Order> orderList);
 
 }

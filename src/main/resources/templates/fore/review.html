@@ -1,0 +1,100 @@
+<!doctype html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <title>模仿天猫官网-我的订单</title>
+  <link rel="stylesheet" href="css/bootstrap/3.3.6/bootstrap.min.css">
+  <link rel="stylesheet" href="css/fore/public/top.css">
+  <link rel="stylesheet" href="css/fore/public/footer.css">
+  <link rel="stylesheet" href="css/fore/public/simpleSearch.css">
+  <link rel="stylesheet" href="css/fore/review.css">
+</head>
+<body>
+<div id="workingArea">
+  <nav th:replace="fore/_fragments :: top"></nav>
+  <div th:replace="fore/public/simpleSearch :: simpleSearch"></div>
+  <div class="reviewDiv">
+    <div class="reviewProductInfoDiv">
+      <div class="reviewProductInfoImg">
+        <img :src="'img/productSingleImage/' + product.firstProductImage.id + '.jpg'">
+      </div>
+      <div class="reviewProductInfoRightDiv">
+        <div class="reviewProductInfoRightText">
+          {{product.name}}
+        </div>
+        <table class="reviewProductInfoTable">
+          <tbody>
+          <tr>
+            <td width="75px">价格:</td>
+            <td>
+              <span class="reviewProductInfoTablePrice">￥{{product.originalPrice | formatMoneyFilter}}</span> 元
+            </td>
+          </tr>
+          <tr>
+            <td>配送</td>
+            <td>快递: 0.00</td>
+          </tr>
+          <tr>
+            <td>月销量:</td>
+            <td>
+              <span class="reviewProductInfoTableSellNumber">{{product.saleCount}}</span> 件
+            </td>
+          </tr>
+          </tbody>
+        </table>
+        <div class="reviewProductInfoRightBelowDiv">
+          <span class="reviewProductInfoRightBelowImg"></span>
+          <span class="reviewProductInfoRightBelowText">现在查看的是 您所购买商品的信息于{{order.payDate | formatDateFilter('YYYY年MM月DD日')}}下单购买了此商品</span>
+        </div>
+      </div>
+      <div style="clear: both"></div>
+    </div>
+    <!-- commentPageDown -->
+    <div class="reviewStasticsDiv">
+      <div class="reviewStasticsLeft">
+        <div class="reviewStasticsLeftTop"></div>
+        <div class="reviewStasticsLeftContent">累计评价 <span class="reviewStasticsNumber">{{product.reviewCount}}</span></div>
+        <div class="reviewStasticsLeftFoot"></div>
+      </div>
+      <div class="reviewStasticsRight">
+        <div class="reviewStasticsRightEmpty"></div>
+        <div class="reviewStasticsFoot"></div>
+      </div>
+    </div>
+    <div style="clear: both"></div>
+    <div class="makeReviewDiv" v-if="order.status == 'waitReview'">
+      <div class="makeReviewText">其他买家，需要你的建议哦！</div>
+      <table class="makeReviewTable">
+        <tbody>
+        <tr>
+          <td class="makeReviewTableFirstTD">评价商品</td>
+          <td><textarea v-model.trim="review.content"></textarea></td>
+        </tr>
+        </tbody>
+      </table>
+      <div class="makeReviewButtonDiv">
+        <button @click="doReview">提交评价</button>
+      </div>
+    </div>
+    <div class="reviewContentPart" v-if="order.status == 'finish'">
+      <div class="reviewItem" v-for="review in reviews">
+        <div class="reviewDesc">
+          <div class="reviewDate">
+            {{review.createDate | formatDateFilter('YYYY-MM-DD')}}
+          </div>
+          <div class="reviewContent">{{review.content}}</div>
+          <div class="reviewName">
+            {{review.user.anonymousName}}<span class="userInfoGrayPart">（匿名）</span>
+          </div>
+        </div>
+        <div style="clear: both"></div>
+      </div>
+    </div>
+  </div>
+</div>
+<div th:replace="fore/_fragments :: footer"></div>
+<th:block th:replace="fore/_fragments :: js"></th:block>
+<script src="js/fore/review.js"></script>
+</body>
+</html>

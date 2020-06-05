@@ -1,0 +1,26 @@
+<!doctype html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <title>模仿天猫官网-确认收货</title>
+  <link rel="stylesheet" href="css/bootstrap/3.3.6/bootstrap.min.css">
+  <link rel="stylesheet" href="css/fore/public/top.css">
+  <link rel="stylesheet" href="css/fore/public/footer.css">
+  <link rel="stylesheet" href="css/fore/public/simpleSearch.css">
+  <link rel="stylesheet" href="css/fore/orderConfirmed.css">
+</head>
+<body>
+<div id="workingArea">
+  <nav th:replace="fore/_fragments :: top"></nav>
+  <div th:replace="fore/public/simpleSearch :: simpleSearch"></div>
+  <div class="orderConfirmPageDiv">
+    <img id="orderFinishImg" src="img/site/orderFinish.png">
+    <span id="orderFinishSpan">交易已经成功，卖家将收到您的货款。</span>
+  </div>
+  <div style="height: 20px;"></div>
+</div>
+<div th:replace="fore/_fragments :: footer"></div>
+<th:block th:replace="fore/_fragments :: js"></th:block>
+</body>
+</html>

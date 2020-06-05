@@ -175,11 +175,13 @@ function productAction(vm) {
                 vm.orderItem.number = number;
                 var url = "foreaddCart";
                 axios.post(url, vm.orderItem).then(function (response) {
-                    $("button.addCartButton").html("已加入购物车");
-                    $("button.addCartButton").attr("disabled", "disabled");
-                    $("button.addCartButton").css("background-color", "#d3d3d3");
-                    $("button.addCartButton").css("border", "1px solid #d3d3d3");
-                    $("button.addCartButton").css("color", "#000");
+                    if (response.data.code == 1) {
+                        $("button.addCartButton").html("已加入购物车");
+                        $("button.addCartButton").attr("disabled", "disabled");
+                        $("button.addCartButton").css("background-color", "#d3d3d3");
+                        $("button.addCartButton").css("border", "1px solid #d3d3d3");
+                        $("button.addCartButton").css("color", "#000");
+                    }
                     // var cartNumber = parseInt(${cartTotalItemNumber}) + parseInt(num);
                     // $("strong").html(cartNumber);
                 });

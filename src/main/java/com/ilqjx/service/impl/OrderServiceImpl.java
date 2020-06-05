@@ -80,7 +80,8 @@ public class OrderServiceImpl implements OrderService {
         }
     }
 
-    private void setTotalAndTotalNumber(Order order) {
+    @Override
+    public void setTotalAndTotalNumber(Order order) {
         List<OrderItem> orderItemList = orderItemRepository.findByOrderOrderByIdDesc(order);
         productImageService.setFirstProductImageForOrderItem(orderItemList);
         float total = 0;
@@ -94,13 +95,15 @@ public class OrderServiceImpl implements OrderService {
         order.setOrderItemList(orderItemList);
     }
 
-    private void removeOrderFromOrderItem(List<Order> orderList) {
+    @Override
+    public void removeOrderFromOrderItem(List<Order> orderList) {
         for (Order order : orderList) {
             removeOrderFromOrderItem(order);
         }
     }
 
-    private void removeOrderFromOrderItem(Order order) {
+    @Override
+    public void removeOrderFromOrderItem(Order order) {
         List<OrderItem> orderItemList = order.getOrderItemList();
         for (OrderItem orderItem : orderItemList) {
             orderItem.setOrder(null);

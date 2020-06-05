@@ -27,6 +27,12 @@ public interface OrderService {
 
     public List<Order> listOrderWithoutDelete(User user);
 
+    public void setTotalAndTotalNumber(Order order);
+
     public void setTotalAndTotalNumber(List<Order> orderList);
+
+    public void removeOrderFromOrderItem(List<Order> orderList);
+
+    public void removeOrderFromOrderItem(Order order);
 
 }
