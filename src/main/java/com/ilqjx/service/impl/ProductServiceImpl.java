@@ -12,7 +12,11 @@ import com.ilqjx.service.OrderItemService;
 import com.ilqjx.service.ProductImageService;
 import com.ilqjx.service.ProductService;
 import com.ilqjx.service.ReviewService;
+import com.ilqjx.util.PageUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheConfig;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -20,6 +24,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 @Service
+@CacheConfig(cacheNames = "products")
 public class ProductServiceImpl implements ProductService {
 
     @Autowired
@@ -34,17 +39,20 @@ public class ProductServiceImpl implements ProductService {
     private ReviewService reviewService;
 
     @Override
+    @CacheEvict(allEntries = true)
     public Product saveProduct(Product product) {
         product.setCreateDate(new Date());
         return productRepository.save(product);
     }
 
     @Override
+    @CacheEvict(allEntries = true)
     public void deleteProduct(int id) {
         productRepository.deleteById(id);
     }
 
     @Override
+    @Cacheable(key = "'products-one-' + #p0")
     public Product getProduct(int id) {
         Optional<Product> productOptional = productRepository.findById(id);
         try {
@@ -56,21 +64,25 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
+    @CacheEvict(allEntries = true)
     public Product updateProduct(Product product) {
         return productRepository.save(product);
     }
 
     @Override
+    @Cacheable(key = "'products-cid-' + #p0.id")
     public List<Product> listProductByCategory(Category category) {
         return productRepository.findByCategory(category);
     }
 
     @Override
-    public Page<Product> listProductByCategory(Category category, int start, int size) {
+    @Cacheable(key = "'products-cid-' + #p0.id + '-page-' + #p1 + '-' + #p2")
+    public PageUtil<Product> listProductByCategory(Category category, int start, int size) {
+        int navigatePages = 5;
         Sort sort = Sort.by(Sort.Direction.DESC, "id");
         Pageable pageable = PageRequest.of(start, size, sort);
         Page<Product> page = productRepository.findByCategory(category, pageable);
-        return page;
+        return new PageUtil<>(page, navigatePages);
     }
 
     @Override

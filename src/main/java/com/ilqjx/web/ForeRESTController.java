@@ -8,6 +8,12 @@ import java.util.*;
 import com.ilqjx.pojo.*;
 import com.ilqjx.service.*;
 import com.ilqjx.util.Result;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authc.AuthenticationException;
+import org.apache.shiro.authc.UsernamePasswordToken;
+import org.apache.shiro.crypto.SecureRandomNumberGenerator;
+import org.apache.shiro.crypto.hash.SimpleHash;
+import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.HtmlUtils;
@@ -44,10 +50,19 @@ public class ForeRESTController {
     @PostMapping("/foreregister")
     public Result register(@RequestBody User user) {
         String name = HtmlUtils.htmlEscape(user.getName());
-        user.setName(name);
-        if (userService.isExist(user.getName())) {
+        if (userService.isExist(name)) {
             return Result.fail("用户名已存在，请重新输入");
         }
+        String salt = new SecureRandomNumberGenerator().nextBytes().toString();
+        String password = user.getPassword();
+        String algorithmName = "md5";
+        int times = 2;
+        String encodedPassword = new SimpleHash(algorithmName, password, salt, times).toString();
+
+        user.setName(name);
+        user.setPassword(encodedPassword);
+        user.setSalt(salt);
+
         userService.saveUser(user);
         return Result.success();
     }
@@ -55,14 +70,16 @@ public class ForeRESTController {
     @PostMapping("/forelogin")
     public Result login(@RequestBody User user, HttpServletRequest request) {
         String name = HtmlUtils.htmlEscape(user.getName());
-        user.setName(name);
-        User u = userService.getUser(user);
-        if (null == u) {
-            return Result.fail("账号密码错误");
-        } else {
+        Subject subject = SecurityUtils.getSubject();
+        UsernamePasswordToken token = new UsernamePasswordToken(name, user.getPassword());
+        try {
+            subject.login(token);
             HttpSession session = request.getSession();
+            User u = userService.getUserByName(name);
             session.setAttribute("user", u);
             return Result.success();
+        } catch (AuthenticationException e) {
+            return Result.fail("账号密码错误");
         }
     }
 
@@ -89,12 +106,11 @@ public class ForeRESTController {
 
     @GetMapping("/forecheckLogin")
     public Result checkLogin(HttpServletRequest request) {
-        HttpSession session = request.getSession();
-        User user = (User) session.getAttribute("user");
-        if (null == user) {
-            return Result.fail("用户未登录");
-        } else {
+        Subject subject = SecurityUtils.getSubject();
+        if (subject.isAuthenticated()) {
             return Result.success();
+        } else {
+            return Result.fail("用户未登录");
         }
     }
 

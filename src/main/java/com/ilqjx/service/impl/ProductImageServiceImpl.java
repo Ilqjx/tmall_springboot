@@ -16,17 +16,21 @@ import com.ilqjx.pojo.ProductImage;
 import com.ilqjx.service.ProductImageService;
 import com.ilqjx.util.ImageUtil;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
+import org.springframework.cache.annotation.CacheConfig;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 @Service
+@CacheConfig(cacheNames = "productImages")
 public class ProductImageServiceImpl implements ProductImageService {
 
     @Autowired
     private ProductImageRepository productImageRepository;
 
     @Override
+    @CacheEvict(allEntries = true)
     public ProductImage saveProductImage(ProductImage productImage, MultipartFile file, HttpServletRequest request) {
         ProductImage tempProductImage = productImageRepository.save(productImage);
         try {
@@ -38,6 +42,7 @@ public class ProductImageServiceImpl implements ProductImageService {
     }
 
     @Override
+    @CacheEvict(allEntries = true)
     public void deleteProductImage(int id, HttpServletRequest request) {
         ProductImage productImage = getProductImage(id);
         deleteProductImage(productImage, request);
@@ -45,6 +50,7 @@ public class ProductImageServiceImpl implements ProductImageService {
     }
 
     @Override
+    @Cacheable(key = "'productImages-one-' + #p0")
     public ProductImage getProductImage(int id) {
         Optional<ProductImage> productImageOptional = productImageRepository.findById(id);
         try {
@@ -56,6 +62,7 @@ public class ProductImageServiceImpl implements ProductImageService {
     }
 
     @Override
+    @Cacheable(key = "'productImages-' + #p1 + '-pid-' + #p0.id")
     public List<ProductImage> listProductImage(Product product, String type) {
         return productImageRepository.findByProductAndTypeOrderByIdDesc(product, type);
     }
@@ -68,14 +75,6 @@ public class ProductImageServiceImpl implements ProductImageService {
             product.setFirstProductImage(productImageList.get(0));
         } else {
             product.setFirstProductImage(new ProductImage());
-        }
-    }
-
-    @Override
-    public void setFirstProductImage(Page<Product> page) {
-        List<Product> productList = page.getContent();
-        for (Product product : productList) {
-            setFirstProductImage(product);
         }
     }
 

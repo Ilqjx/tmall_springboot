@@ -7,7 +7,6 @@ import com.ilqjx.service.ProductImageService;
 import com.ilqjx.service.ProductService;
 import com.ilqjx.util.PageUtil;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -25,9 +24,8 @@ public class ProductController {
         start = start < 0 ? 0 : start;
         int navigatePages = 5;
         Category category = categoryService.getCategory(cid);
-        Page<Product> page = productService.listProductByCategory(category, start, size);
-        productImageService.setFirstProductImage(page);
-        PageUtil<Product> pageUtil = new PageUtil<>(page, navigatePages);
+        PageUtil<Product> pageUtil = productService.listProductByCategory(category, start, size);
+        productImageService.setFirstProductImageForProduct(pageUtil.getContent());
         return pageUtil;
     }
 

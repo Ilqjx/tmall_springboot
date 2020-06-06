@@ -12,6 +12,9 @@ import com.ilqjx.pojo.User;
 import com.ilqjx.service.OrderService;
 import com.ilqjx.service.ProductImageService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheConfig;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -19,6 +22,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 @Service
+@CacheConfig(cacheNames = "orders")
 public class OrderServiceImpl implements OrderService {
 
     @Autowired
@@ -29,11 +33,13 @@ public class OrderServiceImpl implements OrderService {
     private ProductImageService productImageService;
 
     @Override
+    @CacheEvict(allEntries = true)
     public Order saveOrder(Order order) {
         return orderRepository.save(order);
     }
 
     @Override
+    @Cacheable(key = "'orders-one-' + #p0.id")
     public Order getOrder(int id) {
         Optional<Order> orderOptional = orderRepository.findById(id);
         try {
@@ -45,11 +51,13 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
+    @CacheEvict(allEntries = true)
     public Order updateOrderForFore(Order order) {
         return orderRepository.save(order);
     }
 
     @Override
+    @Cacheable(key = "'orders-page-' + #p0 + '-' + #p1")
     public Page<Order> listOrder(int start, int size) {
         Sort sort = Sort.by(Sort.Direction.DESC, "id");
         Pageable pageable = PageRequest.of(start, size, sort);
@@ -60,13 +68,15 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
+    @Cacheable(key = "'orders-uid-' + #p0.id")
     public List<Order> listOrderWithoutDelete(User user) {
-        String status = "delete";
+        String status = OrderService.delete;
         List<Order> orderList = orderRepository.findByUser(user, status);
         return orderList;
     }
 
     @Override
+    @CacheEvict(allEntries = true)
     public Order updateOrder(Order order) {
         order.setDeliveryDate(new Date());
         order.setStatus(OrderService.waitConfirm);

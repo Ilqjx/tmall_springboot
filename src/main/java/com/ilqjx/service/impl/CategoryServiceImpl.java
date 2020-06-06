@@ -16,6 +16,9 @@ import com.ilqjx.service.CategoryService;
 import com.ilqjx.util.ImageUtil;
 import com.ilqjx.util.PageUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheConfig;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -24,12 +27,14 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 @Service
+@CacheConfig(cacheNames = "categories")
 public class CategoryServiceImpl implements CategoryService {
 
     @Autowired
     private CategoryRepository categoryRepository;
 
     @Override
+    @CacheEvict(allEntries = true) // 清除所有缓存
     public Category saveCategory(Category category, MultipartFile file, HttpServletRequest request) {
         Category tempCategory = categoryRepository.save(category);
         try {
@@ -41,11 +46,13 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
+    @CacheEvict(allEntries = true) // 清除所有缓存
     public void deleteCategory(int id) {
         categoryRepository.deleteById(id);
     }
 
     @Override
+    @Cacheable(key="'categories-one-' + #p0") // #p0是第一个参数的意思
     public Category getCategory(int id) {
         Optional<Category> categoryOptional = categoryRepository.findById(id);
         try {
@@ -57,6 +64,7 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
+    @CacheEvict(allEntries = true) // 清除所有缓存
     public Category updateCategory(Category category, MultipartFile file, HttpServletRequest request) {
         if (file != null) {
             try {
@@ -69,12 +77,14 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
+    @Cacheable(key = "'categories-all'")
     public List<Category> listCategory() {
         Sort sort = Sort.by(Sort.Direction.DESC, "id");
         return categoryRepository.findAll(sort);
     }
 
     @Override
+    @Cacheable(key = "'categories-page-' + #p0 + '-' + #p1")
     public PageUtil listCategory(int start, int size, int navigatePages) {
         Sort sort = Sort.by(Sort.Direction.DESC, "id");
         Pageable pageable = PageRequest.of(start, size, sort);

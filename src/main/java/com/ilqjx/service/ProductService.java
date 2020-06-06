@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.ilqjx.pojo.Category;
 import com.ilqjx.pojo.Product;
+import com.ilqjx.util.PageUtil;
 import org.springframework.data.domain.Page;
 
 public interface ProductService {
@@ -18,7 +19,7 @@ public interface ProductService {
 
     public List<Product> listProductByCategory(Category category);
 
-    public Page<Product> listProductByCategory(Category category, int start, int size);
+    public PageUtil<Product> listProductByCategory(Category category, int start, int size);
 
     public void setProductForCategory(List<Category> categoryList);
 

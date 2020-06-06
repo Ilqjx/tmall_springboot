@@ -2,10 +2,10 @@ package com.ilqjx.interceptor;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
-import com.ilqjx.pojo.User;
 import org.apache.commons.lang.StringUtils;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.subject.Subject;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 
@@ -44,9 +44,8 @@ public class LoginInterceptor implements HandlerInterceptor {
 
         for (String page : requireAuthPages) {
             if (page.equals(uri)) {
-                HttpSession session = request.getSession();
-                User user = (User) session.getAttribute("user");
-                if (user == null) {
+                Subject subject = SecurityUtils.getSubject();
+                if (!subject.isAuthenticated()) {
                     response.sendRedirect("login");
                     return false;
                 }

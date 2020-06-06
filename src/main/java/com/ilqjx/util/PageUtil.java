@@ -22,6 +22,8 @@ public class PageUtil<T> {
     private boolean hasContent;
     private List<T> content;
 
+    public PageUtil() {}
+
     public PageUtil(Page<T> page, int navigatePages) {
         this.page = page;
         this.navigatePages = navigatePages;
@@ -70,14 +72,6 @@ public class PageUtil<T> {
             }
         }
         this.navigatePageNums = navigatePageNums;
-    }
-
-    public Page<T> getPage() {
-        return page;
-    }
-
-    public void setPage(Page<T> page) {
-        this.page = page;
     }
 
     public int getNavigatePages() {
@@ -182,26 +176,6 @@ public class PageUtil<T> {
 
     public void setContent(List<T> content) {
         this.content = content;
-    }
-
-    @Override
-    public String toString() {
-        return "PageUtil{" +
-                "page=" + page +
-                ", navigatePages=" + navigatePages +
-                ", navigatePageNums=" + Arrays.toString(navigatePageNums) +
-                ", size=" + size +
-                ", number=" + number +
-                ", numberOfElements=" + numberOfElements +
-                ", totalPages=" + totalPages +
-                ", totalElements=" + totalElements +
-                ", first=" + first +
-                ", last=" + last +
-                ", hasPrevious=" + hasPrevious +
-                ", hasNext=" + hasNext +
-                ", hasContent=" + hasContent +
-                ", content=" + content +
-                '}';
     }
 
 }
