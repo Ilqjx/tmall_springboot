@@ -1,5 +1,7 @@
 package com.ilqjx.web;
 
+import java.util.Date;
+
 import com.ilqjx.pojo.Category;
 import com.ilqjx.pojo.Product;
 import com.ilqjx.service.CategoryService;
@@ -31,6 +33,7 @@ public class ProductController {
 
     @PostMapping("/products")
     public Product saveProduct(@RequestBody Product product) {
+        product.setCreateDate(new Date());
         return productService.saveProduct(product);
     }
 

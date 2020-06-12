@@ -6,6 +6,7 @@ import com.ilqjx.dao.PropertyRepository;
 import com.ilqjx.pojo.Category;
 import com.ilqjx.pojo.Property;
 import com.ilqjx.service.PropertyService;
+import com.ilqjx.util.PageUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.CacheEvict;
@@ -54,11 +55,13 @@ public class PropertyServiceImpl implements PropertyService {
 
     @Override
     @Cacheable(key = "'properties-cid-' + #p0.id + '-page-' + #p1 + '-' + #p2")
-    public Page<Property> listPropertyByCategory(Category category, int start, int size) {
+    public PageUtil<Property> listPropertyByCategory(Category category, int start, int size) {
+        int navigatePages = 5;
         Sort sort = Sort.by(Sort.Direction.DESC, "id");
         Pageable pageable = PageRequest.of(start, size, sort);
         Page<Property> page = propertyRepository.findByCategory(pageable, category);
-        return page;
+        PageUtil<Property> pageUtil = new PageUtil<>(page, navigatePages);
+        return pageUtil;
     }
 
 }

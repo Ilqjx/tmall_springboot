@@ -6,7 +6,6 @@ import com.ilqjx.service.CategoryService;
 import com.ilqjx.service.PropertyService;
 import com.ilqjx.util.PageUtil;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -21,8 +20,7 @@ public class PropertyController {
         start = start < 0 ? 0 : start;
         int navigatePages = 5;
         Category category = categoryService.getCategory(cid);
-        Page<Property> page = propertyService.listPropertyByCategory(category, start, size);
-        PageUtil<Property> pageUtil = new PageUtil<>(page, navigatePages);
+        PageUtil<Property> pageUtil = propertyService.listPropertyByCategory(category, start, size);
         return pageUtil;
     }
 

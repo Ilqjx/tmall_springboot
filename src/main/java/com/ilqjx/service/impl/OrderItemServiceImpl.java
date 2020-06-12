@@ -44,7 +44,7 @@ public class OrderItemServiceImpl implements OrderItemService {
     }
 
     @Override
-    @Cacheable(key = "'orderItems-uid-' + #p0.id + '-pid-' + #p1.id + '-oid-' + #p2.id")
+    @Cacheable(key = "'orderItems-uid-' + #p0.id + '-pid-' + #p1.id")
     public OrderItem getOrderItem(User user, Product product, Order order) {
         OrderItem orderItem = orderItemRepository.findByUserAndProductAndOrder(user, product, order);
         return orderItem;

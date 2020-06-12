@@ -5,6 +5,7 @@ import java.util.Optional;
 import com.ilqjx.dao.UserRepository;
 import com.ilqjx.pojo.User;
 import com.ilqjx.service.UserService;
+import com.ilqjx.util.PageUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.CacheEvict;
@@ -54,11 +55,12 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Cacheable(key = "'users-page-' + #p0 + '-' + #p1")
-    public Page<User> listUser(int start, int size) {
+    public PageUtil<User> listUser(int start, int size) {
+        int navigatePages = 5;
         Sort sort = Sort.by(Sort.Direction.DESC, "id");
         Pageable pageable = PageRequest.of(start, size, sort);
         Page<User> page = userRepository.findAll(pageable);
-        return page;
+        return new PageUtil<>(page, navigatePages);
     }
 
     @Override

@@ -1,9 +1,11 @@
 package com.ilqjx.service.impl;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Optional;
 
 import com.ilqjx.comparator.*;
-import com.ilqjx.dao.OrderRepository;
 import com.ilqjx.dao.ProductRepository;
 import com.ilqjx.pojo.Category;
 import com.ilqjx.pojo.OrderItem;
@@ -32,8 +34,6 @@ public class ProductServiceImpl implements ProductService {
     @Autowired
     private ProductImageService productImageService;
     @Autowired
-    private OrderRepository orderRepository;
-    @Autowired
     private OrderItemService orderItemService;
     @Autowired
     private ReviewService reviewService;
@@ -41,7 +41,6 @@ public class ProductServiceImpl implements ProductService {
     @Override
     @CacheEvict(allEntries = true)
     public Product saveProduct(Product product) {
-        product.setCreateDate(new Date());
         return productRepository.save(product);
     }
 
@@ -138,8 +137,24 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public List<Product> searchProduct(String keyword) {
         List<Product> productList = productRepository.findByKeyword(keyword);
+        // List<Product> productList = search(keyword, 0, 1000);
         return productList;
     }
+
+    // public List<Product> search(String keyword, int start, int size) {
+    //     initDatabase2ES();
+    //     BoolQueryBuilder queryBuilder = QueryBuilders.boolQuery().should(QueryBuilders.matchPhraseQuery("name", keyword));
+    //     FunctionScoreQueryBuilder builder = QueryBuilders.functionScoreQuery(queryBuilder, ScoreFunctionBuilders.weightFactorFunction(100))
+    //             .scoreMode(FunctionScoreQuery.ScoreMode.SUM)
+    //             .setMinScore(10);
+    //     Sort sort = Sort.by(Sort.Direction.DESC, "id");
+    //     Pageable pageable = PageRequest.of(start, size, sort);
+    //     SearchQuery searchQuery = new NativeSearchQueryBuilder()
+    //             .withPageable(pageable)
+    //             .withQuery(builder).build();
+    //     Page<Product> page = productESRepository.search(searchQuery);
+    //     return page.getContent();
+    // }
 
     private void setProductForCategory(Category category) {
         List<Product> productList = productRepository.findByCategoryOrderByIdDesc(category);
@@ -163,5 +178,18 @@ public class ProductServiceImpl implements ProductService {
         category.setProductListByRow(productListByRow);
     }
 
+    /**
+     * 初始化ES数据库
+     */
+    // private void initDatabase2ES() {
+    //     Pageable pageable = PageRequest.of(0, 5);
+    //     Page<Product> page = productESRepository.findAll(pageable);
+    //     if (page.getContent().isEmpty()) {
+    //         List<Product> productList = productRepository.findAll();
+    //         for (Product product : productList) {
+    //             productESRepository.save(product);
+    //         }
+    //     }
+    // }
 
 }

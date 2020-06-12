@@ -2,7 +2,7 @@ package com.ilqjx.service;
 
 import com.ilqjx.pojo.Category;
 import com.ilqjx.pojo.Property;
-import org.springframework.data.domain.Page;
+import com.ilqjx.util.PageUtil;
 
 public interface PropertyService {
 
@@ -14,6 +14,6 @@ public interface PropertyService {
 
     public Property updateProperty(Property property);
 
-    public Page<Property> listPropertyByCategory(Category category, int start, int size);
+    public PageUtil<Property> listPropertyByCategory(Category category, int start, int size);
 
 }

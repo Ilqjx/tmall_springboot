@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.ilqjx.pojo.Order;
 import com.ilqjx.pojo.User;
-import org.springframework.data.domain.Page;
+import com.ilqjx.util.PageUtil;
 
 public interface OrderService {
 
@@ -23,7 +23,7 @@ public interface OrderService {
 
     public Order updateOrder(Order order);
 
-    public Page<Order> listOrder(int start, int size);
+    public PageUtil<Order> listOrder(int start, int size);
 
     public List<Order> listOrderWithoutDelete(User user);
 

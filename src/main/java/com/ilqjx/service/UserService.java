@@ -1,6 +1,7 @@
 package com.ilqjx.service;
 
 import com.ilqjx.pojo.User;
+import com.ilqjx.util.PageUtil;
 import org.springframework.data.domain.Page;
 
 public interface UserService {
@@ -13,7 +14,7 @@ public interface UserService {
 
     public User getUserByName(String name);
 
-    public Page<User> listUser(int start, int size);
+    public PageUtil<User> listUser(int start, int size);
 
     public boolean isExist(String name);
 

@@ -11,6 +11,7 @@ import com.ilqjx.pojo.OrderItem;
 import com.ilqjx.pojo.User;
 import com.ilqjx.service.OrderService;
 import com.ilqjx.service.ProductImageService;
+import com.ilqjx.util.PageUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.CacheEvict;
@@ -39,7 +40,7 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    @Cacheable(key = "'orders-one-' + #p0.id")
+    @Cacheable(key = "'orders-one-' + #p0")
     public Order getOrder(int id) {
         Optional<Order> orderOptional = orderRepository.findById(id);
         try {
@@ -58,13 +59,14 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     @Cacheable(key = "'orders-page-' + #p0 + '-' + #p1")
-    public Page<Order> listOrder(int start, int size) {
+    public PageUtil<Order> listOrder(int start, int size) {
+        int navigatePages = 5;
         Sort sort = Sort.by(Sort.Direction.DESC, "id");
         Pageable pageable = PageRequest.of(start, size, sort);
         Page<Order> page = orderRepository.findAll(pageable);
         setTotalAndTotalNumber(page.getContent());
         removeOrderFromOrderItem(page.getContent());
-        return page;
+        return new PageUtil<>(page, navigatePages);
     }
 
     @Override
