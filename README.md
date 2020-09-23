@@ -13,7 +13,8 @@
 2. 后端：Spring、SpringMVC、Spring Boot
 3. 中间件：redis、nginx、shiro
 
-项目结构：<br/>
+项目结构：
+
 模仿天猫整站
 - 前端展示
     - 首页
