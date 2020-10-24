@@ -9,7 +9,7 @@
 技术栈：
 1. 前端：HTML、CSS、JavaScript、JQuery、Ajax、Json、Bootstrap、Vue.js
 2. 后端：Spring、SpringMVC、Spring Boot
-3. 中间件：redis、nginx、shiro
+3. 中间件：redis、shiro
 
 项目结构：
 
