@@ -7,13 +7,10 @@
 4. springboot2.2.4
 
 技术栈：
-1. 前端：HTML、CSS、JavaScript、JQuery、Ajax、Json、Bootstrap、Vue.js
+1. 前端：HTML、CSS、JavaScript、JQuery、Ajax、Json、Bootstrap
 2. 后端：Spring、SpringMVC、Spring Boot
-3. 中间件：redis、shiro
 
 项目结构：
-
-模仿天猫整站
 - 前端展示
     - 首页
     - 分类页面
